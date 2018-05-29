@@ -24,3 +24,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/list', function () {
     return view('dummy');
 });
+
+Route::resource('topics', 'TopicController');
