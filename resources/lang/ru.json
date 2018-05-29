@@ -1,0 +1,22 @@
+{
+    "Register": "Регистрация",
+    "Name": "Имя",
+    "E-Mail Address": "E-Mail Адрес",
+    "Password": "Пароль",
+    "Confirm Password": "Подтвердите пароль",
+    "Filial" :"Филиал",
+    "Note": "Заметка",
+    "Status": "Статус",
+    "Login": "Логин",
+    "Remember Me": "Запомнить меня",
+    "Forgot Your Password?": "Забыли пароль?",
+    "Reset Password": "Сброс пароля",
+    "Send Password Reset Link": "Отправить ссылку для сброса пароля",
+    "Authorization": "Авторизация",
+    "Nominations": "Номинации",
+    "Users": "Пользователи",
+    "Logout": "Выйти",
+    "Role": "Роль",
+    "admin": "Админ",
+    "user": "Пользователь"
+}
