@@ -139,6 +139,63 @@ License: You must have a valid license purchased only from themeforest(the above
             </header>
             <!-- end::Header -->
             <!-- begin::Body -->
+            <div class="modal fade" id="m_modal_create_topic" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Новый сюжет</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="topic-name" class="form-control-label">Название</label>
+                                    <input type="text" class="form-control" id="topic-name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="topic-description-small" class="form-control-label">Краткое описание сюжета</label>
+                                    <input type="text" class="form-control" id="topic-description-small">
+                                </div>
+                                <div class="form-group">
+                                    <label for="topic-description-large" class="form-control-label">Полное описание сюжета</label>
+                                    <textarea class="form-control" id="topic-description-large" rows="3"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="topic-url" class="form-control-label">Ссылка на сюжет</label>
+                                    <input type="text" class="form-control" id="topic-url">
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <label class="col-form-label col-lg-1 col-sm-12">Превью</label>
+                                    <div class="col-lg-11 col-md-9 col-sm-12">
+                                        <div class="m-dropzone dropzone dz-clickable" action="#" id="m-dropzone-one">
+                                            <div class="m-dropzone__msg dz-message needsclick">
+                                                <h3 class="m-dropzone__msg-title">Drop files here or click to upload.</h3>
+                                                <span class="m-dropzone__msg-desc">This is just a demo dropzone. Selected files are actually uploaded.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <label for="topic-publication-date" class="col-2 col-form-label">Дата публикации</label>
+                                    <div class="col-10">
+                                        <input class="form-control" type="date" id="topic-publication-date">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="topic-owner" class="form-control-label">Компания-правообладатель</label>
+                                    <input type="text" class="form-control" id="topic-owner">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                            <button type="button" class="btn btn-primary">Создать</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop    m-container m-container--responsive m-container--xxl m-page__container m-body">
                 <div class="m-grid__item m-grid__item--fluid m-wrapper">
                     <div class="m-content">
