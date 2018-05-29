@@ -138,14 +138,13 @@ var datatableTopics = function() {
 
             sortable: true,
 
-            filterable: false,
+            filterable: true,
 
             pagination: true,
 
             columns: [{
                 field: "id",
                 title: "#",
-                sortable: false,
                 width: 40,
                 selector: {
                     class: 'm-checkbox--solid m-checkbox--brand'
@@ -155,14 +154,8 @@ var datatableTopics = function() {
                 field: "name",
                 title: "Название",
                 sortable: 'asc',
-                filterable: false,
                 width: 150
-            }, {
-                field: "name",
-                title: "Название",
-                filterable: false,
-                width: 150
-            }, {
+            } {
                 field: "description-short",
                 title: "Короткое описание",
                 filterable: false,
@@ -175,12 +168,10 @@ var datatableTopics = function() {
             }, {
                 field: "published_at",
                 title: "Дата публикации",
-                filterable: false,
                 width: 150
             }, {
                 field: "owner",
                 title: "Компания правообладатель",
-                filterable: false,
                 width: 150
             }]
         });
