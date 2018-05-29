@@ -184,10 +184,6 @@ License: You must have a valid license purchased only from themeforest(the above
                                         <input class="form-control" type="date" id="topic-publication-date">
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="topic-owner" class="form-control-label">Компания-правообладатель</label>
-                                    <input type="text" class="form-control" id="topic-owner">
-                                </div>
                             </form>
                         </div>
                         <div class="modal-footer">
