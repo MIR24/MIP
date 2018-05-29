@@ -2,6 +2,7 @@
 
 @section('content')
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#m_modal_create_topic">Создать</button>
+<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#m_modal_show_topic">Показать</button>
 <div class="row">
     <div class="col-xl-12">
         <div class="m-portlet m-portlet--mobile ">
