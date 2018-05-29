@@ -10,7 +10,7 @@
                 <div class="m-portlet__head-caption">
                     <div class="m-portlet__head-title">
                         <h3 class="m-portlet__head-text">
-                            Exclusive Datatable Plugin
+                            Сюжеты
                         </h3>
                     </div>
                 </div>
@@ -155,7 +155,7 @@ var datatableTopics = function() {
                 title: "Название",
                 sortable: 'asc',
                 width: 150
-            } {
+            }, {
                 field: "description-short",
                 title: "Короткое описание",
                 filterable: false,
