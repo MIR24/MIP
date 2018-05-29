@@ -95,10 +95,97 @@
             </div>
             <div class="m-portlet__body">
                 <!--begin: Datatable -->
-                <div class="m_datatable" id="m_datatable_latest_orders"></div>
+                <div class="m_datatable" id="m_datatable_topics"></div>
                 <!--end: Datatable -->
             </div>
         </div>
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script type="text/javascript">
+var datatableTopics = function() {
+        if ($('#m_datatable_topics').length === 0) {
+            return;
+        }
+
+        var datatable = $('.m_datatable').mDatatable({
+            data: {
+                type: 'remote',
+                source: {
+                    read: {
+                        url: 'inc/api/datatables/demos/default.php'
+                    }
+                },
+                pageSize: 10,
+                saveState: {
+                    cookie: false,
+                    webstorage: true
+                },
+                serverPaging: true,
+                serverFiltering: true,
+                serverSorting: true
+            },
+
+            layout: {
+                theme: 'default',
+                class: '',
+                scroll: true,
+                height: 380,
+                footer: false
+            },
+
+            sortable: true,
+
+            filterable: false,
+
+            pagination: true,
+
+            columns: [{
+                field: "id",
+                title: "#",
+                sortable: false,
+                width: 40,
+                selector: {
+                    class: 'm-checkbox--solid m-checkbox--brand'
+                },
+                textAlign: 'center'
+            }, {
+                field: "name",
+                title: "Название",
+                sortable: 'asc',
+                filterable: false,
+                width: 150
+            }, {
+                field: "name",
+                title: "Название",
+                filterable: false,
+                width: 150
+            }, {
+                field: "description-short",
+                title: "Короткое описание",
+                filterable: false,
+                width: 150
+            }, {
+                field: "url",
+                title: "Ссылка на сюжет",
+                filterable: false,
+                width: 150
+            }, {
+                field: "published_at",
+                title: "Дата публикации",
+                filterable: false,
+                width: 150
+            }, {
+                field: "owner",
+                title: "Компания правообладатель",
+                filterable: false,
+                width: 150
+            }]
+        });
+    }
+    // datatables
+    datatableTopics();
+</script>
+@endpush
