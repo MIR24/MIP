@@ -7,6 +7,9 @@ function saveVideoInfo (obj) {
         headers: {
             'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
         },
+        success: function (data) {
+            $('#file-input').prop('disabled', false);
+        },
         error: function(result) {
             var preview = $('#file-preview');
             preview.empty();
@@ -48,6 +51,7 @@ function handleFileSelect (evt) {
             "point": "objects"
         },
         beforeSend: function () {
+            $('#file-input').prop('disabled', true);
             $('#file-preview').append('Видео загружается... <div class="m-loader" style="width: 30px; display: inline-block;"></div>');
         },
         success: function (data) {
