@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Organization extends Model
 {
     use SoftDeletes;
+    protected $dates = ['deleted_at'];
 
     /**
      * Get the users records associated with the organization.

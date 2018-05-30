@@ -9,6 +9,7 @@ function saveVideoInfo (obj) {
         },
         success: function (data) {
             $('#file-input').prop('disabled', false);
+            $('#video_id').attr('value', data.id);
         },
         error: function(result) {
             var preview = $('#file-preview');
@@ -55,7 +56,12 @@ function handleFileSelect (evt) {
             $('#file-preview').append('Видео загружается... <div class="m-loader" style="width: 30px; display: inline-block;"></div>');
         },
         success: function (data) {
-            sendVideo(method, data, file[0]);
+            if (file[0]) {
+                sendVideo(method, data, file[0]);
+            } else {
+                $('#file-input').prop('disabled', false);
+                $('#file-preview').empty();
+            }
         },
         error: function(result) {
             var preview = $('#file-preview');

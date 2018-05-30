@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Video extends Model
 {
     use SoftDeletes;
+    protected $dates = ['deleted_at'];
 
     protected $fillable = [
         'cdn_id',

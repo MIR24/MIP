@@ -82,8 +82,7 @@ class TopicController extends Controller
             'name' => 'required|string|max:255',
             'description_short' => 'required|string',
             'description_long' => 'required|string',
-            'url' => 'required|url|max:255',
-            'published_at' => 'required|date'
+            'url' => 'required|url|max:255'
         ]);
 
         if ($validator->fails()) {

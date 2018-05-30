@@ -171,7 +171,7 @@ var datatableTopics = function() {
                 filterable: false,
                 width: 150
             }, {
-                field: "published_at",
+                field: "created_at",
                 title: "Дата публикации",
                 width: 150
             }, {
@@ -228,24 +228,16 @@ var datatableTopics = function() {
                             <div class="form-control-feedback">{{ $errors->first('url') }}</div>
                         @endif
                     </div>
-                    <div class="form-group m-form__group row">
-                        <label class="col-form-label col-lg-1 col-sm-12">Превью</label>
-                        <div class="col-lg-11 col-md-9 col-sm-12">
-                            <div class="m-dropzone dropzone dz-clickable" action="#" id="m-dropzone-one">
-                                <div class="m-dropzone__msg dz-message needsclick">
-                                    <h3 class="m-dropzone__msg-title">Drop files here or click to upload.</h3>
-                                    <span class="m-dropzone__msg-desc">This is just a demo dropzone. Selected files are actually uploaded.</span>
-                                </div>
-                            </div>
+                    <div class="form-group m-form__group">
+                        <label for="exampleInputEmail1">Преьвю</label>
+                        <div></div>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="file-input" accept="video/mp4,video/x-m4v,video/*">
+                            <label class="custom-file-label" for="file-input">Выберите файл</label>
                         </div>
                     </div>
-                    <div class="form-group{{ $errors->has('published_at') ? ' has-danger' : '' }}">
-                        <label for="published_at" class="col-2 col-form-label">Дата публикации</label>
-                        <input id="published_at" class="form-control" type="date" name="published_at" value="{{ old('published_at') }}" required>
-                        @if ($errors->has('published_at'))
-                            <div class="form-control-feedback">{{ $errors->first('published_at') }}</div>
-                        @endif
-                    </div>
+                    <input id="video_id" name="video_id" type="hidden" value="">
+                    <div id="file-preview" class="form-group m-form__group"></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>

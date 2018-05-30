@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Topic extends Model
 {
     use SoftDeletes;
-    protected $dates = ['deleted_at', 'published_at'];
+    protected $dates = ['deleted_at'];
 
     /**
      * The attributes that are mass assignable.
@@ -20,7 +20,6 @@ class Topic extends Model
         'description_short',
         'description_long',
         'url',
-        'published_at',
         'user_id',
         'video_id'
     ];
