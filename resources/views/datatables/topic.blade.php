@@ -105,7 +105,7 @@
 
 @push('scripts')
 <script type="text/javascript">
-var datatableTopics = function() {
+var datatableTopics = function() {/*
         if ($('#m_datatable_topics').length === 0) {
             return;
         }
@@ -174,7 +174,7 @@ var datatableTopics = function() {
                 title: "Компания правообладатель",
                 width: 150
             }]
-        });
+        });*/
     }
     // datatables
     datatableTopics();

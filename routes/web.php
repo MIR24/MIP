@@ -26,3 +26,6 @@ Route::get('/list', function () {
 });
 
 Route::resource('topics', 'TopicController');
+
+Route::get('/platformcraft/url', 'TopicController@platformcraftUrl')->name('platformcraftUrl');
+Route::post('/video/save', 'TopicController@saveVideo')->name('saveVideo');

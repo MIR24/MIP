@@ -23,6 +23,12 @@ License: You must have a valid license purchased only from themeforest(the above
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <!--begin::Web font -->
         <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+        <script
+            src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
+            crossorigin="anonymous">
+        </script>
+        <script src="/js/core.js"></script>
         <script>
           WebFont.load({
             google: {"families":["Open Sans:300,400,500,600,700","Roboto:300,400,500,600,700"]},
@@ -169,14 +175,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </div>
                                 <div class="form-group m-form__group row">
                                     <label class="col-form-label col-lg-1 col-sm-12">Превью</label>
-                                    <div class="col-lg-11 col-md-9 col-sm-12">
-                                        <div class="m-dropzone dropzone dz-clickable" action="#" id="m-dropzone-one">
-                                            <div class="m-dropzone__msg dz-message needsclick">
-                                                <h3 class="m-dropzone__msg-title">Drop files here or click to upload.</h3>
-                                                <span class="m-dropzone__msg-desc">This is just a demo dropzone. Selected files are actually uploaded.</span>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <input type="file" id="file-input" name="file-input"/>
+                                    <div id="file-preview"></div>
                                 </div>
                                 <div class="form-group m-form__group row">
                                     <label for="topic-publication-date" class="col-2 col-form-label">Дата публикации</label>

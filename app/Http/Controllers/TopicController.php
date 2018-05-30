@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Barantaran\Platformcraft\Platform;
+use App\Video;
 
 class TopicController extends Controller
 {
@@ -80,5 +82,58 @@ class TopicController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function platformcraftUrl(Request $request)
+    {
+        $method = $request->input('method');
+        if (!$method) {
+            return response()->json(['error' => 'method needed']);
+        }
+        $point = $request->input('point');
+        if (!$point) {
+            return response()->json(['error' => 'point needed']);
+        }
+
+        $platform = new Platform(config('platformcraft.api_user_id'), config('platformcraft.hmac_key'));
+
+        $response = $platform->getUrl(
+            $point,
+            $method,
+            null
+        );
+
+        return response()->json($response);
+    }
+
+    public function saveVideo(Request $request)
+    {
+        if (!$request->isJson()) {
+            return response()->json(['error' => 'request is not a json']);
+        }
+
+        $input = $request->all();
+
+        $video = Video::create([
+            'cdn_id' => $input['id'],
+            'cdn_path' => $input['path'],
+            'cdn_size' => $input['size'],
+            'cdn_name' => $input['name'],
+            'cdn_content_type' => $input['content_type'],
+            'cdn_create_date' => $input['create_date'],
+            'cdn_latest_update' => $input['latest_update'],
+            'cdn_resource_url' => $input['resource_url'],
+            'cdn_cdn_url' => $input['cdn_url'],
+            'cdn_vod_hls' => $input['vod_hls'],
+            'cdn_video' => $input['video'],
+            'cdn_private' => $input['private'],
+            'cdn_status' => $input['status'],
+        ]);
+
+        if ($video) {
+            return response()->json($video);
+        } else {
+            return response()->json(['error' => 'request is not a json']);
+        }
     }
 }
