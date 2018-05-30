@@ -175,11 +175,15 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <label for="topic-url" class="form-control-label">Ссылка на сюжет</label>
                                     <input type="text" class="form-control" id="topic-url">
                                 </div>
-                                <div class="form-group m-form__group row">
-                                    <label class="col-form-label col-lg-1 col-sm-12">Превью</label>
-                                    <input type="file" id="file-input" name="file-input"/>
-                                    <div id="file-preview"></div>
+                                <div class="form-group m-form__group">
+                                        <label for="exampleInputEmail1">File Browser</label>
+                                        <div></div>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="file-input" accept="video/mp4,video/x-m4v,video/*">
+                                            <label class="custom-file-label" for="customFile">Choose file</label>
+                                        </div>
                                 </div>
+                                <div id="file-preview" class="form-group m-form__group"></div>
                                 <div class="form-group m-form__group row">
                                     <label for="topic-publication-date" class="col-2 col-form-label">Дата публикации</label>
                                     <div class="col-10">

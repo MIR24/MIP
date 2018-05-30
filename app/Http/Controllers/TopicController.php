@@ -127,12 +127,12 @@ class TopicController extends Controller
     public function platformcraftUrl(Request $request)
     {
         $method = $request->input('method');
-        if (!$method) {
-            return response()->json(['error' => 'method needed']);
+        if ($method) {
+            return response()->json(['error' => 'method needed'], 404);
         }
         $point = $request->input('point');
         if (!$point) {
-            return response()->json(['error' => 'point needed']);
+            return response()->json(['error' => 'point needed'], 404);
         }
 
         $platform = new Platform(config('platformcraft.api_user_id'), config('platformcraft.hmac_key'));
@@ -149,11 +149,10 @@ class TopicController extends Controller
     public function saveVideo(Request $request)
     {
         if (!$request->isJson()) {
-            return response()->json(['error' => 'request is not a json']);
+            return response()->json(['error' => 'request is not a json'], 404);
         }
-
+        $request->validate(Video::$validateFilable);
         $input = $request->all();
-
         $video = Video::create([
             'cdn_id' => $input['id'],
             'cdn_path' => $input['path'],
@@ -173,7 +172,7 @@ class TopicController extends Controller
         if ($video) {
             return response()->json($video);
         } else {
-            return response()->json(['error' => 'request is not a json']);
+            return response()->json(['error' => 'request is not a json'], 404);
         }
     }
 }
