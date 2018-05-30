@@ -105,6 +105,11 @@
 
 @push('scripts')
 <script type="text/javascript">
+$(document).ready(function() {
+    if(window.location.href.indexOf('#m_modal_create_topic') != -1) {
+        $('#m_modal_create_topic').modal('show');
+    }
+});
 var datatableTopics = function() {
         if ($('#m_datatable_topics').length === 0) {
             return;
@@ -179,4 +184,102 @@ var datatableTopics = function() {
     // datatables
     datatableTopics();
 </script>
+@endpush
+
+@push('modals')
+<!-- begin::Modal Create Topic -->
+<div class="modal fade" id="m_modal_create_topic" tabindex="-1" role="dialog" aria-labelledby="topic-create" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="topic-create">Новый сюжет</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <form method="POST" action="{{ route('topics.store') }}">
+                @csrf
+                <div class="modal-body">
+                    <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
+                        <label for="name" class="form-control-label">Название</label>
+                        <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
+                        @if ($errors->has('name'))
+                            <div class="form-control-feedback">{{ $errors->first('name') }}</div>
+                        @endif
+                    </div>
+                    <div class="form-group{{ $errors->has('description_short') ? ' has-danger' : '' }}">
+                        <label for="description_short" class="form-control-label">Краткое описание сюжета</label>
+                        <input id="description_short" type="text" class="form-control" name="description_short" value="{{ old('description_short') }}" required>
+                        @if ($errors->has('description_short'))
+                            <div class="form-control-feedback">{{ $errors->first('description_short') }}</div>
+                        @endif
+                    </div>
+                    <div class="form-group{{ $errors->has('description_long') ? ' has-danger' : '' }}">
+                        <label for="description_long" class="form-control-label">Полное описание сюжета</label>
+                        <textarea id="description_long" class="form-control" name="description_long" rows="3" required>{{ old('description_long') }}</textarea>
+                        @if ($errors->has('description_long'))
+                            <div class="form-control-feedback">{{ $errors->first('description_long') }}</div>
+                        @endif
+                    </div>
+                    <div class="form-group{{ $errors->has('url') ? ' has-danger' : '' }}">
+                        <label for="url" class="form-control-label">Ссылка на сюжет</label>
+                        <input id="url" type="text" class="form-control" name="url" value="{{ old('url') }}" required>
+                        @if ($errors->has('url'))
+                            <div class="form-control-feedback">{{ $errors->first('url') }}</div>
+                        @endif
+                    </div>
+                    <div class="form-group m-form__group row">
+                        <label class="col-form-label col-lg-1 col-sm-12">Превью</label>
+                        <div class="col-lg-11 col-md-9 col-sm-12">
+                            <div class="m-dropzone dropzone dz-clickable" action="#" id="m-dropzone-one">
+                                <div class="m-dropzone__msg dz-message needsclick">
+                                    <h3 class="m-dropzone__msg-title">Drop files here or click to upload.</h3>
+                                    <span class="m-dropzone__msg-desc">This is just a demo dropzone. Selected files are actually uploaded.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group{{ $errors->has('published_at') ? ' has-danger' : '' }}">
+                        <label for="published_at" class="col-2 col-form-label">Дата публикации</label>
+                        <input id="published_at" class="form-control" type="date" name="published_at" value="{{ old('published_at') }}" required>
+                        @if ($errors->has('published_at'))
+                            <div class="form-control-feedback">{{ $errors->first('published_at') }}</div>
+                        @endif
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                    <button type="submit" class="btn btn-primary">Создать</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- end::Modal Create Topic -->
+<!-- begin::Modal Show Topic -->
+<div class="modal fade" id="m_modal_show_topic" tabindex="-1" role="dialog" aria-labelledby="topic-show" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="topic-show">Название сюжета</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h5>Описание сюжета</h5>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <h5>Видео</h5>
+                <video class="col-lg-12 col-md-12 col-sm-12" controls>
+                    <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end::Modal Show Topic -->
 @endpush

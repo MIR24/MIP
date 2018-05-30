@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Video extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'cdn_id',
         'cdn_name',
@@ -21,7 +24,7 @@ class Video extends Model
         'cdn_private',
         'cdn_status'
     ];
-    static $validateFilable = [
+    public static $validateFilable = [
         'id' => 'required|max:255',
         'name' => 'required|max:255',
         'path' => 'required|max:255',
@@ -36,6 +39,7 @@ class Video extends Model
         'private' => 'required',
         'status' => 'required|max:255'
     ];
+
     /**
      * Get the topic record associated with the video.
      */

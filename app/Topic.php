@@ -3,9 +3,28 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Topic extends Model
 {
+    use SoftDeletes;
+    protected $dates = ['deleted_at', 'published_at'];
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+        'description_short',
+        'description_long',
+        'url',
+        'published_at',
+        'user_id',
+        'video_id'
+    ];
+
     /**
      * Get the user record associated with the topic.
      */
