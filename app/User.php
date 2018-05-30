@@ -26,4 +26,20 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Get the topic record associated with the user.
+     */
+    public function topic()
+    {
+        return $this->hasOne('App\Topic');
+    }
+
+    /**
+     * Get the organization record associated with the user.
+     */
+    public function organization()
+    {
+        return $this->belongsTo('App\Organization');
+    }
 }
