@@ -115,7 +115,10 @@ var datatableTopics = function() {
                 type: 'remote',
                 source: {
                     read: {
-                        url: 'inc/api/datatables/demos/default.php'
+                        url: '{{ route('api.topics.index') }}',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
                     }
                 },
                 pageSize: 10,
@@ -146,9 +149,6 @@ var datatableTopics = function() {
                 field: "id",
                 title: "#",
                 width: 40,
-                selector: {
-                    class: 'm-checkbox--solid m-checkbox--brand'
-                },
                 textAlign: 'center'
             }, {
                 field: "name",
@@ -156,7 +156,7 @@ var datatableTopics = function() {
                 sortable: 'asc',
                 width: 150
             }, {
-                field: "description-short",
+                field: "description_short",
                 title: "Короткое описание",
                 filterable: false,
                 width: 150
@@ -170,7 +170,7 @@ var datatableTopics = function() {
                 title: "Дата публикации",
                 width: 150
             }, {
-                field: "owner",
+                field: "organization",
                 title: "Компания правообладатель",
                 width: 150
             }]

@@ -11,18 +11,17 @@
 |
 */
 
-/*Route::get('/', function () {
+Route::get('/welcome', function () {
     return view('welcome');
-});*/
+})->name('welcome');
 
-Route::redirect('/', '/list', 301);
+Route::redirect('/', '/topics', 301);
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/list', function () {
-    return view('dummy');
-});
+Route::post('/api/topics', 'TopicController@indexDT')
+    ->name('api.topics.index');
 
 Route::resource('topics', 'TopicController');
