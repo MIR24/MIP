@@ -25,12 +25,6 @@ License: You must have a valid license purchased only from themeforest(the above
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <!--begin::Web font -->
         <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
-        <script
-            src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
-            crossorigin="anonymous">
-        </script>
-        <script src="/js/core.js"></script>
         <script>
           WebFont.load({
             google: {"families":["Open Sans:300,400,500,600,700","Roboto:300,400,500,600,700"]},
@@ -176,11 +170,11 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <input type="text" class="form-control" id="topic-url">
                                 </div>
                                 <div class="form-group m-form__group">
-                                        <label for="exampleInputEmail1">File Browser</label>
+                                        <label for="exampleInputEmail1">Преьвю</label>
                                         <div></div>
                                         <div class="custom-file">
                                             <input type="file" class="custom-file-input" id="file-input" accept="video/mp4,video/x-m4v,video/*">
-                                            <label class="custom-file-label" for="customFile">Choose file</label>
+                                            <label class="custom-file-label" for="file-input">Выберите файл</label>
                                         </div>
                                 </div>
                                 <div id="file-preview" class="form-group m-form__group"></div>
@@ -271,6 +265,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <!--end::Page Vendors -->
     <!--begin::Page Snippets -->
     <script src="assets/app/js/dashboard.js" type="text/javascript"></script>
+    <script src="/js/core.js"></script>
     <!--end::Page Snippets -->
     @stack('scripts')
 </body>

@@ -1,5 +1,4 @@
 function saveVideoInfo (obj) {
-console.log(obj);
     $.ajax({
         method: 'POST',
         url: "/video/save",
@@ -34,7 +33,7 @@ function sendVideo (method, url, file) {
         error: function(result) {
             var preview = $('#file-preview');
             preview.empty();
-            preview.append('Ошибка загруске видео на cdn!').css("color", "red");
+            preview.append('Ошибка загрузки видео на cdn!').css("color", "red");
         }
     });
 }
