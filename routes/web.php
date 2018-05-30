@@ -20,9 +20,13 @@ Route::redirect('/', '/list', 301);
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
 Route::get('/list', function () {
     return view('dummy');
 });
 
+Route::get('/main', function () {
+    return view('mainPage');
+});
+
 Route::resource('topics', 'TopicController');
+

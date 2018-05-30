@@ -1,0 +1,345 @@
+$container-width: 1200px;
+
+$top-menu-height: 45px;
+
+$preview-height: 215px;
+
+.clear-fix {
+  clear: both;
+}
+.channel-logo {
+  position: absolute;
+  z-index: 100;
+  width: 20%;
+  top: 10px;
+  left: 10px;
+}
+.blue-cover {
+  z-index: 10;
+  left: 0;
+  top: 0;
+  height: 100%;
+}
+.poster {
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+}
+.mip-logo {
+  width: 20%;
+  position: absolute;
+  top: 13%;
+  left: 5%;
+  z-index: 11;
+}
+
+.main-container {
+
+  max-width: $container-width;
+  margin:auto;
+
+  .w-100 {
+    width: 80% !important;
+  }
+
+  .carousel-indicators {
+    right: 0;
+    bottom: 10px;
+    margin-right: 4%;
+    list-style: none;
+    left: initial;
+  }
+
+  .carousel-indicators li {
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+    margin-left: 5px;
+    border-radius: 10px;
+  }
+
+  .carousel-indicators .active {
+    background-color: #a0d216;
+  }
+
+  a.carousel-control-next, a.carousel-control-prev {
+    display: none;
+  }
+
+  a.carousel-control-next, a.carousel-control-prev {
+    display: none;
+  }
+
+  .carousel.fade{
+    opacity: 1;
+  }
+  .carousel.fade .carousel-item{
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 1s;
+  }
+  .carousel.fade .carousel-item.active{
+    position: relative;
+    opacity: 1;
+  }
+
+  .container {
+    width: 100%;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    max-width: unset;
+  }
+  .poster-content {
+    font-family: PT Sans, sans-serif;
+    font-size: 1.8vw;
+    color: #fff;
+    position: absolute;
+    bottom: 10%;
+    left: 9%;
+  }
+  .poster-titles {
+    display: inline-block;
+    text-transform: uppercase;
+
+    div:first-child {
+      font-weight: bold;
+      padding-right: 70px;
+      border-bottom: 3px solid #fff;
+      box-sizing: border-box;
+    }
+  }
+  .poster-arrow {
+    width: 52px;
+    height: 52px;
+    padding-left: 8px;
+    font-size: 4vw;
+    display: inline-block;
+    vertical-align: super;
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .top-bar {
+    background-color: #fff;
+    height: $top-menu-height;
+
+    .top-menu {
+      width: calc(100% - 280px);
+      padding-left: 15px;
+      display: inline-block;
+      color: #3096D4;
+      box-sizing: border-box;
+      height: $top-menu-height;
+      line-height: $top-menu-height;
+      font-size: 14px;
+      font-weight: bold;
+      text-transform: uppercase;
+
+      > div {
+        display: inline-block;
+        padding: 0 10px;
+        transition: all 0.4s;
+      }
+      > div:hover {
+        background-color: #f5f8fa;
+        color:#ADD038;
+      }
+    }
+
+    .search-box {
+      height: $top-menu-height;
+      float: right;
+      width: 266px;
+      box-sizing: border-box;
+      padding-right: $top-menu-height*2;
+      position: relative;
+
+      input {
+        height: 100%;
+        outline: none;
+        border: none;
+        background: #EAEDEC;
+        padding: 0 15px;
+      }
+
+      input::-webkit-input-placeholder {
+        text-align: center;
+        color:white
+      }
+      > input:-moz-placeholder {
+        text-align: center;
+        color:white
+      }
+      > input::-moz-placeholder {
+        text-align: center;
+        color:white
+      }
+      > input:-ms-input-placeholder {
+        text-align: center;
+        color:white
+      }
+
+      .search-buttons {
+        cursor:pointer;
+        height: $top-menu-height;
+        position: absolute;
+        top:0;
+        right: 0;
+
+        > div {
+          vertical-align: top;
+          text-align: center;
+          line-height: 45px;
+          background-color: #ADD038;
+          height: 100%;
+          width: $top-menu-height;
+          display: inline-block;
+
+        }
+        > div:first-child {
+          background-color: #3096D4;
+        }
+
+        .calendar {
+          background-image: url("/images/cubes.png");
+          background-size: cover;
+        }
+      }
+
+    }
+
+  }
+
+}
+.day-divider {
+  margin: 15px 0;
+  text-align: left;
+
+  div {
+    display: inline-block;
+    padding: 0 5px;
+    color: #fff;
+    font-size: 17px;
+    font-weight: bold;
+    background-color: #CECCCE;
+  }
+
+  div.new-video {
+    background: none;
+    color: #808080;
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: initial;
+    margin-left: 17px;
+  }
+
+  div:first-child {
+    padding-left: 50px;
+    background-color: #3096D4;
+  }
+}
+.col {
+  position: relative;
+
+  .preview {
+
+    position: relative;
+    padding-bottom: 56%;
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+
+    iframe {
+      overflow: hidden;
+      position: absolute;
+      height: calc(100% + 4px);
+      top: -2px;
+    }
+  }
+
+  .icons {
+    height: 33px;
+    background-color: #ffffff;
+    line-height: 33px;
+    text-align: center;
+  }
+  span.age-restriction {
+    font-family: Impact, monospace;
+    font-size: 25px;
+    font-weight: bold;
+    color: #9e9e9e;
+  }
+
+  .description {
+    padding: 10px 20px;
+    padding-bottom: 50px;
+    height: 100%;
+    background-color: #fff;
+
+    div:first-child {
+      font-weight: bold;
+      font-size: 17px;
+      line-height: 25px;
+    }
+  }
+  .pub-date, .pub-geo {
+    color: #9e9e9e;
+  }
+  .pub-date {
+    position: absolute;
+    left: 30px;
+    bottom: 10px;
+  }
+  .pub-geo {
+    position: absolute;
+    right: 30px;
+    bottom: 10px;
+  }
+
+}
+
+
+
+@media (max-width: 800px) {
+  .top-menu {
+    font-size: 12px;
+  }
+  .col .info .pub-geo, .col .info .pub-date {
+    float: initial;
+  }
+}
+@media (max-width: 700px) {
+  .col .description {
+    font-size: 12px;
+  }
+  .col .description div:first-child {
+    font-size: 14px;
+  }
+}
+@media (max-width: 620px) {
+  .col {
+    flex-basis: initial;
+    margin-bottom: 15px;
+  }
+  .col .description {
+    font-size: 16px;
+  }
+  .col .description div:first-child {
+    font-size: 20px;
+  }
+  .col .info .pub-geo, .col .info .pub-date {
+    float: left;
+  }
+  .col .info .pub-geo, .col .info .pub-geo {
+    float: right;
+  }
+}
+@media (max-width: 600px) {
+
+}
