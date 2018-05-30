@@ -172,7 +172,7 @@ class TopicController extends Controller
         if ($video) {
             return response()->json($video);
         } else {
-            return response()->json(['error' => 'request is not a json'], 404);
+            return response()->json(['error' => 'video not saved'], 404);
         }
     }
 }
