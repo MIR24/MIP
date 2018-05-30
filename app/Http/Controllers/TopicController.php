@@ -127,7 +127,7 @@ class TopicController extends Controller
     public function platformcraftUrl(Request $request)
     {
         $method = $request->input('method');
-        if ($method) {
+        if (!$method) {
             return response()->json(['error' => 'method needed'], 404);
         }
         $point = $request->input('point');
