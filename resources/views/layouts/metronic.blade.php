@@ -16,11 +16,11 @@ License: You must have a valid license purchased only from themeforest(the above
     <head>
         <meta charset="utf-8" />
         <title>
-            Metronic | Dashboard
+            Международный информационный пул
         </title>
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <meta name="description" content="Latest updates and statistic charts">
+        <meta name="description" content="Новостные сюжеты">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <!--begin::Web font -->
@@ -57,7 +57,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div class="m-stack__item m-brand">
                                 <div class="m-stack m-stack--ver m-stack--general m-stack--inline">
                                     <div class="m-stack__item m-stack__item--middle m-brand__logo">
-                                        <a href="index.html" class="m-brand__logo-wrapper">
+                                        <a href="/" class="m-brand__logo-wrapper">
                                             <img alt="" src="assets/demo/demo2/media/img/logo/logo.png"/>
                                         </a>
                                     </div>
@@ -87,10 +87,11 @@ License: You must have a valid license purchased only from themeforest(the above
                                                         <img src="assets/app/media/img/users/user4.jpg" class="m--img-rounded m--marginless m--img-centered" alt=""/>
                                                     </span>
                                                     <span class="m-topbar__welcome">
-                                                        Hello,&nbsp;
+                                                        Привет,&nbsp;
                                                     </span>
                                                     <span class="m-topbar__username">
-                                                        Nick
+                                                        @php $user = Auth::user() @endphp
+                                                        {{ $user->name }}
                                                     </span>
                                                 </a>
                                                 <div class="m-dropdown__wrapper">
@@ -103,10 +104,10 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                 </div>
                                                                 <div class="m-card-user__details">
                                                                     <span class="m-card-user__name m--font-weight-500">
-                                                                        Mark Andre
+                                                                        {{ $user->name }}
                                                                     </span>
                                                                     <a href="" class="m-card-user__email m--font-weight-300 m-link">
-                                                                        mark.andre@gmail.com
+                                                                        {{ $user->email }}
                                                                     </a>
                                                                 </div>
                                                             </div>
@@ -116,13 +117,17 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                 <ul class="m-nav m-nav--skin-light">
                                                                     <li class="m-nav__section m--hide">
                                                                         <span class="m-nav__section-text">
-                                                                            Section
+                                                                            Секция
                                                                         </span>
                                                                     </li>
                                                                     <li class="m-nav__item">
-                                                                        <a href="snippets/pages/user/login-1.html" class="btn m-btn--pill btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder">
-                                                                            Logout
+                                                                        <a href="{{ route('logout') }}" class="btn m-btn--pill btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder" onclick="event.preventDefault();
+                                                                        document.getElementById('logout-form').submit();">
+                                                                            {{ __('Logout') }}
                                                                         </a>
+                                                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                                            @csrf
+                                                                        </form>
                                                                     </li>
                                                                 </ul>
                                                             </div>
@@ -160,7 +165,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="m-stack m-stack--flex-tablet-and-mobile m-stack--ver m-stack--desktop">
                         <div class="m-stack__item m-stack__item--left m-stack__item--middle m-stack__item--last">
                             <span class="m-footer__copyright">
-                                2018 &copy;
+                                {{ date("Y") }} &copy;
                                 <a href="https://mir24.tv" class="m-link">
                                     МИР
                                 </a>

@@ -2,7 +2,7 @@
 
 @section('content')
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#m_modal_create_topic">Создать</button>
-<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#m_modal_show_topic">Показать</button>
+<button id="m_modal_show_topic_btn" type="button" style="display: none;" class="btn btn-secondary" data-toggle="modal" data-target="#m_modal_show_topic">Показать</button>
 <div class="row">
     <div class="col-xl-12">
         <div class="m-portlet m-portlet--mobile ">
@@ -178,6 +178,22 @@ var datatableTopics = function() {
                 field: "organization",
                 title: "Компания правообладатель",
                 width: 150
+            }, {
+                field: 'video_url',
+                title: 'Ссылка на видео',
+                responsive: {hidden: 'xl'},
+            }, {
+                field: 'video_content_type',
+                title: 'Ссылка на видео',
+                responsive: {hidden: 'xl'},
+            }, {
+                field: "Actions",
+                title: "Actions",
+                sortable: false,
+                overflow: "visible",
+                template: function (row) {
+                    return '<button type="button" class="btn" onClick="openShowTopicModal(this)">Показать</button>';
+                }
             }]
         });
     }
@@ -254,21 +270,18 @@ var datatableTopics = function() {
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="topic-show">Название сюжета</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button id="m_modal_show_topic_exit_top" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">
                 <h5>Описание сюжета</h5>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <p id="m_modal_show_topic_description_short"></p>
                 <h5>Видео</h5>
-                <video class="col-lg-12 col-md-12 col-sm-12" controls>
-                    <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
+                <div id="m_modal_show_topic_cdn_video"></div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="m_modal_show_topic_exit_bottom" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

@@ -47,7 +47,8 @@ class TopicController extends Controller
             'field' => $validatedData['sort']['field']
         ];
 
-        $builder = Topic::join('users', 'users.id', '=', 'topics.user_id')
+        $builder = Topic::join('videos', 'videos.id', '=', 'topics.video_id')
+            ->join('users', 'users.id', '=', 'topics.user_id')
             ->join('organizations', 'organizations.id', '=', 'users.organization_id')
             ->orderBy($validatedData['sort']['field'], $validatedData['sort']['sort'])
             ->skip($validatedData['pagination']['perpage'] * ($validatedData['pagination']['page']-1))
@@ -60,6 +61,8 @@ class TopicController extends Controller
             'topics.description_short',
             'topics.url',
             'organizations.name as organization',
+            'videos.cdn_cdn_url as video_url',
+            'videos.cdn_content_type as video_content_type'
         ]);
 
         return response()->json([
