@@ -3,6 +3,7 @@
 @section('content')
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#m_modal_create_topic">Создать</button>
 <button id="m_modal_show_topic_btn" type="button" style="display: none;" class="btn btn-secondary" data-toggle="modal" data-target="#m_modal_show_topic">Показать</button>
+<button id="m_modal_update_topic_btn" type="button" style="display: none;" class="btn btn-secondary" data-toggle="modal" data-target="#m_modal_update_topic">Показать</button>
 <div class="row">
     <div class="col-xl-12">
         <div class="m-portlet m-portlet--mobile ">
@@ -109,6 +110,9 @@ $(document).ready(function() {
     if(window.location.href.indexOf('#m_modal_create_topic') != -1) {
         $('#m_modal_create_topic').modal('show');
     }
+    if(window.location.href.indexOf('#m_modal_update_topic') != -1) {
+        $('#m_modal_update_topic').modal('show');
+    }
 });
 var datatableTopics = function() {
         if ($('#m_datatable_topics').length === 0) {
@@ -192,7 +196,8 @@ var datatableTopics = function() {
                 sortable: false,
                 overflow: "visible",
                 template: function (row) {
-                    return '<button type="button" class="btn" onClick="openShowTopicModal(this)">Показать</button>';
+                    return '<button type="button" class="btn" onClick="openShowTopicModal(this)" style="margin-bottom: 1rem">Показать</button>\
+                            <button type="button" class="btn" onClick="getTopicUpdateById(this)">Редактировать</button>';
                 }
             }]
         });
@@ -202,89 +207,4 @@ var datatableTopics = function() {
 </script>
 @endpush
 
-@push('modals')
-<!-- begin::Modal Create Topic -->
-<div class="modal fade" id="m_modal_create_topic" tabindex="-1" role="dialog" aria-labelledby="topic-create" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="topic-create">Новый сюжет</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <form method="POST" action="{{ route('topics.store') }}">
-                @csrf
-                <div class="modal-body">
-                    <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
-                        <label for="name" class="form-control-label">Название</label>
-                        <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
-                        @if ($errors->has('name'))
-                            <div class="form-control-feedback">{{ $errors->first('name') }}</div>
-                        @endif
-                    </div>
-                    <div class="form-group{{ $errors->has('description_short') ? ' has-danger' : '' }}">
-                        <label for="description_short" class="form-control-label">Краткое описание сюжета</label>
-                        <input id="description_short" type="text" class="form-control" name="description_short" value="{{ old('description_short') }}" required>
-                        @if ($errors->has('description_short'))
-                            <div class="form-control-feedback">{{ $errors->first('description_short') }}</div>
-                        @endif
-                    </div>
-                    <div class="form-group{{ $errors->has('description_long') ? ' has-danger' : '' }}">
-                        <label for="description_long" class="form-control-label">Полное описание сюжета</label>
-                        <textarea id="description_long" class="form-control" name="description_long" rows="3" required>{{ old('description_long') }}</textarea>
-                        @if ($errors->has('description_long'))
-                            <div class="form-control-feedback">{{ $errors->first('description_long') }}</div>
-                        @endif
-                    </div>
-                    <div class="form-group{{ $errors->has('url') ? ' has-danger' : '' }}">
-                        <label for="url" class="form-control-label">Ссылка на сюжет</label>
-                        <input id="url" type="text" class="form-control" name="url" value="{{ old('url') }}" required>
-                        @if ($errors->has('url'))
-                            <div class="form-control-feedback">{{ $errors->first('url') }}</div>
-                        @endif
-                    </div>
-                    <div class="form-group m-form__group">
-                        <label for="exampleInputEmail1">Преьвю</label>
-                        <div></div>
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="file-input" accept="video/mp4,video/x-m4v,video/*">
-                            <label class="custom-file-label" for="file-input">Выберите файл</label>
-                        </div>
-                    </div>
-                    <input id="video_id" name="video_id" type="hidden" value="">
-                    <div id="file-preview" class="form-group m-form__group"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                    <button type="submit" class="btn btn-primary">Создать</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<!-- end::Modal Create Topic -->
-<!-- begin::Modal Show Topic -->
-<div class="modal fade" id="m_modal_show_topic" tabindex="-1" role="dialog" aria-labelledby="topic-show" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="topic-show">Название сюжета</h5>
-                <button id="m_modal_show_topic_exit_top" type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <h5>Описание сюжета</h5>
-                <p id="m_modal_show_topic_description_short"></p>
-                <h5>Видео</h5>
-                <div id="m_modal_show_topic_cdn_video"></div>
-            </div>
-            <div class="modal-footer">
-                <button id="m_modal_show_topic_exit_bottom" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end::Modal Show Topic -->
-@endpush
+@include('modals.modals')

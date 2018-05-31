@@ -120,7 +120,27 @@ class TopicController extends Controller
      */
     public function edit($id)
     {
-        //
+        $topic = Topic::find($id);
+
+        if (!$topic) {
+            return response()->json(['error' => 'topic not found'], 404);
+        }
+
+        $params = [
+            'id' => $topic->id,
+            'name' => $topic->name,
+            'url' => $topic->url,
+            'description_short' => $topic->description_short,
+            'description_long' => $topic->description_long
+        ];
+
+        $video = $topic->Video;
+        if ($video->count()) {
+            $params['video_id'] = $video->id;
+            $params['videoTag'] = '<video class="col-lg-12 col-md-12 col-sm-12" controls><source src="https://'. $video->cdn_cdn_url .'" type="'. $video->cdn_content_type .'">Ваш браузер не поддерживает воспроизведение видео</video>';
+        }
+
+        return view('modals.update', $params);
     }
 
     /**
@@ -132,7 +152,33 @@ class TopicController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'description_short' => 'required|string',
+            'description_long' => 'required|string',
+            'url' => 'required|url|max:255'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('topics#m_modal_update_topic')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $validatedData = $validator->getData();
+
+        $user = Auth::user();
+        $validatedData['user_id'] = $user->id;
+
+        Topic::whereId($id)->update([
+            'name' => $validatedData['name'],
+            'description_short' => $validatedData['description_short'],
+            'description_long' => $validatedData['description_long'],
+            'url' => $validatedData['url'],
+            'video_id' => $validatedData['video_id']
+        ]);
+
+        return redirect()->route('topics.index');
     }
 
     /**
