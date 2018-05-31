@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+	<title>MIP authenticated user</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Login procedure</td></tr>
+</thead>
+<tbody>
+<tr><td>open</td><td>http://mip.mirtv.ru/login<datalist><option>http://mip.mirtv.ru/login</option></datalist></td><td></td>
+</tr>
+<tr><td>type</td><td>id=email<datalist><option>id=email</option><option>name=email</option><option>//input[@id='email']</option><option>//div[@id='app']/main/div/div/div/div/div[2]/form/div/div/input</option><option>//div/input</option><option>css=#email</option></datalist></td><td>dev@mirtv.ru</td>
+</tr>
+<tr><td>type</td><td>id=password<datalist><option>id=password</option><option>name=password</option><option>//input[@id='password']</option><option>//div[@id='app']/main/div/div/div/div/div[2]/form/div[2]/div/input</option><option>//div[2]/div/input</option><option>css=#password</option></datalist></td><td>testmip</td>
+</tr>
+<tr><td>click</td><td>//button[@type='submit']<datalist><option>//button[@type='submit']</option><option>//div[@id='app']/main/div/div/div/div/div[2]/form/div[4]/div/button</option><option>//div[4]/div/button</option><option>css=button.btn.btn-primary</option></datalist></td><td></td>
+</tr>
+<tr><td>pause</td><td><datalist><option></option></datalist></td><td>3000</td>
+</tr>
+<tr><td>verifyText</td><td>//div[@id='m_header_topbar']/div/ul/li/a/span[2]<datalist><option>//div[@id='m_header_topbar']/div/ul/li/a/span[2]</option><option>//span[2]</option><option>css=span.m-topbar__welcome</option></datalist></td><td>Привет,</td>
+</tr>
+</tbody></table>
+</body>
+</html>
