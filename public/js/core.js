@@ -79,7 +79,7 @@ function makeVideoTag (src, type) {
 }
 function openShowTopicModal (obj) {
     var row = $(obj.closest("tr"));
-    $("#m_modal_show_topic_cdn_video").append(makeVideoTag(row.find("[data-field='video.cdn_cdn_url']").text(), row.find("[data-field='video.cdn_content_type']").text()));
+    $("#m_modal_show_topic_cdn_video").append(makeVideoTag(row.find("[data-field='video_url']").text(), row.find("[data-field='video_content_type']").text()));
     $("#m_modal_show_topic_description_short").text(row.find("[data-field='description_short']").text());
     $("#m_modal_show_topic_btn").trigger("click");
 }
