@@ -46,6 +46,7 @@ class TopicController extends Controller
             'field' => $validatedData['sort']['field']
         ];
         $data = Topic::with('user.organization')
+            ->orderBy($validatedData['sort']['field'], $validatedData['sort']['sort'])
             ->skip($validatedData['pagination']['perpage'] * ($validatedData['pagination']['page']-1))
             ->take($validatedData['pagination']['perpage'])
             ->get();
