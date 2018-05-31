@@ -37,6 +37,7 @@ class TopicController extends Controller
 
         $total = Topic::count();
         $pages = $total / $validatedData['pagination']['perpage'];
+
         $meta = [
             'page' => $validatedData['pagination']['page'],
             'perpage' => $validatedData['pagination']['perpage'],
@@ -45,15 +46,24 @@ class TopicController extends Controller
             'sort' => $validatedData['sort']['sort'],
             'field' => $validatedData['sort']['field']
         ];
-        $data = Topic::with(['user.organization', 'video'])
+
+        $builder = Topic::join('videos', 'videos.id', '=', 'topics.video_id')
+            ->join('users', 'users.id', '=', 'topics.user_id')
+            ->join('organizations', 'organizations.id', '=', 'users.organization_id')
             ->orderBy($validatedData['sort']['field'], $validatedData['sort']['sort'])
             ->skip($validatedData['pagination']['perpage'] * ($validatedData['pagination']['page']-1))
-            ->take($validatedData['pagination']['perpage'])
-            ->get();
-        $data = $data->map(function ($item) {
-            $item->organization = $item->user->organization ? $item->user->organization->name : '';
-            return $item;
-        });
+            ->take($validatedData['pagination']['perpage']);
+
+        $data = $builder->get([
+            'topics.id',
+            'topics.created_at',
+            'topics.name',
+            'topics.description_short',
+            'topics.url',
+            'organizations.name as organization',
+            'videos.cdn_cdn_url as video_url',
+            'videos.cdn_content_type as video_content_type'
+        ]);
 
         return response()->json([
             'meta' => $meta,

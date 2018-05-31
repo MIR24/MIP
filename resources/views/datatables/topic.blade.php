@@ -179,11 +179,11 @@ var datatableTopics = function() {
                 title: "Компания правообладатель",
                 width: 150
             }, {
-                field: 'video.cdn_cdn_url',
+                field: 'video_url',
                 title: 'Ссылка на видео',
                 responsive: {hidden: 'xl'},
             }, {
-                field: 'video.cdn_content_type',
+                field: 'video_content_type',
                 title: 'Ссылка на видео',
                 responsive: {hidden: 'xl'},
             }, {
