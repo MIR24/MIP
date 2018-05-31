@@ -186,6 +186,14 @@ var datatableTopics = function() {
                 field: 'video.cdn_content_type',
                 title: 'Ссылка на видео',
                 responsive: {hidden: 'xl'},
+            }, {
+                field: "Actions",
+                title: "Actions",
+                sortable: false,
+                overflow: "visible",
+                template: function (row) {
+                    return '<button type="button" class="btn" onClick="openShowTopicModal(this)">Показать</button>';
+                }
             }]
         });
     }
