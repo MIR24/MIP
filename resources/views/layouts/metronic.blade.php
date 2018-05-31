@@ -16,11 +16,11 @@ License: You must have a valid license purchased only from themeforest(the above
     <head>
         <meta charset="utf-8" />
         <title>
-            Metronic | Dashboard
+            Международный информационный пул
         </title>
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <meta name="description" content="Latest updates and statistic charts">
+        <meta name="description" content="Новостные сюжеты">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <!--begin::Web font -->
@@ -57,7 +57,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div class="m-stack__item m-brand">
                                 <div class="m-stack m-stack--ver m-stack--general m-stack--inline">
                                     <div class="m-stack__item m-stack__item--middle m-brand__logo">
-                                        <a href="index.html" class="m-brand__logo-wrapper">
+                                        <a href="/" class="m-brand__logo-wrapper">
                                             <img alt="" src="assets/demo/demo2/media/img/logo/logo.png"/>
                                         </a>
                                     </div>

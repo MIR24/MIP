@@ -156,9 +156,13 @@ var datatableTopics = function() {
                 width: 40,
                 textAlign: 'center'
             }, {
+                field: "created_at",
+                title: "Дата публикации",
+                sortable: 'desc',
+                width: 150
+            }, {
                 field: "name",
                 title: "Название",
-                sortable: 'asc',
                 width: 150
             }, {
                 field: "description_short",
@@ -169,10 +173,6 @@ var datatableTopics = function() {
                 field: "url",
                 title: "Ссылка на сюжет",
                 filterable: false,
-                width: 150
-            }, {
-                field: "created_at",
-                title: "Дата публикации",
                 width: 150
             }, {
                 field: "organization",
