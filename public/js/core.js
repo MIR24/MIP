@@ -32,7 +32,7 @@ function sendVideo (method, url, file) {
             saveVideoInfo(data);
             var preview = $('#file-preview');
             preview.empty();
-            preview.append('<video width="100%" height="240" controls><source src="https://' + data.object.cdn_url + '" type="' + data.object.content_type + '">Ваш браузер не поддерживает воспроизведение видео</video>')
+            preview.append(makeVideoTag(data.object.cdn_url, data.object.content_type));
         },
         error: function(result) {
             var preview = $('#file-preview');
@@ -70,6 +70,14 @@ function handleFileSelect (evt) {
         }
     });
 }
+function emptyShowModal () {
+    $("#m_modal_show_topic_cdn_video").empty();
+    $("#m_modal_show_topic_description_short").empty();
+}
+function makeVideoTag (src, type) {
+    return '<video class="col-lg-12 col-md-12 col-sm-12" controls><source src="https://' + src + '" type="' + type + '">Ваш браузер не поддерживает воспроизведение видео</video>';
+}
 $(document).ready(function () {
     document.getElementById('file-input').addEventListener('change', handleFileSelect, false);
+    $("#m_modal_show_topic_exit_top, #m_modal_show_topic_exit_bottom, #m_modal_show_topic").click(emptyShowModal);
 });
