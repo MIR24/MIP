@@ -188,12 +188,6 @@ var datatableTopics = function() {
                 responsive: {hidden: 'xl'},
             }]
         });
-
-        $('.m_datatable').on('click', 'tbody > tr', function (event) {
-            $("#m_modal_show_topic_cdn_video").append(makeVideoTag($(this).find("[data-field='video.cdn_cdn_url']").text(), $(this).find("[data-field='video.cdn_content_type']").text()));
-            $("#m_modal_show_topic_description_short").text($(this).find("[data-field='description_short']").text());
-            $("#m_modal_show_topic_btn").trigger("click");
-        })
     }
     // datatables
     datatableTopics();
