@@ -85,9 +85,12 @@ function openShowTopicModal (obj) {
     $("#m_modal_show_topic_description_short").text(row.find("[data-field='description_short']").text());
     $("#m_modal_show_topic_description_long").text(row.find("[data-field='description_long']").text());
     $("#m_modal_show_topic_name").text(row.find("[data-field='name']").text());
-    $("#m_modal_show_topic_btn").trigger("click");
+    $('#m_modal_show_topic_download_bottom').attr('href', row.find("[data-field='url']").text());
+    $('#m_modal_show_topic').modal('toggle');
 }
 $(document).ready(function () {
     document.getElementById('file-input').addEventListener('change', handleFileSelect, false);
-    $("#m_modal_show_topic_exit_top, #m_modal_show_topic_exit_bottom, #m_modal_show_topic").click(emptyShowModal);
+    $('#m_modal_show_topic').on('hidden.bs.modal', function () {
+        emptyShowModal();
+    });
 });

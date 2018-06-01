@@ -1,8 +1,6 @@
 @extends('layouts.metronic')
 
 @section('content')
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#m_modal_create_topic">Создать</button>
-<button id="m_modal_show_topic_btn" type="button" style="display: none;" class="btn btn-secondary" data-toggle="modal" data-target="#m_modal_show_topic">Показать</button>
 <div class="row">
     <div class="col-xl-12">
         <div class="m-portlet m-portlet--mobile ">
@@ -103,12 +101,19 @@
 </div>
 @endsection
 
+@push('menu')
+<button type="button" class="m-dropdown btn btn-primary" data-toggle="modal" data-target="#m_modal_create_topic">Создать новый сюжет</button>
+@endpush
+
 @push('scripts')
 <script type="text/javascript">
 $(document).ready(function() {
     if(window.location.href.indexOf('#m_modal_create_topic') != -1) {
         $('#m_modal_create_topic').modal('show');
-    }
+    };
+    $("#m_modal_show_topic").on('hidden.bs.modal', function (e) {
+        $("#m_modal_show_topic video").trigger('pause');
+    });
 });
 var datatableTopics = function() {
         if ($('#m_datatable_topics').length === 0) {
@@ -140,7 +145,7 @@ var datatableTopics = function() {
                 theme: 'default',
                 class: '',
                 scroll: true,
-                height: 380,
+                height: $(window).height() - $('#m_header').height() - 255,
                 footer: false
             },
 
@@ -287,6 +292,12 @@ var datatableTopics = function() {
                 <div id="m_modal_show_topic_cdn_video"></div>
             </div>
             <div class="modal-footer">
+                <a id="m_modal_show_topic_download_bottom" href="" class="btn btn-primary m-btn m-btn--icon" download>
+                    <span>
+                        <i class="fa flaticon-download"></i>
+                        <span>Скачать</span>
+                    </span>
+                </a>
                 <button id="m_modal_show_topic_exit_bottom" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
