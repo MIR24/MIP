@@ -102,7 +102,7 @@
 @endsection
 
 @push('menu')
-<button type="button" class="m-dropdown btn btn-primary" data-toggle="modal" data-target="#m_modal_create_topic">Создать</button>
+<button type="button" class="m-dropdown btn btn-primary" data-toggle="modal" data-target="#m_modal_create_topic">Создать новый сюжет</button>
 @endpush
 
 @push('scripts')
