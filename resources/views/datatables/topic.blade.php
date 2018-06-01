@@ -1,7 +1,6 @@
 @extends('layouts.metronic')
 
 @section('content')
-<button id="m_modal_show_topic_btn" type="button" style="display: none;" class="btn btn-secondary" data-toggle="modal" data-target="#m_modal_show_topic">Показать</button>
 <div class="row">
     <div class="col-xl-12">
         <div class="m-portlet m-portlet--mobile ">
@@ -284,6 +283,12 @@ var datatableTopics = function() {
                 <div id="m_modal_show_topic_cdn_video"></div>
             </div>
             <div class="modal-footer">
+                <a id="m_modal_show_topic_download_bottom" href="" class="btn btn-primary m-btn m-btn--icon" download>
+                    <span>
+                        <i class="fa flaticon-download"></i>
+                        <span>Скачать</span>
+                    </span>
+                </a>
                 <button id="m_modal_show_topic_exit_bottom" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
