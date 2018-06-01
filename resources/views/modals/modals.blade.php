@@ -35,7 +35,7 @@
                 <div id="m_modal_show_topic_cdn_video"></div>
             </div>
             <div class="modal-footer">
-                <button id="m_modal_show_topic_exit_bottom" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="m_modal_show_topic_exit_bottom" type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
             </div>
         </div>
     </div>
