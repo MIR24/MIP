@@ -57,21 +57,51 @@
 <tbody>
 <tr><td>open</td><td>http://mip.mirtv.ru/topics<datalist><option>http://mip.mirtv.ru/topics</option></datalist></td><td></td>
 </tr>
-<tr><td>click</td><td>//button[@type='button']<datalist><option>//button[@type='button']</option><option>//div[@id='m_modal_create_topic']/div/div/div/button</option><option>//button</option><option>css=button.close</option></datalist></td><td></td>
+<tr><td>verifyVisible</td><td>//button[@type='button']<datalist><option>//button[@type='button']</option><option>//header[@id='m_header']/div/div/div/div/div/div[2]/button</option><option>//button</option><option>css=button.m-dropdown.btn.btn-primary</option></datalist></td><td></td>
 </tr>
-<tr><td>click</td><td>xpath=(//button[@type='button'])[5]<datalist><option>xpath=(//button[@type='button'])[5]</option><option>//div[3]/div/div/button</option><option>css=div.m-content &gt; button.btn.btn-primary</option></datalist></td><td></td>
+<tr><td>click</td><td>//button[@type='button']<datalist><option>//button[@type='button']</option><option>//header[@id='m_header']/div/div/div/div/div/div[2]/button</option><option>//button</option><option>css=button.m-dropdown.btn.btn-primary</option></datalist></td><td></td>
 </tr>
 <tr><td>click</td><td>id=name<datalist><option>id=name</option><option>name=name</option><option>//input[@id='name']</option><option>//div[@id='m_modal_create_topic']/div/div/form/div/div/input</option><option>//div/input</option><option>css=#name</option></datalist></td><td></td>
 </tr>
 <tr><td>pause</td><td>1000<datalist><option>1000</option></datalist></td><td></td>
 </tr>
+<tr><td>click</td><td>//button[@type='submit']<datalist><option>//button[@type='submit']</option><option>//div[@id='m_modal_create_topic']/div/div/form/div[2]/button[2]</option><option>//button[2]</option><option>css=button.btn.btn-primary</option></datalist></td><td></td>
+</tr>
+<tr><td>pause</td><td>1000<datalist><option>1000</option></datalist></td><td></td>
+</tr>
+<tr><td>verifyVisible</td><td>//div[@id='m_modal_create_topic']/div/div/form/div<datalist><option>//div[@id='m_modal_create_topic']/div/div/form/div</option><option>//form/div</option><option>css=div.modal-body</option></datalist></td><td></td>
+</tr>
 <tr><td>type</td><td>id=name<datalist><option>id=name</option><option>name=name</option><option>//input[@id='name']</option><option>//div[@id='m_modal_create_topic']/div/div/form/div/div/input</option><option>//div/input</option><option>css=#name</option></datalist></td><td>Название сюжета</td>
+</tr>
+<tr><td>click</td><td>//button[@type='submit']<datalist><option>//button[@type='submit']</option><option>//div[@id='m_modal_create_topic']/div/div/form/div[2]/button[2]</option><option>//button[2]</option><option>css=button.btn.btn-primary</option></datalist></td><td></td>
+</tr>
+<tr><td>pause</td><td>1000<datalist><option>1000</option></datalist></td><td></td>
+</tr>
+<tr><td>verifyVisible</td><td>//div[@id='m_modal_create_topic']/div/div/form/div<datalist><option>//div[@id='m_modal_create_topic']/div/div/form/div</option><option>//form/div</option><option>css=div.modal-body</option></datalist></td><td></td>
 </tr>
 <tr><td>type</td><td>id=description_short<datalist><option>id=description_short</option><option>name=description_short</option><option>//input[@id='description_short']</option><option>//div[@id='m_modal_create_topic']/div/div/form/div/div[2]/input</option><option>//div[2]/input</option><option>css=#description_short</option></datalist></td><td>Краткое описание сюжета</td>
 </tr>
+<tr><td>click</td><td>//button[@type='submit']<datalist><option>//button[@type='submit']</option><option>//div[@id='m_modal_create_topic']/div/div/form/div[2]/button[2]</option><option>//button[2]</option><option>css=button.btn.btn-primary</option></datalist></td><td></td>
+</tr>
+<tr><td>pause</td><td>1000<datalist><option>1000</option></datalist></td><td></td>
+</tr>
+<tr><td>verifyVisible</td><td>//div[@id='m_modal_create_topic']/div/div/form/div<datalist><option>//div[@id='m_modal_create_topic']/div/div/form/div</option><option>//form/div</option><option>css=div.modal-body</option></datalist></td><td></td>
+</tr>
 <tr><td>type</td><td>id=description_long<datalist><option>id=description_long</option><option>name=description_long</option><option>//textarea[@id='description_long']</option><option>//div[@id='m_modal_create_topic']/div/div/form/div/div[3]/textarea</option><option>//textarea</option><option>css=#description_long</option></datalist></td><td>Полное описание сюжета</td>
 </tr>
+<tr><td>click</td><td>//button[@type='submit']<datalist><option>//button[@type='submit']</option><option>//div[@id='m_modal_create_topic']/div/div/form/div[2]/button[2]</option><option>//button[2]</option><option>css=button.btn.btn-primary</option></datalist></td><td></td>
+</tr>
+<tr><td>pause</td><td>1000<datalist><option>1000</option></datalist></td><td></td>
+</tr>
+<tr><td>verifyVisible</td><td>//div[@id='m_modal_create_topic']/div/div/form/div<datalist><option>//div[@id='m_modal_create_topic']/div/div/form/div</option><option>//form/div</option><option>css=div.modal-body</option></datalist></td><td></td>
+</tr>
 <tr><td>type</td><td>id=url<datalist><option>id=url</option><option>name=url</option><option>//input[@id='url']</option><option>//div[@id='m_modal_create_topic']/div/div/form/div/div[4]/input</option><option>//div[4]/input</option><option>css=#url</option></datalist></td><td>http://example.com</td>
+</tr>
+<tr><td>click</td><td>//button[@type='submit']<datalist><option>//button[@type='submit']</option><option>//div[@id='m_modal_create_topic']/div/div/form/div[2]/button[2]</option><option>//button[2]</option><option>css=button.btn.btn-primary</option></datalist></td><td></td>
+</tr>
+<tr><td>pause</td><td>1000<datalist><option>1000</option></datalist></td><td></td>
+</tr>
+<tr><td>verifyVisible</td><td>//div[@id='m_modal_create_topic']/div/div/form/div<datalist><option>//div[@id='m_modal_create_topic']/div/div/form/div</option><option>//form/div</option><option>css=div.modal-body</option></datalist></td><td></td>
 </tr>
 <tr><td>click</td><td>id=file-input<datalist><option>id=file-input</option><option>//input[@id='file-input']</option><option>//div[@id='m_modal_create_topic']/div/div/form/div/div[5]/div[2]/input</option><option>//div[5]/div[2]/input</option><option>css=#file-input</option></datalist></td><td></td>
 </tr>
@@ -79,9 +109,9 @@
 </tr>
 <tr><td>click</td><td>//button[@type='submit']<datalist><option>//button[@type='submit']</option><option>//div[@id='m_modal_create_topic']/div/div/form/div[2]/button[2]</option><option>//button[2]</option><option>css=button.btn.btn-primary</option></datalist></td><td></td>
 </tr>
-<tr><td>click</td><td>xpath=(//button[@type='button'])[17]<datalist><option>xpath=(//button[@type='button'])[17]</option><option>//div[@id='m_datatable_topics']/div/div/div/button</option><option>//div[2]/div/div/div/div/button</option><option>css=button.btn.dropdown-toggle.btn-light</option></datalist></td><td></td>
+<tr><td>pause</td><td>1000<datalist><option>1000</option></datalist></td><td></td>
 </tr>
-<tr><td>select</td><td>//div[@id='m_datatable_topics']/div/div/div/select<datalist><option>//div[@id='m_datatable_topics']/div/div/div/select</option><option>//select</option><option>css=select.selectpicker.m-datatable__pager-size</option></datalist></td><td>label=100</td>
+<tr><td>verifyVisible</td><td>//div[@id='m_modal_create_topic']/div/div/form/div<datalist><option>//div[@id='m_modal_create_topic']/div/div/form/div</option><option>//form/div</option><option>css=div.modal-body</option></datalist></td><td></td>
 </tr>
 </tbody></table>
 </body>
