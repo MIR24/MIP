@@ -48,6 +48,7 @@ class TopicController extends Controller
         $data = Topic::with('user.organization')
             ->skip($validatedData['pagination']['perpage'] * ($validatedData['pagination']['page']-1))
             ->take($validatedData['pagination']['perpage'])
+            ->orderBy('created_at', 'desc')
             ->get();
         $data = $data->map(function ($item) {
             $item->organization = $item->user->organization ? $item->user->organization->name : '';
