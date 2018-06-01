@@ -110,7 +110,10 @@
 $(document).ready(function() {
     if(window.location.href.indexOf('#m_modal_create_topic') != -1) {
         $('#m_modal_create_topic').modal('show');
-    }
+    };
+    $("#m_modal_show_topic").on('hidden.bs.modal', function (e) {
+        $("#m_modal_show_topic video").trigger('pause');
+    });
 });
 var datatableTopics = function() {
         if ($('#m_datatable_topics').length === 0) {
