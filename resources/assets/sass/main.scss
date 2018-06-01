@@ -170,6 +170,7 @@ $preview-height: 215px;
 
       input {
         height: 100%;
+        width: 176px;
         outline: none;
         border: none;
         background: #EAEDEC;
@@ -436,6 +437,9 @@ $preview-height: 215px;
 }
 .ch.col {
   min-height: 170px;
+}
+.col.lc {
+  min-height: 100px;
 }
 .ch-mip.col {
   border: none;

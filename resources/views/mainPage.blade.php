@@ -300,7 +300,7 @@
         <footer>
             <div class="container">
                 <div class="row">
-                    <div class="col">
+                    <div class="col lc">
                         <div class="logo"></div>
                     </div>
                     <div class="col">
