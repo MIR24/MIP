@@ -41,6 +41,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <link href="assets/vendors/base/vendors.bundle.css" rel="stylesheet" type="text/css" />
         <link href="assets/demo/demo2/base/style.bundle.css" rel="stylesheet" type="text/css" />
         <!--end::Base Styles -->
+        <link href="/css/core.css" rel="stylesheet" type="text/css" />
         <link rel="shortcut icon" href="assets/demo/demo2/media/img/logo/favicon.ico" />
     </head>
     <!-- end::Head -->
@@ -62,6 +63,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         </a>
                                     </div>
                                     <div class="m-stack__item m-stack__item--middle m-brand__tools">
+                                        @stack('menu')
                                         <!-- begin::Responsive Header Menu Toggler-->
                                         <a id="m_aside_header_menu_mobile_toggle" href="javascript:;" class="m-brand__icon m-brand__toggler m--visible-tablet-and-mobile-inline-block">
                                             <span></span>
@@ -147,7 +149,7 @@ License: You must have a valid license purchased only from themeforest(the above
             <!-- end::Header -->
             <!-- begin::Body -->
             @stack('modals')
-            <div class="m-grid__item m-grid__item--fluid m-wrapper">
+            <div class="m-grid__item m-grid__item--fluid m-wrapper m-body--custom">
                 <div class="m-content">
                     @yield('content')
                 </div>
