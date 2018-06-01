@@ -147,7 +147,6 @@ License: You must have a valid license purchased only from themeforest(the above
             <!-- end::Header -->
             <!-- begin::Body -->
             @stack('modals')
-            <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop    m-container m-container--responsive m-container--xxl m-page__container m-body">
                 <div class="m-grid__item m-grid__item--fluid m-wrapper">
                     <div class="m-content">
                         @yield('content')
