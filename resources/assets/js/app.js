@@ -8,6 +8,10 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+window.$ = window.jQuery = require("jquery");
+
+require("air-datepicker");
+require('./mainPage');
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

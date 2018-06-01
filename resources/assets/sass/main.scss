@@ -23,6 +23,7 @@ $preview-height: 215px;
 .poster {
   height: 100%;
   width: 100%;
+  display: block;
   background-size: cover;
 }
 .mip-logo {
@@ -109,6 +110,7 @@ $preview-height: 215px;
   .poster-titles {
     display: inline-block;
     text-transform: uppercase;
+    vertical-align: middle;
 
     div:first-child {
       font-weight: bold;
@@ -118,12 +120,11 @@ $preview-height: 215px;
     }
   }
   .poster-arrow {
-    width: 52px;
-    height: 52px;
+    vertical-align: middle;
     padding-left: 8px;
     font-size: 4vw;
+    font-weight: bold;
     display: inline-block;
-    vertical-align: super;
     background-size: auto;
     background-position: center;
     background-repeat: no-repeat;
@@ -145,14 +146,17 @@ $preview-height: 215px;
       font-weight: bold;
       text-transform: uppercase;
 
-      > div {
+      > a {
         display: inline-block;
         padding: 0 10px;
-        transition: all 0.4s;
+        transition: all 0.2s;
+        cursor: pointer;
+        color:#0086ca;
+        text-decoration: none;
       }
-      > div:hover {
-        background-color: #f5f8fa;
-        color:#ADD038;
+      > a:hover {
+        background-color: #008bcc;
+        color: #fff;
       }
     }
 
@@ -196,23 +200,108 @@ $preview-height: 215px;
         top:0;
         right: 0;
 
-        > div {
+        .search-date {
+          position: absolute;
+          user-select: none;
+          display: none;
+          z-index: 200;
+          right: 0px;
+          width: 264px;
+          height: auto;
+          background-color: #F5F6F5;
+          border: 1px solid #d7d7d7;
+          //border-right: 5px solid #a0d216;
+          border-top: none;
+          cursor:initial;
+          box-sizing: content-box;
+        }
+
+        .luppa, .calendar {
           vertical-align: top;
           text-align: center;
           line-height: 45px;
-          background-color: #ADD038;
           height: 100%;
           width: $top-menu-height;
           display: inline-block;
-
+          transition: all 0.2s;
+          background-position: center;
+          background-repeat: no-repeat;
         }
-        > div:first-child {
-          background-color: #3096D4;
+
+        .luppa {
+          background-color: #3196d5;
+          background-image: url("/images/lupa.png");
+        }
+
+        .luppa:hover {
+          background-color: #36a6ec;
         }
 
         .calendar {
+          background-color: #ADD038;
           background-image: url("/images/cubes.png");
-          background-size: cover;
+        }
+
+        .calendar:hover {
+          background-color: #abde17;
+        }
+
+        .calendar.toggled {
+          background-image: url("/images/close.png");
+          background-color: #eaedec !important
+        }
+
+        #submit {
+          background-color: #3296d6;
+          color: #fff;
+          font-size: 15px;
+          text-transform: uppercase;
+          cursor: pointer;
+          padding: 10px;
+          text-align: center;
+        }
+
+        #submit:hover {
+          background-color: #36a6ec;
+        }
+
+        input[type=checkbox] {
+          height: 18px;
+          width: 18px;
+          vertical-align: middle;
+        }
+
+        .countries {
+
+          text-align: left;
+          padding-left: 18px;
+
+          ul {
+            margin: 10px 0;
+            list-style: none;
+            padding: 0;
+          }
+          li {
+            height: 30px;
+            line-height: 30px;
+          }
+          label {
+            cursor:pointer;
+          }
+        }
+
+        .datepicker-inline .datepicker {
+          border: none;
+          background-color: #F5F6F5;
+          margin: auto;
+        }
+
+        .datepicker--cell.-selected-, .datepicker--cell.-selected-.-current- {
+          background: #a0d216;
+          border-radius: 0;
+        }
+        .datepicker--days-names {
+          margin: 0;
         }
       }
 
@@ -227,11 +316,11 @@ $preview-height: 215px;
 
   div {
     display: inline-block;
-    padding: 0 5px;
+    padding: 0px 10px;
     color: #fff;
-    font-size: 17px;
+    font-size: 21px;
     font-weight: bold;
-    background-color: #CECCCE;
+    background-color: #CCCDCC;
   }
 
   div.new-video {
@@ -248,11 +337,29 @@ $preview-height: 215px;
     background-color: #3096D4;
   }
 }
+
+.show-more {
+  padding: 0;
+  margin: 10px 0;
+  text-align: center;
+  cursor: pointer;
+  color: #fff;
+  font-size: 21px;
+  font-weight: bold;
+  background-color: #3096D4;
+  text-transform: uppercase;
+  transition: all 0.2s;
+}
+.show-more:hover {
+  background-color: #36a6ec;
+}
+
 .col {
   position: relative;
-  margin: 10px;
+  margin: 15px;
   padding: 0;
   background-color: #fff;
+  border: 1px solid #e9ebec;
 
   .preview {
 
@@ -284,15 +391,23 @@ $preview-height: 215px;
   }
 
   .description {
+    display: block;
+    color:#000;
+    text-decoration: none;
     padding: 10px 20px;
     padding-bottom: 50px;
     background-color: #fff;
+    transition: color 0.2s;
 
     div:first-child {
       font-weight: bold;
       font-size: 17px;
       line-height: 25px;
     }
+  }
+
+  .description:hover {
+    color:#32688a;
   }
   .pub-date, .pub-geo {
     color: #9e9e9e;
@@ -307,11 +422,116 @@ $preview-height: 215px;
     right: 30px;
     bottom: 10px;
   }
+  .country-mini {
+    width: 22px;
+    height: 12px;
+    background-size: cover;
+    vertical-align: middle;
+    display: inline-block;
+  }
 
 }
+.container.ch {
+  margin-bottom: 10px;
+}
+.ch.col {
+  min-height: 170px;
+}
+.ch-mip.col {
+  border: none;
+  background-color: #E8E9E8;
+  position: relative;
+}
+.channel-logo-big {
+  width: 100%;
+  min-height: 170px;
+  position: relative;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.ch-mip.col .channel-logo-big {
+  background-image: url(/images/mip-ch.png);
+  height: 100%;
+}
+.country {
+  width: 44px;
+  height: 24px;
+  position: absolute;
+  background-size: cover;
+  top: 15px;
+  left: 15px;
+}
+.advert {
 
+  white-space: nowrap;
+  color: #000;
+  text-decoration: none;
 
+  div {
+    display: inline-block;
+  }
+  div:first-child {
+    white-space: initial;
+    width: 80%;
+    padding: 5px 15px;
+    box-sizing: border-box;
+    vertical-align: middle;
+  }
+}
+.ch-arrow {
+  width: 35px;
+  height: 25px;
+  background-image: url(/images/arrow-grey.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+}
+.ch-mip .advert {
+  position: absolute;
+  bottom: 0;
+}
+.ch-mip.col .ch-arrow {
+  background-image: url(/images/arrow-white.png);
+}
+footer {
+  width: 100%;
+  background-color: #0086ca;
+  background-image: url(/images/bubbles.png);
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: contain;
 
+  .logo {
+    background-image: url(/images/mip-ch.png);
+    width: 110px;
+    height: 74px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left:0;
+    margin: auto;
+  }
+
+  .col {
+    background: none;
+    position: relative;
+    border: none;
+    font-size: 13px;
+    line-height: 16px;
+    color: #fff;
+  }
+
+  .row {
+    margin-right: 0;
+    margin-left: 0;
+  }
+}
 @media (max-width: 800px) {
   .top-menu {
     font-size: 12px;
