@@ -126,6 +126,16 @@ class TopicController extends Controller
      */
     public function edit($id)
     {
+        if ($id == null || !is_numeric($id)) {
+            return redirect()
+                ->route('topics.index')
+                ->with('msg', [
+                        'type' => 'error',
+                        'text' => 'Сюжет не существует'
+                    ]
+                );
+        }
+
         $topic = Topic::find($id);
 
         if (!$topic) {
@@ -158,6 +168,16 @@ class TopicController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if ($id == null || !is_numeric($id)) {
+            return redirect()
+                ->route('topics.index')
+                ->with('msg', [
+                        'type' => 'error',
+                        'text' => 'Сюжет не существует'
+                    ]
+                );
+        }
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'description_short' => 'required|string',
@@ -176,7 +196,19 @@ class TopicController extends Controller
         $user = Auth::user();
         $validatedData['user_id'] = $user->id;
 
-        Topic::whereId($id)->update([
+        $topic = Topic::find($id);
+
+        if (!$topic) {
+            return redirect()
+                ->route('topics.index')
+                ->with('msg', [
+                        'type' => 'error',
+                        'text' => 'Сюжет не существует'
+                    ]
+                );
+        }
+
+        $topic->update([
             'name' => $validatedData['name'],
             'description_short' => $validatedData['description_short'],
             'description_long' => $validatedData['description_long'],
