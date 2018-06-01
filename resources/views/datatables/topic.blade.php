@@ -1,7 +1,6 @@
 @extends('layouts.metronic')
 
 @section('content')
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#m_modal_create_topic">Создать</button>
 <button id="m_modal_show_topic_btn" type="button" style="display: none;" class="btn btn-secondary" data-toggle="modal" data-target="#m_modal_show_topic">Показать</button>
 <div class="row">
     <div class="col-xl-12">
@@ -103,6 +102,10 @@
 </div>
 @endsection
 
+@push('menu')
+<button type="button" class="m-dropdown btn btn-primary" data-toggle="modal" data-target="#m_modal_create_topic">Создать</button>
+@endpush
+
 @push('scripts')
 <script type="text/javascript">
 $(document).ready(function() {
@@ -140,7 +143,7 @@ var datatableTopics = function() {
                 theme: 'default',
                 class: '',
                 scroll: true,
-                height: 380,
+                height: $(window).height() - $('#m_header').height() - 255,
                 footer: false
             },
 
