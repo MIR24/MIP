@@ -59,6 +59,7 @@ class TopicController extends Controller
             'topics.created_at',
             'topics.name',
             'topics.description_short',
+            'topics.description_long',
             'topics.url',
             'organizations.name as organization',
             'videos.cdn_cdn_url as video_url',
