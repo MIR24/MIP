@@ -98,7 +98,13 @@ class TopicController extends Controller
 
         Topic::create($validatedData);
 
-        return redirect()->route('topics.index');
+        return redirect()
+            ->route('topics.index')
+            ->with('msg', [
+                    'type' => 'success',
+                    'text' => 'Сюжет создан'
+                ]
+            );
     }
 
     /**
@@ -178,7 +184,13 @@ class TopicController extends Controller
             'video_id' => $validatedData['video_id']
         ]);
 
-        return redirect()->route('topics.index');
+        return redirect()
+            ->route('topics.index')
+            ->with('msg', [
+                    'type' => 'success',
+                    'text' => 'Сюжет изменен'
+                ]
+            );
     }
 
     /**

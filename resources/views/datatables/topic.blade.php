@@ -113,6 +113,9 @@ $(document).ready(function() {
     if(window.location.href.indexOf('#m_modal_update_topic') != -1) {
         $('#m_modal_update_topic').modal('show');
     }
+    @if(\Session::has('msg'))
+        showToasterMessage('{{ Session::get("msg.type") }}', '{{ Session::get("msg.text") }}')
+    @endif
 });
 var datatableTopics = function() {
         if ($('#m_datatable_topics').length === 0) {

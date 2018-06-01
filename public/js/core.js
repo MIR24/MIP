@@ -11,10 +11,13 @@ function saveVideoInfo (obj, fileInput, filePreview ) {
             fileInput.prop('disabled', false);
             fileInput.parent().siblings('#video_id').attr('value', data.id);
             toogleDisableBtn(false);
+            showToasterMessage('info', 'Видео сохранено');
         },
         error: function(result) {
             filePreview.empty();
             filePreview.append('Ошибка сохронения видео!').css("color", "red");
+            showToasterMessage('error', 'Ошибка сохранения видео');
+            toogleDisableBtn(false);
         }
     });
 }
@@ -29,6 +32,7 @@ function sendVideo (method, url, file, fileInput, filePreview) {
         contentType: false,
         processData: false,
         success: function(data) {
+            showToasterMessage('info', 'Видео загрузилось');
             saveVideoInfo(data, fileInput, filePreview);
             filePreview.empty();
             filePreview.append(makeVideoTag(data.object.cdn_url, data.object.content_type));
@@ -36,6 +40,8 @@ function sendVideo (method, url, file, fileInput, filePreview) {
         error: function(result) {
             filePreview.empty();
             filePreview.append('Ошибка загрузки видео на cdn!').css("color", "red");
+            showToasterMessage('error', 'Ошибка загрузки видео');
+            toogleDisableBtn(false);
         }
     });
 }
@@ -52,6 +58,7 @@ function handleFileSelect (evt) {
             "point": "objects"
         },
         beforeSend: function () {
+            showToasterMessage('info', 'Видео загружается...');
             toogleDisableBtn(true);
             fileInput.prop('disabled', true);
             filePreview.empty();
@@ -63,11 +70,15 @@ function handleFileSelect (evt) {
             } else {
                 fileInput.prop('disabled', false);
                 filePreview.empty();
+                toogleDisableBtn(false);
+                showToasterMessage('error', 'Файл не загрузился');
             }
         },
         error: function(result) {
             filePreview.empty();
             filePreview.append('Ошибка получения урл!').css("color", "red");
+            toogleDisableBtn(false);
+            showToasterMessage('error', 'Ошибка получения урл');
         }
     });
 }
@@ -87,7 +98,7 @@ function getTopicUpdateById (obj) {
             $("#m_modal_update_topic_btn").trigger("click");
         },
         error: function(result) {
-            console.log(result);
+            showToasterMessage('error', 'Ошибка получения сюжета!');
         }
     });
 }
@@ -106,6 +117,27 @@ function openShowTopicModal (obj) {
     $("#m_modal_show_topic_cdn_video").append(makeVideoTag(row.find("[data-field='video.cdn_cdn_url']").text(), row.find("[data-field='video.cdn_content_type']").text()));
     $("#m_modal_show_topic_description_short").text(row.find("[data-field='description_short']").text());
     $("#m_modal_show_topic_btn").trigger("click");
+}
+function showToasterMessage (type, message) {
+    toastr.options = {
+      "closeButton": true,
+      "debug": false,
+      "positionClass": "toast-top-right",
+      "onclick": null,
+      "showDuration": "1000",
+      "hideDuration": "1000",
+      "timeOut": "5000",
+      "extendedTimeOut": "2000",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+  };
+  if (type == 'error') {
+      toastr.options.timeOut = 0;
+      toastr.options.extendedTimeOut = 0;
+  }
+  toastr[type](message)
 }
 $(document).ready(function () {
     document.getElementById('file-input').addEventListener('change', handleFileSelect, false);
