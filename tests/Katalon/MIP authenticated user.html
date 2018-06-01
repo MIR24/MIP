@@ -26,32 +26,6 @@
 </tbody></table>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">Show Topic</td></tr>
-</thead>
-<tbody>
-<tr><td>open</td><td>http://mip.mirtv.ru/topics<datalist><option>http://mip.mirtv.ru/topics</option></datalist></td><td></td>
-</tr>
-<tr><td>click</td><td>xpath=(//button[@type='button'])[7]<datalist><option>xpath=(//button[@type='button'])[7]</option><option>//div[@id='mCSB_1_container']/tr/td[9]/span/button</option><option>//span/button</option><option>css=span &gt; button.btn</option></datalist></td><td></td>
-</tr>
-<tr><td>pause</td><td><datalist><option></option></datalist></td><td>1000</td>
-</tr>
-<tr><td>assertVisible</td><td>//div[@id='m_modal_show_topic']/div/div/div<datalist><option>//div[@id='m_modal_show_topic']/div/div/div</option><option>//div[2]/div[2]/div/div/div</option><option>css=#m_modal_show_topic &gt; div.modal-dialog.modal-lg &gt; div.modal-content &gt; div.modal-header</option></datalist></td><td></td>
-</tr>
-<tr><td>assertVisible</td><td>id=topic-show<datalist><option>id=topic-show</option><option>//h5[@id='topic-show']</option><option>//div[@id='m_modal_show_topic']/div/div/div/h5</option><option>//div[2]/div/div/div/h5</option><option>css=#topic-show</option></datalist></td><td></td>
-</tr>
-<tr><td>assertVisible</td><td>//div[@id='m_modal_show_topic']/div/div/div[2]/h5<datalist><option>//div[@id='m_modal_show_topic']/div/div/div[2]/h5</option><option>//div[2]/h5</option><option>css=div.modal-body &gt; h5</option></datalist></td><td></td>
-</tr>
-<tr><td>assertVisible</td><td>//*[@id="m_modal_show_topic_cdn_video"]<datalist><option>//div[@id='m_modal_show_topic']/div/div/div[3]</option><option>//div/div/div[3]</option><option>css=div.modal-content &gt; div.modal-footer</option><option>/html/body/div[1]/div[2]/div/div/div[2]/div/video</option><option>//*[@id="m_modal_show_topic_cdn_video"]</option></datalist></td><td></td>
-</tr>
-<tr><td>click</td><td>id=m_modal_show_topic_exit_top<datalist><option>id=m_modal_show_topic_exit_top</option><option>//button[@id='m_modal_show_topic_exit_top']</option><option>//div[@id='m_modal_show_topic']/div/div/div/button</option><option>//div[2]/div/div/div/button</option><option>css=#m_modal_show_topic_exit_top</option></datalist></td><td></td>
-</tr>
-<tr><td>pause</td><td><datalist><option></option></datalist></td><td>1000</td>
-</tr>
-<tr><td>assertNotVisible</td><td>//*[@id="m_modal_show_topic_cdn_video"]<datalist><option>//*[@id="m_modal_show_topic_cdn_video"]</option><option>//div[@id='m_modal_show_topic']/div/div/div[3]</option><option>//div/div/div[3]</option><option>css=div.modal-content &gt; div.modal-footer</option><option>/html/body/div[1]/div[2]/div/div/div[2]/div/video</option></datalist></td><td></td>
-</tr>
-</tbody></table>
-<table cellpadding="1" cellspacing="1" border="1">
-<thead>
 <tr><td rowspan="1" colspan="3">Create Topic</td></tr>
 </thead>
 <tbody>
@@ -71,7 +45,7 @@
 </tr>
 <tr><td>verifyVisible</td><td>//div[@id='m_modal_create_topic']/div/div/form/div<datalist><option>//div[@id='m_modal_create_topic']/div/div/form/div</option><option>//form/div</option><option>css=div.modal-body</option></datalist></td><td></td>
 </tr>
-<tr><td>type</td><td>id=name<datalist><option>id=name</option><option>name=name</option><option>//input[@id='name']</option><option>//div[@id='m_modal_create_topic']/div/div/form/div/div/input</option><option>//div/input</option><option>css=#name</option></datalist></td><td>Название сюжета</td>
+<tr><td>type</td><td>id=name<datalist><option>id=name</option><option>name=name</option><option>//input[@id='name']</option><option>//div[@id='m_modal_create_topic']/div/div/form/div/div/input</option><option>//div/input</option><option>css=#name</option></datalist></td><td>Прекрасные конструкторы</td>
 </tr>
 <tr><td>click</td><td>//button[@type='submit']<datalist><option>//button[@type='submit']</option><option>//div[@id='m_modal_create_topic']/div/div/form/div[2]/button[2]</option><option>//button[2]</option><option>css=button.btn.btn-primary</option></datalist></td><td></td>
 </tr>
@@ -79,7 +53,7 @@
 </tr>
 <tr><td>verifyVisible</td><td>//div[@id='m_modal_create_topic']/div/div/form/div<datalist><option>//div[@id='m_modal_create_topic']/div/div/form/div</option><option>//form/div</option><option>css=div.modal-body</option></datalist></td><td></td>
 </tr>
-<tr><td>type</td><td>id=description_short<datalist><option>id=description_short</option><option>name=description_short</option><option>//input[@id='description_short']</option><option>//div[@id='m_modal_create_topic']/div/div/form/div/div[2]/input</option><option>//div[2]/input</option><option>css=#description_short</option></datalist></td><td>Краткое описание сюжета</td>
+<tr><td>type</td><td>id=description_short<datalist><option>id=description_short</option><option>name=description_short</option><option>//input[@id='description_short']</option><option>//div[@id='m_modal_create_topic']/div/div/form/div/div[2]/input</option><option>//div[2]/input</option><option>css=#description_short</option></datalist></td><td>Вертолетик</td>
 </tr>
 <tr><td>click</td><td>//button[@type='submit']<datalist><option>//button[@type='submit']</option><option>//div[@id='m_modal_create_topic']/div/div/form/div[2]/button[2]</option><option>//button[2]</option><option>css=button.btn.btn-primary</option></datalist></td><td></td>
 </tr>
@@ -87,7 +61,7 @@
 </tr>
 <tr><td>verifyVisible</td><td>//div[@id='m_modal_create_topic']/div/div/form/div<datalist><option>//div[@id='m_modal_create_topic']/div/div/form/div</option><option>//form/div</option><option>css=div.modal-body</option></datalist></td><td></td>
 </tr>
-<tr><td>type</td><td>id=description_long<datalist><option>id=description_long</option><option>name=description_long</option><option>//textarea[@id='description_long']</option><option>//div[@id='m_modal_create_topic']/div/div/form/div/div[3]/textarea</option><option>//textarea</option><option>css=#description_long</option></datalist></td><td>Полное описание сюжета</td>
+<tr><td>type</td><td>id=description_long<datalist><option>id=description_long</option><option>name=description_long</option><option>//textarea[@id='description_long']</option><option>//div[@id='m_modal_create_topic']/div/div/form/div/div[3]/textarea</option><option>//textarea</option><option>css=#description_long</option></datalist></td><td>Вертолетик Лего с карандашом.</td>
 </tr>
 <tr><td>click</td><td>//button[@type='submit']<datalist><option>//button[@type='submit']</option><option>//div[@id='m_modal_create_topic']/div/div/form/div[2]/button[2]</option><option>//button[2]</option><option>css=button.btn.btn-primary</option></datalist></td><td></td>
 </tr>
@@ -95,7 +69,7 @@
 </tr>
 <tr><td>verifyVisible</td><td>//div[@id='m_modal_create_topic']/div/div/form/div<datalist><option>//div[@id='m_modal_create_topic']/div/div/form/div</option><option>//form/div</option><option>css=div.modal-body</option></datalist></td><td></td>
 </tr>
-<tr><td>type</td><td>id=url<datalist><option>id=url</option><option>name=url</option><option>//input[@id='url']</option><option>//div[@id='m_modal_create_topic']/div/div/form/div/div[4]/input</option><option>//div[4]/input</option><option>css=#url</option></datalist></td><td>http://example.com</td>
+<tr><td>type</td><td>id=url<datalist><option>id=url</option><option>name=url</option><option>//input[@id='url']</option><option>//div[@id='m_modal_create_topic']/div/div/form/div/div[4]/input</option><option>//div[4]/input</option><option>css=#url</option></datalist></td><td>ftp://example.com</td>
 </tr>
 <tr><td>click</td><td>//button[@type='submit']<datalist><option>//button[@type='submit']</option><option>//div[@id='m_modal_create_topic']/div/div/form/div[2]/button[2]</option><option>//button[2]</option><option>css=button.btn.btn-primary</option></datalist></td><td></td>
 </tr>
@@ -112,6 +86,38 @@
 <tr><td>pause</td><td>1000<datalist><option>1000</option></datalist></td><td></td>
 </tr>
 <tr><td>verifyVisible</td><td>//div[@id='m_modal_create_topic']/div/div/form/div<datalist><option>//div[@id='m_modal_create_topic']/div/div/form/div</option><option>//form/div</option><option>css=div.modal-body</option></datalist></td><td></td>
+</tr>
+</tbody></table>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Show Topic</td></tr>
+</thead>
+<tbody>
+<tr><td>open</td><td>http://mip.mirtv.ru/topics<datalist><option>http://mip.mirtv.ru/topics</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>xpath=(//button[@type='button'])[7]<datalist><option>xpath=(//button[@type='button'])[7]</option><option>//div[@id='mCSB_1_container']/tr/td[9]/span/button</option><option>//span/button</option><option>css=span &gt; button.btn</option></datalist></td><td></td>
+</tr>
+<tr><td>pause</td><td><datalist><option></option></datalist></td><td>1000</td>
+</tr>
+<tr><td>assertVisible</td><td>//div[@id='m_modal_show_topic']/div/div/div<datalist><option>//div[@id='m_modal_show_topic']/div/div/div</option><option>//div[2]/div[2]/div/div/div</option><option>css=#m_modal_show_topic &gt; div.modal-dialog.modal-lg &gt; div.modal-content &gt; div.modal-header</option></datalist></td><td></td>
+</tr>
+<tr><td>assertVisible</td><td>id=topic-show<datalist><option>id=topic-show</option><option>//h5[@id='topic-show']</option><option>//div[@id='m_modal_show_topic']/div/div/div/h5</option><option>//div[2]/div/div/div/h5</option><option>css=#topic-show</option></datalist></td><td></td>
+</tr>
+<tr><td>assertVisible</td><td>//div[@id='m_modal_show_topic']/div/div/div[2]/h5<datalist><option>//div[@id='m_modal_show_topic']/div/div/div[2]/h5</option><option>//div[2]/h5</option><option>css=div.modal-body &gt; h5</option></datalist></td><td></td>
+</tr>
+<tr><td>assertVisible</td><td>//*[@id="m_modal_show_topic_cdn_video"]<datalist><option>//div[@id='m_modal_show_topic']/div/div/div[3]</option><option>//div/div/div[3]</option><option>css=div.modal-content &gt; div.modal-footer</option><option>/html/body/div[1]/div[2]/div/div/div[2]/div/video</option><option>//*[@id="m_modal_show_topic_cdn_video"]</option></datalist></td><td></td>
+</tr>
+<tr><td>assertText</td><td>id=m_modal_show_topic_exit_bottom<datalist><option>id=m_modal_show_topic_exit_bottom</option><option>//button[@id='m_modal_show_topic_exit_bottom']</option><option>//div[@id='m_modal_show_topic']/div/div/div[3]/button</option><option>//div[3]/button</option><option>css=#m_modal_show_topic_exit_bottom</option></datalist></td><td>Закрыть</td>
+</tr>
+<tr><td>assertText</td><td>id=m_modal_show_topic_description_short<datalist><option>id=m_modal_show_topic_description_short</option><option>//p[@id='m_modal_show_topic_description_short']</option><option>//div[@id='m_modal_show_topic']/div/div/div[2]/p</option><option>//p</option><option>css=#m_modal_show_topic_description_short</option></datalist></td><td>Вертолетик</td>
+</tr>
+<tr><td>assertText</td><td>id=m_modal_show_topic_description_long<datalist><option>id=m_modal_show_topic_description_short</option><option>//p[@id='m_modal_show_topic_description_short']</option><option>//div[@id='m_modal_show_topic']/div/div/div[2]/p</option><option>//p</option><option>css=#m_modal_show_topic_description_short</option><option>id=m_modal_show_topic_description_long</option></datalist></td><td>Вертолетик Лего с карандашом.</td>
+</tr>
+<tr><td>click</td><td>id=m_modal_show_topic_exit_top<datalist><option>id=m_modal_show_topic_exit_top</option><option>//button[@id='m_modal_show_topic_exit_top']</option><option>//div[@id='m_modal_show_topic']/div/div/div/button</option><option>//div[2]/div/div/div/button</option><option>css=#m_modal_show_topic_exit_top</option></datalist></td><td></td>
+</tr>
+<tr><td>pause</td><td><datalist><option></option></datalist></td><td>1000</td>
+</tr>
+<tr><td>assertNotVisible</td><td>//*[@id="m_modal_show_topic_cdn_video"]<datalist><option>//*[@id="m_modal_show_topic_cdn_video"]</option><option>//div[@id='m_modal_show_topic']/div/div/div[3]</option><option>//div/div/div[3]</option><option>css=div.modal-content &gt; div.modal-footer</option><option>/html/body/div[1]/div[2]/div/div/div[2]/div/video</option></datalist></td><td></td>
 </tr>
 </tbody></table>
 </body>
