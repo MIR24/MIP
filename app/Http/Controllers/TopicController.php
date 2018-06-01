@@ -151,7 +151,7 @@ class TopicController extends Controller
         ];
 
         $video = $topic->Video;
-        if ($video->count()) {
+        if ($video) {
             $params['video_id'] = $video->id;
             $params['videoTag'] = '<video class="col-lg-12 col-md-12 col-sm-12" controls><source src="https://'. $video->cdn_cdn_url .'" type="'. $video->cdn_content_type .'">Ваш браузер не поддерживает воспроизведение видео</video>';
         }

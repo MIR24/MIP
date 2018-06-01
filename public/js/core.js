@@ -58,7 +58,6 @@ function handleFileSelect (evt) {
             "point": "objects"
         },
         beforeSend: function () {
-            showToasterMessage('info', 'Видео загружается...');
             toogleDisableBtn(true);
             fileInput.prop('disabled', true);
             filePreview.empty();
@@ -66,10 +65,12 @@ function handleFileSelect (evt) {
         },
         success: function (data) {
             if (file[0]) {
+                showToasterMessage('info', 'Видео загружается...');
                 sendVideo(method, data, file[0], fileInput, filePreview);
             } else {
                 fileInput.prop('disabled', false);
                 filePreview.empty();
+                fileInput.parent().siblings('#video_id').attr('value', '');
                 toogleDisableBtn(false);
                 showToasterMessage('error', 'Файл не загрузился');
             }
