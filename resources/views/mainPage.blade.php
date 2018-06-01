@@ -291,10 +291,13 @@
                         <div class="ch-arrow"></div>
                     </div>
                 </a>
-                <div class="ch ch-mip col">
+                <a href="#" class="ch ch-mip col">
                     <div class="channel-logo-big"></div>
-                    <div class="ch-arrow"></div>
-                </div>
+                    <div class="advert">
+                        <div>Правила присоединения к информационному пулу</div>
+                        <div class="ch-arrow"></div>
+                    </div>
+                </a>
             </div>
         </div>
         <footer>
