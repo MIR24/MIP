@@ -222,7 +222,7 @@ var datatableTopics = function() {
                         <label for="exampleInputEmail1">Преьвю</label>
                         <div></div>
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="file-input" accept="video/mp4,video/x-m4v,video/*">
+                            <input type="file" class="custom-file-input" id="file-input" accept="video/mp4,video/x-m4v,video/*" required>
                             <label class="custom-file-label" for="file-input">Выберите файл</label>
                         </div>
                     </div>
