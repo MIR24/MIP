@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Barantaran\Platformcraft\Platform;
+use Carbon\Carbon;
 use App\Video;
 use App\Topic;
 use Validator;
@@ -32,7 +33,7 @@ class TopicController extends Controller
         $validatedData = $request->validate([
             'pagination' => 'required|array',
             'sort' => 'nullable|required|array',
-            'query' => 'nullable|string|max:255'
+            'query' => 'nullable|array|max:255'
         ]);
 
         $total = Topic::count();
@@ -53,6 +54,20 @@ class TopicController extends Controller
             ->orderBy($validatedData['sort']['field'], $validatedData['sort']['sort'])
             ->skip($validatedData['pagination']['perpage'] * ($validatedData['pagination']['page']-1))
             ->take($validatedData['pagination']['perpage']);
+
+        if (!empty($validatedData['query'])) {
+            $query = $validatedData['query'];
+
+            if (!empty($query['created_at'])) {
+                $start = Carbon::parse($query['created_at']);
+                $end = $start->copy()->addDay();
+                $builder->whereBetween('topics.created_at', [$start, $end]);
+            }
+
+            if (!empty($query['organization'])) {
+                $builder->where('organizations.name', 'rlike', $query['organization']);
+            }
+        }
 
         $data = $builder->get([
             'topics.id',

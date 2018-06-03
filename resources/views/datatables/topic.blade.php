@@ -91,6 +91,14 @@
                     </ul>
                 </div>
             </div>
+            <div class="col-xl-6">
+                <label for="searchCreated_at">searchCreated_at</label>
+                <input type="date" class="form-control m-input" id="searchCreated_at">
+            </div>
+            <div class="col-xl-6">
+                <label for="searchOrganization">searchOrganization</label>
+                <input type="text" class="form-control m-input" id="searchOrganization">
+            </div>
             <div class="m-portlet__body">
                 <!--begin: Datatable -->
                 <div class="m_datatable" id="m_datatable_topics"></div>
@@ -111,7 +119,24 @@ $(document).ready(function() {
     if(window.location.href.indexOf('#m_modal_create_topic') != -1) {
         $('#m_modal_create_topic').modal('show');
     }
+
+    $('#searchCreated_at').change(function() {
+        var that = this;
+        topicsDT.search($(that).val(), 'created_at');
+    });
+
+    var timeoutOrganization = null;
+    $('#searchOrganization').on('keyup', function () {
+        var that = this;
+        if (timeoutOrganization !== null) {
+            clearTimeout(timeoutOrganization);
+        }
+        timeoutOrganization = setTimeout(function () {
+            topicsDT.search($(that).val(), 'organization');
+        }, 400);
+    });
 });
+
 var datatableTopics = function() {
         if ($('#m_datatable_topics').length === 0) {
             return;
@@ -148,8 +173,6 @@ var datatableTopics = function() {
 
             sortable: true,
 
-            filterable: true,
-
             pagination: true,
 
             columns: [{
@@ -169,12 +192,10 @@ var datatableTopics = function() {
             }, {
                 field: "description_short",
                 title: "Короткое описание",
-                filterable: false,
                 width: 150
             }, {
                 field: "url",
                 title: "Ссылка на сюжет",
-                filterable: false,
                 width: 150
             }, {
                 field: "organization",
@@ -198,9 +219,9 @@ var datatableTopics = function() {
                 }
             }]
         });
+        return datatable;
     }
-    // datatables
-    datatableTopics();
+    var topicsDT = datatableTopics();
 </script>
 @endpush
 
