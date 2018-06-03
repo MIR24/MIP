@@ -73,6 +73,8 @@ function handleFileSelect (evt) {
 function emptyShowModal () {
     $("#m_modal_show_topic_cdn_video").empty();
     $("#m_modal_show_topic_description_short").empty();
+    $("#m_modal_show_topic_description_long").empty();
+    $("#m_modal_show_topic_name").empty();
 }
 function makeVideoTag (src, type) {
     return '<video class="col-lg-12 col-md-12 col-sm-12" controls><source src="https://' + src + '" type="' + type + '">Ваш браузер не поддерживает воспроизведение видео</video>';
@@ -81,6 +83,8 @@ function openShowTopicModal (obj) {
     var row = $(obj.closest("tr"));
     $("#m_modal_show_topic_cdn_video").append(makeVideoTag(row.find("[data-field='video_url']").text(), row.find("[data-field='video_content_type']").text()));
     $("#m_modal_show_topic_description_short").text(row.find("[data-field='description_short']").text());
+    $("#m_modal_show_topic_description_long").text(row.find("[data-field='description_long']").text());
+    $("#m_modal_show_topic_name").text(row.find("[data-field='name']").text());
     $('#m_modal_show_topic_download_bottom').attr('href', row.find("[data-field='url']").text());
     $('#m_modal_show_topic').modal('toggle');
 }

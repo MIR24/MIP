@@ -191,6 +191,10 @@ var datatableTopics = function() {
                 field: 'video_content_type',
                 title: 'Ссылка на видео',
                 responsive: {hidden: 'xl'},
+            },{
+                field: 'description_long',
+                title: 'Полное описание',
+                responsive: {hidden: 'xl'},
             }, {
                 field: "Actions",
                 title: "Actions",
@@ -274,14 +278,16 @@ var datatableTopics = function() {
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="topic-show">Название сюжета</h5>
+                <h5 class="modal-title" id="m_modal_show_topic_name"></h5>
                 <button id="m_modal_show_topic_exit_top" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">
-                <h5>Описание сюжета</h5>
+                <h5>Краткое описание сюжета</h5>
                 <p id="m_modal_show_topic_description_short"></p>
+                <h5>Полное описание сюжета</h5>
+                <p id="m_modal_show_topic_description_long"></p>
                 <h5>Видео</h5>
                 <div id="m_modal_show_topic_cdn_video"></div>
             </div>
