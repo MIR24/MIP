@@ -1,7 +1,7 @@
 function saveVideoInfo (obj) {
     $.ajax({
         method: 'POST',
-        url: "/video/save",
+        url: "/videos",
         data: JSON.stringify(obj.object),
         contentType: "application/json",
         headers: {

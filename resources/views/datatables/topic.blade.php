@@ -14,11 +14,11 @@
                 </div>
             </div>
             <div class="col-xl-6">
-                <label for="searchCreated_at">searchCreated_at</label>
+                <label for="searchCreated_at">Искать по дате публикации:</label>
                 <input type="date" class="form-control m-input" id="searchCreated_at">
             </div>
             <div class="col-xl-6">
-                <label for="searchOrganization">searchOrganization</label>
+                <label for="searchOrganization">Искать по организациям:</label>
                 <input type="text" class="form-control m-input" id="searchOrganization">
             </div>
             <div class="m-portlet__body">
@@ -139,7 +139,7 @@ var datatableTopics = function() {
                 responsive: {hidden: 'xl'},
             }, {
                 field: "Actions",
-                title: "Actions",
+                title: "Действия",
                 sortable: false,
                 overflow: "visible",
                 template: function (row) {

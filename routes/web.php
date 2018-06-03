@@ -18,9 +18,9 @@ Auth::routes();
 Route::middleware(['auth'])->group(function () {
     Route::post('/api/topics', 'TopicController@indexDT')
         ->name('api.topics.index');
+    Route::get('/platformcraft/url', 'VideoController@platformcraftUrl')
+        ->name('platformcraftUrl');
 
     Route::resource('topics', 'TopicController');
-
-    Route::get('/platformcraft/url', 'TopicController@platformcraftUrl')->name('platformcraftUrl');
-    Route::post('/video/save', 'TopicController@saveVideo')->name('saveVideo');
+    Route::resource('videos', 'VideoController');
 });
