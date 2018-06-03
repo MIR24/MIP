@@ -48,7 +48,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <!-- end::Body -->
     <body  class="m-page--wide m-header--fixed m-header--fixed-mobile m-footer--push m-aside--offcanvas-default"  >
         <!-- begin:: Page -->
-        <div class="m-grid m-grid--hor m-grid--root m-page">
+        <div class="m-grid m-grid--root m-page">
             <!-- begin::Header -->
             <header id="m_header" class="m-grid__item m-header "  minimize="minimize" minimize-offset="200" minimize-mobile-offset="200" >
                 <div class="m-header__top">
