@@ -199,7 +199,30 @@ var datatableTopics = function() {
                 template: function (row) {
                     return '<button type="button" class="btn" onClick="openShowTopicModal(this)">Показать</button>';
                 }
-            }]
+            }],
+
+            translate: {
+                records: {
+                    processing: '{{ __('Please wait...') }}',
+                    noRecords: '{{ __('No records found') }}'
+                },
+                toolbar: {
+                    pagination: {
+                        items: {
+                            default: {
+                                first: '{{ __('First') }}',
+                                prev: '{{ __('Previous') }}',
+                                next: '{{ __('Next') }}',
+                                last: '{{ __('Last') }}',
+                                more: '{{ __('More pages') }}',
+                                input: '{{ __('Page number') }}',
+                                select: '{{ __('Select page size') }}'
+                            },
+                            info: '{{ __('@verbatim Displaying {{start}} - {{end}} of {{total}} records @endverbatim') }}'
+                        }
+                    }
+                }
+            }
         });
     }
     // datatables

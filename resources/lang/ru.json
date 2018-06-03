@@ -1,7 +1,7 @@
 {
     "Register": "Регистрация",
     "Name": "Имя",
-    "E-Mail Address": "E-Mail Адрес",
+    "E-Mail Address": "Электронная почта",
     "Password": "Пароль",
     "Confirm Password": "Подтвердите пароль",
     "Filial" :"Филиал",
@@ -18,5 +18,15 @@
     "Logout": "Выйти",
     "Role": "Роль",
     "admin": "Админ",
-    "user": "Пользователь"
+    "user": "Пользователь",
+    "Please wait...": "Пожалуйста, подождите...",
+    "No records found": "Записей не найдено",
+    "First": "Первая",
+    "Previous": "Предыдущее",
+    "Next": "Следующий",
+    "Last": "Последний",
+    "More pages": "Больше страниц",
+    "Page number": "Номер страницы",
+    "Select page size": "Записей на странице",
+    " Displaying {{start}} - {{end}} of {{total}} records ": " {{start}} - {{end}} из {{total}} записей "
 }
