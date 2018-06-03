@@ -89,12 +89,16 @@ class TopicController extends Controller
      */
     public function store(Request $request)
     {
+        $messages = [
+            'url.url' => 'Ссылка должна выглядеть так: ftp://example.com',
+        ];
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'description_short' => 'required|string',
             'description_long' => 'required|string',
             'url' => 'required|url|max:255'
-        ]);
+        ], $messages);
 
         if ($validator->fails()) {
             return redirect('topics#m_modal_create_topic')
