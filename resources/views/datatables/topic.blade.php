@@ -144,8 +144,6 @@ var datatableTopics = function() {
             layout: {
                 theme: 'default',
                 class: '',
-                scroll: true,
-                height: $(window).height() - $('#m_header').height() - 255,
                 footer: false
             },
 
