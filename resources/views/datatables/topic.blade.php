@@ -230,8 +230,8 @@ var datatableTopics = function() {
                     <div id="file-preview" class="form-group m-form__group"></div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                    <button type="submit" class="btn btn-primary">Создать</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('Create') }}</button>
                 </div>
             </form>
         </div>
@@ -260,10 +260,10 @@ var datatableTopics = function() {
                 <a id="m_modal_show_topic_download_bottom" href="" class="btn btn-primary m-btn m-btn--icon" download>
                     <span>
                         <i class="fa flaticon-download"></i>
-                        <span>Скачать</span>
+                        <span>{{ __('Download') }}</span>
                     </span>
                 </a>
-                <button id="m_modal_show_topic_exit_bottom" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="m_modal_show_topic_exit_bottom" type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close') }}</button>
             </div>
         </div>
     </div>

@@ -28,5 +28,8 @@
     "More pages": "Больше страниц",
     "Page number": "Номер страницы",
     "Select page size": "Записей на странице",
-    " Displaying {{start}} - {{end}} of {{total}} records ": " {{start}} - {{end}} из {{total}} записей "
+    " Displaying {{start}} - {{end}} of {{total}} records ": " {{start}} - {{end}} из {{total}} записей ",
+    "Create": "Создать",
+    "Close": "Закрыть",
+    "Download": "Скачать"
 }
