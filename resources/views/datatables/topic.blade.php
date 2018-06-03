@@ -135,6 +135,10 @@ $(document).ready(function() {
             topicsDT.search($(that).val(), 'organization');
         }, 400);
     });
+
+    $("#m_modal_show_topic").on('hidden.bs.modal', function (e) {
+        $("#m_modal_show_topic video").trigger('pause');
+    });
 });
 
 var datatableTopics = function() {
