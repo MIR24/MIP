@@ -21,6 +21,8 @@
 </tr>
 <tr><td>pause</td><td><datalist><option></option></datalist></td><td>3000</td>
 </tr>
+<tr><td>storeText</td><td>//div[@id='m_datatable_topics']/table/tbody/tr/td/span<datalist><option>//div[@id='m_datatable_topics']/table/tbody/tr/td/span</option><option>//td/span</option><option>css=td.m-datatable__cell--sorted.m-datatable__cell--center.m-datatable__cell &gt; span</option></datalist></td><td>lastID</td>
+</tr>
 <tr><td>verifyText</td><td>//div[@id='m_header_topbar']/div/ul/li/a/span[2]<datalist><option>//div[@id='m_header_topbar']/div/ul/li/a/span[2]</option><option>//span[2]</option><option>css=span.m-topbar__welcome</option></datalist></td><td>Привет,</td>
 </tr>
 </tbody></table>
@@ -29,6 +31,10 @@
 <tr><td rowspan="1" colspan="3">Create Topic</td></tr>
 </thead>
 <tbody>
+<tr><td>storeEval</td><td>new String("Новый сюжет ") + (${lastID} + 1)<datalist><option>Новый Сюжет</option><option>45 + 21</option><option>new String("Новый сюжет") + 21</option><option>new String("Новый сюжет ") + 21</option><option>new String("Новый сюжет ") + ${lastID}</option><option>new String("Новый сюжет ") + (${lastID} + 1)</option></datalist></td><td>topicTitle</td>
+</tr>
+<tr><td>echo</td><td>${topicTitle}<datalist><option>"Заголовок сюжета" + ${lastID}</option><option>${lastID}</option><option>${topicTitle}</option></datalist></td><td></td>
+</tr>
 <tr><td>open</td><td>http://mip.mirtv.ru/topics<datalist><option>http://mip.mirtv.ru/topics</option></datalist></td><td></td>
 </tr>
 <tr><td>verifyVisible</td><td>//button[@type='button']<datalist><option>//button[@type='button']</option><option>//header[@id='m_header']/div/div/div/div/div/div[2]/button</option><option>//button</option><option>css=button.m-dropdown.btn.btn-primary</option></datalist></td><td></td>
@@ -45,7 +51,7 @@
 </tr>
 <tr><td>verifyVisible</td><td>//div[@id='m_modal_create_topic']/div/div/form/div<datalist><option>//div[@id='m_modal_create_topic']/div/div/form/div</option><option>//form/div</option><option>css=div.modal-body</option></datalist></td><td></td>
 </tr>
-<tr><td>type</td><td>id=name<datalist><option>id=name</option><option>name=name</option><option>//input[@id='name']</option><option>//div[@id='m_modal_create_topic']/div/div/form/div/div/input</option><option>//div/input</option><option>css=#name</option></datalist></td><td>Прекрасные конструкторы</td>
+<tr><td>type</td><td>id=name<datalist><option>id=name</option><option>name=name</option><option>//input[@id='name']</option><option>//div[@id='m_modal_create_topic']/div/div/form/div/div/input</option><option>//div/input</option><option>css=#name</option></datalist></td><td>${topicTitle}</td>
 </tr>
 <tr><td>click</td><td>//button[@type='submit']<datalist><option>//button[@type='submit']</option><option>//div[@id='m_modal_create_topic']/div/div/form/div[2]/button[2]</option><option>//button[2]</option><option>css=button.btn.btn-primary</option></datalist></td><td></td>
 </tr>
@@ -85,7 +91,9 @@
 </tr>
 <tr><td>pause</td><td>1000<datalist><option>1000</option></datalist></td><td></td>
 </tr>
-<tr><td>verifyVisible</td><td>//div[@id='m_modal_create_topic']/div/div/form/div<datalist><option>//div[@id='m_modal_create_topic']/div/div/form/div</option><option>//form/div</option><option>css=div.modal-body</option></datalist></td><td></td>
+<tr><td>verifyVisible</td><td>//div[@id='m_modal_create_topic']/div/div/form/div/div[4]<datalist><option>//div[@id='m_modal_create_topic']/div/div/form/div/div[4]</option><option>//div[4]</option></datalist></td><td></td>
+</tr>
+<tr><td>assertText</td><td>//div[@id='m_datatable_topics']/table/tbody/tr/td[3]/span<datalist><option>//div[@id='m_datatable_topics']/table/tbody/tr/td[3]/span</option><option>//td[3]/span</option></datalist></td><td>${topicTitle}</td>
 </tr>
 </tbody></table>
 <table cellpadding="1" cellspacing="1" border="1">
