@@ -741,6 +741,9 @@ footer {
     position: absolute;
     margin: 0;
   }
+  .main-container .carousel-indicators li {
+    display: none;
+  }
 }
 @media (max-width: 550px) {
   .detail-description img {
