@@ -11,25 +11,22 @@
 |
 */
 
-/*Route::get('/', function () {
-    return view('welcome');
-});*/
-
-Route::redirect('/', '/list', 301);
+Route::redirect('/', '/topics', 301);
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/list', function () {
-    return view('dummy');
-});
+Route::middleware(['auth'])->group(function () {
+    Route::post('/api/topics', 'TopicController@indexDT')
+        ->name('api.topics.index');
+    Route::get('/platformcraft/url', 'VideoController@platformcraftUrl')
+        ->name('platformcraftUrl');
 
+    Route::resource('topics', 'TopicController');
+    Route::resource('videos', 'VideoController');
+});
 Route::get('/main', function () {
     return view('mainPage');
 });
 Route::get('/detail', function () {
     return view('detailPage');
 });
-
-Route::resource('topics', 'TopicController');
-

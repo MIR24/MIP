@@ -16,9 +16,11 @@ License: You must have a valid license purchased only from themeforest(the above
     <head>
         <meta charset="utf-8" />
         <title>
-            Metronic | Dashboard
+            Международный информационный пул
         </title>
-        <meta name="description" content="Latest updates and statistic charts">
+        <!-- CSRF Token -->
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+        <meta name="description" content="Новостные сюжеты">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <!--begin::Web font -->
@@ -39,13 +41,14 @@ License: You must have a valid license purchased only from themeforest(the above
         <link href="assets/vendors/base/vendors.bundle.css" rel="stylesheet" type="text/css" />
         <link href="assets/demo/demo2/base/style.bundle.css" rel="stylesheet" type="text/css" />
         <!--end::Base Styles -->
+        <link href="/css/core.css" rel="stylesheet" type="text/css" />
         <link rel="shortcut icon" href="assets/demo/demo2/media/img/logo/favicon.ico" />
     </head>
     <!-- end::Head -->
     <!-- end::Body -->
     <body  class="m-page--wide m-header--fixed m-header--fixed-mobile m-footer--push m-aside--offcanvas-default"  >
         <!-- begin:: Page -->
-        <div class="m-grid m-grid--hor m-grid--root m-page">
+        <div class="m-grid m-grid--root m-page">
             <!-- begin::Header -->
             <header id="m_header" class="m-grid__item m-header "  minimize="minimize" minimize-offset="200" minimize-mobile-offset="200" >
                 <div class="m-header__top">
@@ -55,11 +58,12 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div class="m-stack__item m-brand">
                                 <div class="m-stack m-stack--ver m-stack--general m-stack--inline">
                                     <div class="m-stack__item m-stack__item--middle m-brand__logo">
-                                        <a href="index.html" class="m-brand__logo-wrapper">
+                                        <a href="/" class="m-brand__logo-wrapper">
                                             <img alt="" src="assets/demo/demo2/media/img/logo/logo.png"/>
                                         </a>
                                     </div>
                                     <div class="m-stack__item m-stack__item--middle m-brand__tools">
+                                        @stack('menu')
                                         <!-- begin::Responsive Header Menu Toggler-->
                                         <a id="m_aside_header_menu_mobile_toggle" href="javascript:;" class="m-brand__icon m-brand__toggler m--visible-tablet-and-mobile-inline-block">
                                             <span></span>
@@ -85,10 +89,11 @@ License: You must have a valid license purchased only from themeforest(the above
                                                         <img src="assets/app/media/img/users/user4.jpg" class="m--img-rounded m--marginless m--img-centered" alt=""/>
                                                     </span>
                                                     <span class="m-topbar__welcome">
-                                                        Hello,&nbsp;
+                                                        Привет,&nbsp;
                                                     </span>
                                                     <span class="m-topbar__username">
-                                                        Nick
+                                                        @php $user = Auth::user() @endphp
+                                                        {{ $user->name }}
                                                     </span>
                                                 </a>
                                                 <div class="m-dropdown__wrapper">
@@ -101,10 +106,10 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                 </div>
                                                                 <div class="m-card-user__details">
                                                                     <span class="m-card-user__name m--font-weight-500">
-                                                                        Mark Andre
+                                                                        {{ $user->name }}
                                                                     </span>
                                                                     <a href="" class="m-card-user__email m--font-weight-300 m-link">
-                                                                        mark.andre@gmail.com
+                                                                        {{ $user->email }}
                                                                     </a>
                                                                 </div>
                                                             </div>
@@ -114,13 +119,17 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                 <ul class="m-nav m-nav--skin-light">
                                                                     <li class="m-nav__section m--hide">
                                                                         <span class="m-nav__section-text">
-                                                                            Section
+                                                                            Секция
                                                                         </span>
                                                                     </li>
                                                                     <li class="m-nav__item">
-                                                                        <a href="snippets/pages/user/login-1.html" class="btn m-btn--pill btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder">
-                                                                            Logout
+                                                                        <a href="{{ route('logout') }}" class="btn m-btn--pill btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder" onclick="event.preventDefault();
+                                                                        document.getElementById('logout-form').submit();">
+                                                                            {{ __('Logout') }}
                                                                         </a>
+                                                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                                            @csrf
+                                                                        </form>
                                                                     </li>
                                                                 </ul>
                                                             </div>
@@ -139,96 +148,12 @@ License: You must have a valid license purchased only from themeforest(the above
             </header>
             <!-- end::Header -->
             <!-- begin::Body -->
-            <!-- begin::Modal Create Topic -->
-            <div class="modal fade" id="m_modal_create_topic" tabindex="-1" role="dialog" aria-labelledby="topic-create" style="display: none;" aria-hidden="true">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="topic-create">Новый сюжет</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-                                <div class="form-group">
-                                    <label for="topic-name" class="form-control-label">Название</label>
-                                    <input type="text" class="form-control" id="topic-name">
-                                </div>
-                                <div class="form-group">
-                                    <label for="topic-description-small" class="form-control-label">Краткое описание сюжета</label>
-                                    <input type="text" class="form-control" id="topic-description-small">
-                                </div>
-                                <div class="form-group">
-                                    <label for="topic-description-large" class="form-control-label">Полное описание сюжета</label>
-                                    <textarea class="form-control" id="topic-description-large" rows="3"></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label for="topic-url" class="form-control-label">Ссылка на сюжет</label>
-                                    <input type="text" class="form-control" id="topic-url">
-                                </div>
-                                <div class="form-group m-form__group row">
-                                    <label class="col-form-label col-lg-1 col-sm-12">Превью</label>
-                                    <div class="col-lg-11 col-md-9 col-sm-12">
-                                        <div class="m-dropzone dropzone dz-clickable" action="#" id="m-dropzone-one">
-                                            <div class="m-dropzone__msg dz-message needsclick">
-                                                <h3 class="m-dropzone__msg-title">Drop files here or click to upload.</h3>
-                                                <span class="m-dropzone__msg-desc">This is just a demo dropzone. Selected files are actually uploaded.</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group m-form__group row">
-                                    <label for="topic-publication-date" class="col-2 col-form-label">Дата публикации</label>
-                                    <div class="col-10">
-                                        <input class="form-control" type="date" id="topic-publication-date">
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                            <button type="button" class="btn btn-primary">Создать</button>
-                        </div>
-                    </div>
+            @stack('modals')
+            <div class="m-grid__item m-grid__item--fluid m-wrapper m-body--custom">
+                <div class="m-content">
+                    @yield('content')
                 </div>
             </div>
-            <!-- end::Modal Create Topic -->
-            <!-- begin::Modal Show Topic -->
-            <div class="modal fade" id="m_modal_show_topic" tabindex="-1" role="dialog" aria-labelledby="topic-show" style="display: none;" aria-hidden="true">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="topic-show">Название сюжета</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <h5>Описание сюжета</h5>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                            <h5>Видео</h5>
-                            <video class="col-lg-12 col-md-12 col-sm-12" controls>
-                                <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- end::Modal Show Topic -->
-            <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop    m-container m-container--responsive m-container--xxl m-page__container m-body">
-                <div class="m-grid__item m-grid__item--fluid m-wrapper">
-                    <div class="m-content">
-                        @yield('content')
-                    </div>
-                </div>
-                <!--
-            </div>
-            -->
         </div>
         <!-- end::Body -->
         <!-- begin::Footer -->
@@ -238,7 +163,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="m-stack m-stack--flex-tablet-and-mobile m-stack--ver m-stack--desktop">
                         <div class="m-stack__item m-stack__item--left m-stack__item--middle m-stack__item--last">
                             <span class="m-footer__copyright">
-                                2018 &copy;
+                                {{ date("Y") }} &copy;
                                 <a href="https://mir24.tv" class="m-link">
                                     МИР
                                 </a>
@@ -265,6 +190,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <!--end::Page Vendors -->
     <!--begin::Page Snippets -->
     <script src="assets/app/js/dashboard.js" type="text/javascript"></script>
+    <script src="/js/core.js"></script>
     <!--end::Page Snippets -->
     @stack('scripts')
 </body>
