@@ -185,7 +185,7 @@ class TopicController extends Controller
             $params['videoTag'] = '<video class="col-lg-12 col-md-12 col-sm-12" controls><source src="https://'. $video->cdn_cdn_url .'" type="'. $video->cdn_content_type .'">Ваш браузер не поддерживает воспроизведение видео</video>';
         }
 
-        return view('modals.update', $params);
+        return view('modals.edit', $params);
     }
 
     /**

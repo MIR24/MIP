@@ -152,7 +152,7 @@ var datatableTopics = function() {
                 overflow: "visible",
                 template: function (row) {
                     return '<button type="button" class="btn margin-bottom-custom" onClick="openShowTopicModal(this)">Показать</button>\
-                            <button type="button" class="btn margin-bottom-custom" onClick="getTopicUpdateById(this)">Редактировать</button>';
+                            <button type="button" class="btn margin-bottom-custom" onClick="getTopicEditById(this)">Редактировать</button>';
                 }
             }],
 

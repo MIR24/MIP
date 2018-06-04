@@ -83,7 +83,7 @@ function handleFileSelect (evt) {
         }
     });
 }
-function getTopicUpdateById (obj) {
+function getTopicEditById (obj) {
     var row = $(obj.closest("tr"));
     $.ajax({
         type: "GET",
