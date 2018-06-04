@@ -86,7 +86,7 @@
                     <span class="sr-only">Next</span>
                 </a>
             </div>
-        <div class="day-divider current"><div>12 мая</div><div>сб</div><div class="new-video">+ Новый ролик</div></div>
+        <div class="day-divider current"><div>12 мая</div><div>сб</div><div class="new-video">+ Добавить ролик</div></div>
         <div class="container">
             <div class="row">
                 <div class="col-md-4">

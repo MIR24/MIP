@@ -152,12 +152,15 @@ $preview-height: 215px;
       text-transform: uppercase;
 
        a {
-        display: inline-block;
-        padding: 0 10px;
-        transition: all 0.2s;
-        cursor: pointer;
-        color:#0086ca;
-        text-decoration: none;
+         display: block;
+         padding: 0 10px;
+         float: left;
+         -webkit-transition: all 0.2s;
+         transition: all 0.2s;
+         cursor: pointer;
+         height: $top-menu-heigh;
+         color: #0086ca;
+         text-decoration: none;
       }
        a:hover {
         background-color: #EAECEB;
@@ -370,6 +373,9 @@ $preview-height: 215px;
     font-weight: initial;
     margin-left: 10px;
   }
+  div.new-video:hover {
+    text-decoration: underline;
+  }
 
   div:first-child {
     padding-left: 50px;
@@ -414,6 +420,7 @@ $preview-height: 215px;
 .col-md-4 {
   position: relative;
   padding: 15px;
+  border: none;
 
   .cellwrap {
     background-color: #fff;
@@ -741,6 +748,14 @@ footer {
     width: 215px;
     display: block;
     margin: 20px auto;
+  }
+}
+
+@media (max-width: 420px) {
+  .day-divider div.new-video {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
   }
 }
 
