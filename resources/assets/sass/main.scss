@@ -369,7 +369,7 @@ $preview-height: 215px;
     color: #808080;
     cursor: pointer;
     text-transform: uppercase;
-    font-size: 15px;
+    font-size: 18px;
     font-weight: initial;
     margin-left: 10px;
   }
@@ -751,15 +751,6 @@ footer {
     width: 215px;
     display: block;
     margin: 20px auto;
-  }
-}
-
-@media (max-width: 420px) {
-  .day-divider div.new-video {
-    background-color: #3296d7;
-    font-size: 21px;
-    font-weight: bold;
-    float: right;
   }
 }
 
