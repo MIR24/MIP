@@ -91,10 +91,10 @@ function getTopicUpdateById (obj) {
         success: function (data) {
             var updateModal = $('#m_modal_update_topic');
             var body = $('body');
-            if (updateModal.length > 0) {console.log(1);
+            if (updateModal.length > 0) {
                 updateModal.remove();
                 body.append(data);
-            } else {console.log(2);
+            } else {
                 body.append(data);
             }
             $('#m_modal_update_topic').modal('toggle');
