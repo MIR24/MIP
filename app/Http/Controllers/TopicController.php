@@ -46,9 +46,13 @@ class TopicController extends Controller
             'field' => $validatedData['sort']['field']
         ];
 
-        $builder = Topic::join('videos', 'videos.id', '=', 'topics.video_id')
-            ->join('users', 'users.id', '=', 'topics.user_id')
-            ->join('organizations', 'organizations.id', '=', 'users.organization_id')
+        $user = Auth::user();
+
+        $builder = Topic::leftJoin('videos', 'videos.id', '=', 'topics.video_id')
+            ->leftJoin('users', 'users.id', '=', 'topics.user_id')
+            ->leftJoin('organizations', 'organizations.id', '=', 'users.organization_id')
+            ->where('topics.status', 'active')
+            ->orWhere('users.id', $user->id)
             ->orderBy($validatedData['sort']['field'], $validatedData['sort']['sort'])
             ->skip($validatedData['pagination']['perpage'] * ($validatedData['pagination']['page']-1))
             ->take($validatedData['pagination']['perpage']);
