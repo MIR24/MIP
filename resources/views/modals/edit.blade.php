@@ -19,5 +19,6 @@
 </div>
 <script type="text/javascript">
     $('.custom-file-input').on('change', handleFileSelect);
+    $('[name="status"]').bootstrapSwitch();
 </script>
 <!-- end::Modal Update Topic -->

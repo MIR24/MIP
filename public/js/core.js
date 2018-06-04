@@ -151,4 +151,5 @@ $(document).ready(function () {
     $('#m_modal_show_topic').on('hidden.bs.modal', function () {
         emptyShowTopicModal();
     });
+    $('#switch-modal-status').bootstrapSwitch();
 });

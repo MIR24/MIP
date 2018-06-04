@@ -190,6 +190,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <!--end::Page Vendors -->
     <!--begin::Page Snippets -->
     <script src="assets/app/js/dashboard.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.4/js/bootstrap-switch.min.js"></script>
     <script src="/js/core.js"></script>
     <!--end::Page Snippets -->
     @stack('scripts')

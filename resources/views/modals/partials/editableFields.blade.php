@@ -1,4 +1,19 @@
 <div class="modal-body">
+    <div class="form-group">
+        <input id="switch-modal-status"
+            class="form-control-input"
+            name="status"
+            type="checkbox"
+            data-handle-width="100"
+            data-on-text="Активен"
+            data-on-color="success"
+            data-off-text="Неактивен"
+            data-off-color="danger"
+            @if(isset($status) && $status == 'active')
+                checked="true"
+            @endif
+        >
+    </div>
     <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
         <label for="name" class="form-control-label">Название</label>
         @if(isset($name))
