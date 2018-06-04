@@ -24,3 +24,9 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('topics', 'TopicController');
     Route::resource('videos', 'VideoController');
 });
+Route::get('/main', function () {
+    return view('mainPage');
+});
+Route::get('/detail', function () {
+    return view('detailPage');
+});
