@@ -8,7 +8,6 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
-window.$ = window.jQuery = require("jquery");
 
 require("air-datepicker");
 require('./mainPage');
