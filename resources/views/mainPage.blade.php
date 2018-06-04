@@ -10,7 +10,10 @@
                 <div class="search-buttons">
                     <div class="luppa"></div><div class="calendar" data-position="right top"></div>
                     <div class="search-date">
-                        <div class="datepicker-here"></div>
+                        <div class="datepicker-here"
+                             data-multiple-dates="2"
+                             data-multiple-dates-separator=", "
+                        ></div>
                         <div class="countries">
                             <ul>
                                 <li><input type="checkbox" id="ru" class="chckbx" checked="checked"><label for="ru" class="chckbx-label">Россия</label></li>
