@@ -11,8 +11,8 @@
             <form method="POST" action="{{ route('topics.update', $id) }}">
                 @method('PUT')
                 @csrf
-                @include('modals_partial.editableFields')
-                @include('modals_partial.footer', ['submitTranslate' => 'Сохранить'])
+                @include('modals.partial.editableFields')
+                @include('modals.partial.footer', ['submitTranslate' => 'Сохранить'])
             </form>
         </div>
     </div>
