@@ -47,6 +47,9 @@ $preview-height: 215px;
     width: 80% !important;
   }
 
+  .carousel {
+    clear: both;
+  }
   .carousel-indicators {
     right: 0;
     bottom: 10px;
@@ -605,6 +608,7 @@ footer {
 .detail-head {
   height: 85px;
   width:100%;
+  clear: both;
   background-color: #3296d6;
   background-image: url(/images/bubbles.png);
   background-size: cover;
@@ -686,6 +690,9 @@ footer {
 @media (max-width: 750px) {
   .main-container .top-bar .top-menu.main {
     display:none;
+  }
+  .main-container .top-bar .top-menu a {
+    float: none;
   }
   .main-container .top-bar .top-menu.bayan {
     display:block;
