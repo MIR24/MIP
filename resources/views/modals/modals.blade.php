@@ -11,8 +11,8 @@
             </div>
             <form method="POST" action="{{ route('topics.store') }}">
                 @csrf
-                @include('modals.partial.editableFields')
-                @include('modals.partial.footer', ['submitTranslate' => __('Create') ])
+                @include('modals.partials.editableFields')
+                @include('modals.partials.footer', ['submitTranslate' => __('Create') ])
             </form>
         </div>
     </div>
