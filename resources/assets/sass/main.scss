@@ -158,7 +158,7 @@ $preview-height: 215px;
          -webkit-transition: all 0.2s;
          transition: all 0.2s;
          cursor: pointer;
-         height: $top-menu-heigh;
+         height: $top-menu-height;
          color: #0086ca;
          text-decoration: none;
       }
@@ -753,9 +753,10 @@ footer {
 
 @media (max-width: 420px) {
   .day-divider div.new-video {
-    display: block;
-    text-align: center;
-    margin-top: 20px;
+    background-color: #3296d7;
+    font-size: 21px;
+    font-weight: bold;
+    float: right;
   }
 }
 
