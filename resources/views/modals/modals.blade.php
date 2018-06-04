@@ -12,7 +12,7 @@
             <form method="POST" action="{{ route('topics.store') }}">
                 @csrf
                 @include('modals_partial.editableFields')
-                @include('modals_partial.footer', ['submitTranslate' => 'Создать'])
+                @include('modals_partial.footer', ['submitTranslate' => __('Create') ])
             </form>
         </div>
     </div>
@@ -23,19 +23,27 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="topic-show">Название сюжета</h5>
+                <h5 class="modal-title" id="m_modal_show_topic_name"></h5>
                 <button id="m_modal_show_topic_exit_top" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">
-                <h5>Описание сюжета</h5>
+                <h5>Краткое описание сюжета</h5>
                 <p id="m_modal_show_topic_description_short"></p>
+                <h5>Полное описание сюжета</h5>
+                <p id="m_modal_show_topic_description_long"></p>
                 <h5>Видео</h5>
                 <div id="m_modal_show_topic_cdn_video"></div>
             </div>
             <div class="modal-footer">
-                <button id="m_modal_show_topic_exit_bottom" type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                <a id="m_modal_show_topic_download_bottom" href="" class="btn btn-primary m-btn m-btn--icon" download>
+                    <span>
+                        <i class="fa flaticon-download"></i>
+                        <span>{{ __('Download') }}</span>
+                    </span>
+                </a>
+                <button id="m_modal_show_topic_exit_bottom" type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close') }}</button>
             </div>
         </div>
     </div>

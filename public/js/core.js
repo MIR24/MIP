@@ -1,7 +1,7 @@
 function saveVideoInfo (obj, fileInput, filePreview ) {
     $.ajax({
         method: 'POST',
-        url: "/video/save",
+        url: "/videos",
         data: JSON.stringify(obj.object),
         contentType: "application/json",
         headers: {
@@ -90,13 +90,14 @@ function getTopicUpdateById (obj) {
         url: "/topics/" + row.find("[data-field='id']").text() + "/edit",
         success: function (data) {
             var updateModal = $('#m_modal_update_topic');
-            if (updateModal.length > 0) {
+            var body = $('body');
+            if (updateModal.length > 0) {console.log(1);
                 updateModal.remove();
-                $('body').append(data);
-            } else {
-                 $('body').append(data);
+                body.append(data);
+            } else {console.log(2);
+                body.append(data);
             }
-            $("#m_modal_update_topic_btn").trigger("click");
+            $('#m_modal_update_topic').modal('toggle');
         },
         error: function(result) {
             showToasterMessage('error', 'Ошибка получения сюжета!');
@@ -109,15 +110,20 @@ function toogleDisableBtn (state) {
 function emptyShowTopicModal (type) {
     $("#m_modal_show_topic_cdn_video").empty();
     $("#m_modal_show_topic_description_short").empty();
+    $("#m_modal_show_topic_description_long").empty();
+    $("#m_modal_show_topic_name").empty();
 }
 function makeVideoTag (src, type) {
     return '<video class="col-lg-12 col-md-12 col-sm-12" controls><source src="https://' + src + '" type="' + type + '">Ваш браузер не поддерживает воспроизведение видео</video>';
 }
 function openShowTopicModal (obj) {
     var row = $(obj.closest("tr"));
-    $("#m_modal_show_topic_cdn_video").append(makeVideoTag(row.find("[data-field='video.cdn_cdn_url']").text(), row.find("[data-field='video.cdn_content_type']").text()));
+    $("#m_modal_show_topic_cdn_video").append(makeVideoTag(row.find("[data-field='video_url']").text(), row.find("[data-field='video_content_type']").text()));
     $("#m_modal_show_topic_description_short").text(row.find("[data-field='description_short']").text());
-    $("#m_modal_show_topic_btn").trigger("click");
+    $("#m_modal_show_topic_description_long").text(row.find("[data-field='description_long']").text());
+    $("#m_modal_show_topic_name").text(row.find("[data-field='name']").text());
+    $('#m_modal_show_topic_download_bottom').attr('href', row.find("[data-field='url']").text());
+    $('#m_modal_show_topic').modal('toggle');
 }
 function showToasterMessage (type, message) {
     toastr.options = {
@@ -142,5 +148,7 @@ function showToasterMessage (type, message) {
 }
 $(document).ready(function () {
     document.getElementById('file-input').addEventListener('change', handleFileSelect, false);
-    $("#m_modal_show_topic_exit_top, #m_modal_show_topic_exit_bottom").click(emptyShowTopicModal);
+    $('#m_modal_show_topic').on('hidden.bs.modal', function () {
+        emptyShowTopicModal();
+    });
 });

@@ -11,20 +11,16 @@
 |
 */
 
-Route::get('/welcome', function () {
-    return view('welcome');
-})->name('welcome');
-
 Route::redirect('/', '/topics', 301);
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::middleware(['auth'])->group(function () {
+    Route::post('/api/topics', 'TopicController@indexDT')
+        ->name('api.topics.index');
+    Route::get('/platformcraft/url', 'VideoController@platformcraftUrl')
+        ->name('platformcraftUrl');
 
-Route::post('/api/topics', 'TopicController@indexDT')
-    ->name('api.topics.index');
-
-Route::resource('topics', 'TopicController');
-
-Route::get('/platformcraft/url', 'TopicController@platformcraftUrl')->name('platformcraftUrl');
-Route::post('/video/save', 'TopicController@saveVideo')->name('saveVideo');
+    Route::resource('topics', 'TopicController');
+    Route::resource('videos', 'VideoController');
+});
