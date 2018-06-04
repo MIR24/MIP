@@ -27,6 +27,9 @@ Route::get('/list', function () {
 Route::get('/main', function () {
     return view('mainPage');
 });
+Route::get('/detail', function () {
+    return view('detailPage');
+});
 
 Route::resource('topics', 'TopicController');
 
