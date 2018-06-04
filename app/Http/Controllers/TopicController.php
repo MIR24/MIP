@@ -215,7 +215,7 @@ class TopicController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect('topics#m_modal_update_topic')
+            return redirect('topics#m_modal_edit_topic')
                 ->withErrors($validator)
                 ->withInput();
         }

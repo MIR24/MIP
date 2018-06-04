@@ -1,5 +1,5 @@
 <!-- begin::Modal Update Topic -->
-<div class="modal fade" id="m_modal_update_topic" tabindex="-1" role="dialog" aria-labelledby="topic-update" style="display: none;" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+<div class="modal fade" id="m_modal_edit_topic" tabindex="-1" role="dialog" aria-labelledby="topic-update" style="display: none;" aria-hidden="true" data-keyboard="false" data-backdrop="static">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">

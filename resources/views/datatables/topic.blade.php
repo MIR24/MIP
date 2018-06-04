@@ -42,8 +42,8 @@ $(document).ready(function() {
         $('#m_modal_create_topic').modal('show');
     }
 
-    if(window.location.href.indexOf('#m_modal_update_topic') != -1) {
-        $('#m_modal_update_topic').modal('show');
+    if(window.location.href.indexOf('#m_modal_edit_topic') != -1) {
+        $('#m_modal_edit_topic').modal('show');
     }
     @if(\Session::has('msg'))
         showToasterMessage('{{ Session::get("msg.type") }}', '{{ Session::get("msg.text") }}')

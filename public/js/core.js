@@ -89,7 +89,7 @@ function getTopicEditById (obj) {
         type: "GET",
         url: "/topics/" + row.find("[data-field='id']").text() + "/edit",
         success: function (data) {
-            var updateModal = $('#m_modal_update_topic');
+            var updateModal = $('#m_modal_edit_topic');
             var body = $('body');
             if (updateModal.length > 0) {
                 updateModal.remove();
@@ -97,7 +97,7 @@ function getTopicEditById (obj) {
             } else {
                 body.append(data);
             }
-            $('#m_modal_update_topic').modal('toggle');
+            $('#m_modal_edit_topic').modal('toggle');
         },
         error: function(result) {
             showToasterMessage('error', 'Ошибка получения сюжета!');
