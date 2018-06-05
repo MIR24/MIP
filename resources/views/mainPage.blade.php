@@ -13,4 +13,6 @@
 
         @include('columns.organizations')
 
+        @include('layouts_partials.footer')
+
 @endsection

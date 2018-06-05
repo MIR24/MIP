@@ -70,8 +70,6 @@
 
                 @yield('content')
 
-                @include('layouts_partials.footer')
-
             </div>
         </main>
 
