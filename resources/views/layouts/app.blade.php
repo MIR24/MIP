@@ -66,8 +66,15 @@
         </nav>
 
         <main class="py-4">
-            @yield('content')
+            <div class="main-container">
+
+                @yield('content')
+
+                @include('layouts_partials.footer')
+
+            </div>
         </main>
+
     </div>
 </body>
 </html>
