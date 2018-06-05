@@ -18,6 +18,13 @@ Auth::routes();
 Route::middleware(['auth'])->group(function () {
     Route::post('/api/topics', 'TopicController@indexDT')
         ->name('api.topics.index');
+
+    Route::get('/api/topics/row', 'TopicController@row')
+        ->name('api.topics.row');
+
+    Route::get('/api/organizations/{id}/topics/row', 'OrganizationController@topicsRow')
+        ->name('api.organizations.topics.row');
+
     Route::get('/platformcraft/url', 'VideoController@platformcraftUrl')
         ->name('platformcraftUrl');
 
