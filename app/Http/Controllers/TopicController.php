@@ -34,24 +34,10 @@ class TopicController extends Controller
             'query' => 'nullable|array|max:255'
         ]);
 
-        $total = Topic::count();
-        $pages = $total / $validatedData['pagination']['perpage'];
-
-        $meta = [
-            'page' => $validatedData['pagination']['page'],
-            'perpage' => $validatedData['pagination']['perpage'],
-            'total' => $total,
-            'pages' => $pages,
-            'sort' => $validatedData['sort']['sort'],
-            'field' => $validatedData['sort']['field']
-        ];
-
-        $builder = Topic::join('videos', 'videos.id', '=', 'topics.video_id')
-            ->join('users', 'users.id', '=', 'topics.user_id')
-            ->join('organizations', 'organizations.id', '=', 'users.organization_id')
-            ->orderBy($validatedData['sort']['field'], $validatedData['sort']['sort'])
-            ->skip($validatedData['pagination']['perpage'] * ($validatedData['pagination']['page']-1))
-            ->take($validatedData['pagination']['perpage']);
+        $builder = Topic::leftJoin('videos', 'videos.id', '=', 'topics.video_id')
+            ->leftJoin('users', 'users.id', '=', 'topics.user_id')
+            ->leftJoin('organizations', 'organizations.id', '=', 'users.organization_id')
+            ->orderBy($validatedData['sort']['field'], $validatedData['sort']['sort']);
 
         if (!empty($validatedData['query'])) {
             $query = $validatedData['query'];
@@ -67,7 +53,21 @@ class TopicController extends Controller
             }
         }
 
-        $data = $builder->get([
+        $total = $builder->count();
+        $pages = $total / $validatedData['pagination']['perpage'];
+
+        $meta = [
+            'page' => $validatedData['pagination']['page'],
+            'perpage' => $validatedData['pagination']['perpage'],
+            'total' => $total,
+            'pages' => $pages,
+            'sort' => $validatedData['sort']['sort'],
+            'field' => $validatedData['sort']['field']
+        ];
+
+        $data = $builder->skip($validatedData['pagination']['perpage'] * ($validatedData['pagination']['page']-1))
+        ->take($validatedData['pagination']['perpage'])
+        ->get([
             'topics.id',
             'topics.created_at',
             'topics.name',
