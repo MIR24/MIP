@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
+use Jenssegers\Date\Date;
 use App\Topic;
 use Validator;
 
@@ -57,7 +57,7 @@ class TopicController extends Controller
             $query = $validatedData['query'];
 
             if (!empty($query['created_at'])) {
-                $start = Carbon::parse($query['created_at']);
+                $start = Date::parse($query['created_at']);
                 $end = $start->copy()->addDay();
                 $builder->whereBetween('topics.created_at', [$start, $end]);
             }
