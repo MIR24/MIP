@@ -194,18 +194,18 @@ class TopicController extends Controller
         $builder = Topic::join('videos', 'videos.id', '=', 'topics.video_id')
             ->join('users', 'users.id', '=', 'topics.user_id')
             ->join('organizations', 'organizations.id', '=', 'users.organization_id')
-            ->orderBy('created_at', 'desc');
+            ->orderBy('topics.created_at', 'desc');
 
         $dateStart = $request->query('date_start', Date::today());
         if ($dateStart) {
             $dateStart = Date::parse($dateStart)->hour(0)->minute(0)->second(0);
-            $builder->where('topics.created_at', '>', $dateStart);
+            $builder->where('topics.created_at', '>=', $dateStart);
         }
 
         $dateEnd = $request->query('date_end', Date::today());
         if ($dateEnd) {
             $dateEnd = Date::parse($dateEnd)->hour(23)->minute(59)->second(59);
-            $builder->where('topics.created_at', '<', $dateEnd);
+            $builder->where('topics.created_at', '<=', $dateEnd);
         }
 
         $models = $builder->get([
