@@ -98,7 +98,8 @@ class TopicController extends Controller
             ->orderBy('topics.created_at', 'desc');
 
         $topicLatest = $builder->first(['topics.created_at']);
-        $builder->whereDate('topics.created_at', $topicLatest->created_at->toDateString());
+        $dateLatest = Date::createFromFormat('d F Y года H:i', $topicLatest->created_at);
+        $builder->whereDate('topics.created_at', $dateLatest->toDateString());
 
         $models = $builder->get([
             'topics.id',
