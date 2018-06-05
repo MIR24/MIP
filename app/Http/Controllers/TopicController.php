@@ -86,6 +86,36 @@ class TopicController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexFront()
+    {
+        $builder = Topic::join('videos', 'videos.id', '=', 'topics.video_id')
+            ->join('users', 'users.id', '=', 'topics.user_id')
+            ->join('organizations', 'organizations.id', '=', 'users.organization_id')
+            ->orderBy('topics.created_at', 'desc');
+
+        $topicLatest = $builder->first(['topics.created_at']);
+        $builder->whereDate('topics.created_at', $topicLatest->created_at->toDateString());
+
+        $models = $builder->get([
+            'topics.id',
+            'topics.created_at',
+            'topics.name',
+            'topics.description_short',
+            'topics.description_long',
+            'topics.url',
+            'organizations.name as organization',
+            'videos.cdn_cdn_url as video_url',
+            'videos.cdn_content_type as video_content_type'
+        ]);
+
+        return view('indexes.topics', ['models' => $models]);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
