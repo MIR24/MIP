@@ -85,7 +85,39 @@ class OrganizationController extends Controller
     }
 
     /**
-     * Display a portion of related models of the specifiedresource.
+     * Display related models of the specified resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function topics(Request $request, $id)
+    {
+        $builder = Topic::join('videos', 'videos.id', '=', 'topics.video_id')
+            ->join('users', 'users.id', '=', 'topics.user_id')
+            ->join('organizations', 'organizations.id', '=', 'users.organization_id')
+            ->where('organizations.id', $id)
+            ->orderBy('topics.created_at', 'desc');
+
+        $topicLatest = $builder->first(['topics.created_at']);
+        $builder->whereDate('topics.created_at', $topicLatest->created_at->toDateString());
+
+        $models = $builder->get([
+            'topics.id',
+            'topics.created_at',
+            'topics.name',
+            'topics.description_short',
+            'topics.description_long',
+            'topics.url',
+            'organizations.name as organization',
+            'videos.cdn_cdn_url as video_url',
+            'videos.cdn_content_type as video_content_type'
+        ]);
+
+        return view('indexes.topics', ['models' => $models]);
+    }
+
+    /**
+     * Display a portion of related models of the specified resource.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -95,19 +127,19 @@ class OrganizationController extends Controller
         $builder = Topic::join('videos', 'videos.id', '=', 'topics.video_id')
             ->join('users', 'users.id', '=', 'topics.user_id')
             ->join('organizations', 'organizations.id', '=', 'users.organization_id')
-            ->orderBy('created_at', 'desc')
-            ->where('organizations.id', $id);
+            ->where('organizations.id', $id)
+            ->orderBy('topics.created_at', 'desc');
 
         $dateStart = $request->query('date_start', Date::today());
         if ($dateStart) {
             $dateStart = Date::parse($dateStart)->hour(0)->minute(0)->second(0);
-            $builder->where('topics.created_at', '>', $dateStart);
+            $builder->where('topics.created_at', '>=', $dateStart);
         }
 
         $dateEnd = $request->query('date_end', Date::today());
         if ($dateEnd) {
             $dateEnd = Date::parse($dateEnd)->hour(23)->minute(59)->second(59);
-            $builder->where('topics.created_at', '<', $dateEnd);
+            $builder->where('topics.created_at', '<=', $dateEnd);
         }
 
         $models = $builder->get([
@@ -120,7 +152,7 @@ class OrganizationController extends Controller
             'organizations.name as organization',
             'videos.cdn_cdn_url as video_url',
             'videos.cdn_content_type as video_content_type'
-        ]);//dd(\DB::getQueryLog());
+        ]);
 
         return view('indexes.topicsMore', ['models' => $models]);
     }

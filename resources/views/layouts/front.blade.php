@@ -1,0 +1,2 @@
+Лейаут
+@yield('content')
