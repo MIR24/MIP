@@ -1,4 +1,8 @@
 $(document).ready(function () {
+    fetch('/')
+        .then((res)=>{
+            alert(1);
+        });
     $('.calendar').on('click', function () {
         var calendar = $(this);
         $('.search-date').slideToggle('fast', function () {
