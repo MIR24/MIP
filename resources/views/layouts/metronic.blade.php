@@ -84,6 +84,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <div class="m-stack__item m-topbar__nav-wrapper">
                                         <ul class="m-topbar__nav m-nav m-nav--inline">
                                             <li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img  m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light" m-dropdown-toggle="click">
+                                                @guest
+                                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                                @else
                                                 <a href="#" class="m-nav__link m-dropdown__toggle">
                                                     <span class="m-topbar__userpic m--hide">
                                                         <img src="{{ asset('assets/app/media/img/users/user4.jpg') }}" class="m--img-rounded m--marginless m--img-centered" alt=""/>
@@ -136,6 +139,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                         </div>
                                                     </div>
                                                 </div>
+                                                @endguest
                                             </li>
                                         </ul>
                                     </div>
