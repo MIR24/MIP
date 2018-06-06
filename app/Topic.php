@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Jenssegers\Date\Date;
 
 class Topic extends Model
 {
@@ -38,5 +39,10 @@ class Topic extends Model
     public function video()
     {
         return $this->belongsTo('App\Video');
+    }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return Date::createFromFormat('Y-m-d H:i:s', $value)->format('d F Y года H:i');
     }
 }
