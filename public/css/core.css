@@ -1,8 +1,19 @@
 @media (min-width: 1025px) {
     .m-body--custom {
-        padding-top: 90px;
+        padding-top: 95px;
     }
 }
 .margin-bottom-custom {
     margin-bottom: 1rem
+}
+.in-input-clear {
+    position: absolute;
+    right: 20px;
+    top: -2px;
+    bottom: 0;
+    height: 0px;
+    margin: auto;
+    font-size: 20px;
+    cursor: pointer;
+    color: #ccc;
 }
