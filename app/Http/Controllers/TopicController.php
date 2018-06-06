@@ -65,19 +65,20 @@ class TopicController extends Controller
             'field' => $validatedData['sort']['field']
         ];
 
-        $data = $builder->skip($validatedData['pagination']['perpage'] * ($validatedData['pagination']['page']-1))
-        ->take($validatedData['pagination']['perpage'])
-        ->get([
-            'topics.id',
-            'topics.created_at',
-            'topics.name',
-            'topics.description_short',
-            'topics.description_long',
-            'topics.url',
-            'organizations.name as organization',
-            'videos.cdn_cdn_url as video_url',
-            'videos.cdn_content_type as video_content_type'
-        ]);
+        $data = $builder
+            ->skip($validatedData['pagination']['perpage'] * ($validatedData['pagination']['page']-1))
+            ->take($validatedData['pagination']['perpage'])
+            ->get([
+                'topics.id',
+                'topics.created_at',
+                'topics.name',
+                'topics.description_short',
+                'topics.description_long',
+                'topics.url',
+                'organizations.name as organization',
+                'videos.cdn_cdn_url as video_url',
+                'videos.cdn_content_type as video_content_type'
+            ]);
 
         return response()->json([
             'meta' => $meta,
