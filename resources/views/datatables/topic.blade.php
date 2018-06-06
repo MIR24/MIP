@@ -83,7 +83,11 @@ var datatableTopics = function() {
             layout: {
                 theme: 'default',
                 class: '',
-                footer: false
+                scroll: false,
+                footer: false,
+                smoothScroll: {
+                  scrollbarShown: false
+                }
             },
 
             sortable: true,
@@ -107,15 +111,16 @@ var datatableTopics = function() {
             }, {
                 field: "description_short",
                 title: "Короткое описание",
-                width: 150
+                width: 400,
             }, {
                 field: "url",
                 title: "Ссылка на сюжет",
-                width: 150
+                width: 200
             }, {
                 field: "organization",
                 title: "Компания правообладатель",
-                width: 150
+                width: 150,
+                textAlign: 'center'
             }, {
                 field: 'video_url',
                 title: 'Ссылка на видео',
@@ -131,6 +136,7 @@ var datatableTopics = function() {
             }, {
                 field: "Actions",
                 title: "Действия",
+                width: 70,
                 sortable: false,
                 overflow: "visible",
                 template: function (row) {
