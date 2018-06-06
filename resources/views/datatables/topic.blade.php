@@ -4,15 +4,6 @@
 <div class="row">
     <div class="col-xl-12">
         <div class="m-portlet m-portlet--mobile ">
-            <div class="m-portlet__head">
-                <div class="m-portlet__head-caption">
-                    <div class="m-portlet__head-title">
-                        <h3 class="m-portlet__head-text">
-                            Сюжеты
-                        </h3>
-                    </div>
-                </div>
-            </div>
             <div class="col-xl-6">
                 <label for="searchCreated_at">Искать по дате публикации:</label>
                 <input type="date" class="form-control m-input" id="searchCreated_at">
