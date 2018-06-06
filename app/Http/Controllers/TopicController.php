@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
+use Jenssegers\Date\Date;
 use App\Topic;
 use Validator;
 
@@ -34,7 +34,26 @@ class TopicController extends Controller
             'query' => 'nullable|array|max:255'
         ]);
 
-        $total = Topic::count();
+        $builder = Topic::leftJoin('videos', 'videos.id', '=', 'topics.video_id')
+            ->leftJoin('users', 'users.id', '=', 'topics.user_id')
+            ->leftJoin('organizations', 'organizations.id', '=', 'users.organization_id')
+            ->orderBy($validatedData['sort']['field'], $validatedData['sort']['sort']);
+
+        if (!empty($validatedData['query'])) {
+            $query = $validatedData['query'];
+
+            if (!empty($query['created_at'])) {
+                $start = Date::parse($query['created_at']);
+                $end = $start->copy()->addDay();
+                $builder->whereBetween('topics.created_at', [$start, $end]);
+            }
+
+            if (!empty($query['organization'])) {
+                $builder->where('organizations.name', 'rlike', $query['organization']);
+            }
+        }
+
+        $total = $builder->count();
         $pages = $total / $validatedData['pagination']['perpage'];
 
         $meta = [
@@ -46,28 +65,44 @@ class TopicController extends Controller
             'field' => $validatedData['sort']['field']
         ];
 
+        $data = $builder
+            ->skip($validatedData['pagination']['perpage'] * ($validatedData['pagination']['page']-1))
+            ->take($validatedData['pagination']['perpage'])
+            ->get([
+                'topics.id',
+                'topics.created_at',
+                'topics.name',
+                'topics.description_short',
+                'topics.description_long',
+                'topics.url',
+                'organizations.name as organization',
+                'videos.cdn_cdn_url as video_url',
+                'videos.cdn_content_type as video_content_type'
+            ]);
+
+        return response()->json([
+            'meta' => $meta,
+            'data' => $data
+        ]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexFront()
+    {
         $builder = Topic::join('videos', 'videos.id', '=', 'topics.video_id')
             ->join('users', 'users.id', '=', 'topics.user_id')
             ->join('organizations', 'organizations.id', '=', 'users.organization_id')
-            ->orderBy($validatedData['sort']['field'], $validatedData['sort']['sort'])
-            ->skip($validatedData['pagination']['perpage'] * ($validatedData['pagination']['page']-1))
-            ->take($validatedData['pagination']['perpage']);
+            ->orderBy('topics.created_at', 'desc');
 
-        if (!empty($validatedData['query'])) {
-            $query = $validatedData['query'];
+        $topicLatest = $builder->first(['topics.created_at']);
+        $dateLatest = Date::createFromFormat('d F Y года H:i', $topicLatest->created_at);
+        $builder->whereDate('topics.created_at', $dateLatest->toDateString());
 
-            if (!empty($query['created_at'])) {
-                $start = Carbon::parse($query['created_at']);
-                $end = $start->copy()->addDay();
-                $builder->whereBetween('topics.created_at', [$start, $end]);
-            }
-
-            if (!empty($query['organization'])) {
-                $builder->where('organizations.name', 'rlike', $query['organization']);
-            }
-        }
-
-        $data = $builder->get([
+        $models = $builder->get([
             'topics.id',
             'topics.created_at',
             'topics.name',
@@ -79,10 +114,7 @@ class TopicController extends Controller
             'videos.cdn_content_type as video_content_type'
         ]);
 
-        return response()->json([
-            'meta' => $meta,
-            'data' => $data
-        ]);
+        return view('indexes.topics', ['models' => $models]);
     }
 
     /**
@@ -127,7 +159,15 @@ class TopicController extends Controller
 
         Topic::create($validatedData);
 
-        return redirect()->route('topics.index');
+        return redirect()
+            ->route('topics.index')
+            ->with(
+                'msg',
+                [
+                    'type' => 'success',
+                    'text' => 'Сюжет создан'
+                ]
+            );
     }
 
     /**
@@ -173,5 +213,45 @@ class TopicController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Display a portion of the resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function row(Request $request)
+    {
+        $builder = Topic::join('videos', 'videos.id', '=', 'topics.video_id')
+            ->join('users', 'users.id', '=', 'topics.user_id')
+            ->join('organizations', 'organizations.id', '=', 'users.organization_id')
+            ->orderBy('topics.created_at', 'desc');
+
+        $dateStart = $request->query('date_start', Date::today());
+        if ($dateStart) {
+            $dateStart = Date::parse($dateStart)->hour(0)->minute(0)->second(0);
+            $builder->where('topics.created_at', '>=', $dateStart);
+        }
+
+        $dateEnd = $request->query('date_end', Date::today());
+        if ($dateEnd) {
+            $dateEnd = Date::parse($dateEnd)->hour(23)->minute(59)->second(59);
+            $builder->where('topics.created_at', '<=', $dateEnd);
+        }
+
+        $models = $builder->get([
+            'topics.id',
+            'topics.created_at',
+            'topics.name',
+            'topics.description_short',
+            'topics.description_long',
+            'topics.url',
+            'organizations.name as organization',
+            'videos.cdn_cdn_url as video_url',
+            'videos.cdn_content_type as video_content_type'
+        ]);
+
+        return view('indexes.topicsMore', ['models' => $models]);
     }
 }
