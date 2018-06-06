@@ -118,7 +118,13 @@ function makeVideoTag (src, type) {
 }
 function openShowTopicModal (obj) {
     var row = $(obj.closest("tr"));
-    $("#m_modal_show_topic_cdn_video").append(makeVideoTag(row.find("[data-field='video_url']").text(), row.find("[data-field='video_content_type']").text()));
+    var videoUrl = row.find("[data-field='video_url']").text();
+    var videoType = row.find("[data-field='video_content_type']").text();
+    if (videoUrl && videoType) {
+        $("#m_modal_show_topic_cdn_video").append(makeVideoTag(videoUrl, videoType));
+    } else {
+        $("#m_modal_show_topic_cdn_video").append("Видеофайл отсутствует");
+    }
     $("#m_modal_show_topic_description_short").text(row.find("[data-field='description_short']").text());
     $("#m_modal_show_topic_description_long").text(row.find("[data-field='description_long']").text());
     $("#m_modal_show_topic_name").text(row.find("[data-field='name']").text());
