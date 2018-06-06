@@ -34,28 +34,14 @@ class TopicController extends Controller
             'query' => 'nullable|array|max:255'
         ]);
 
-        $total = Topic::count();
-        $pages = $total / $validatedData['pagination']['perpage'];
-
-        $meta = [
-            'page' => $validatedData['pagination']['page'],
-            'perpage' => $validatedData['pagination']['perpage'],
-            'total' => $total,
-            'pages' => $pages,
-            'sort' => $validatedData['sort']['sort'],
-            'field' => $validatedData['sort']['field']
-        ];
-
         $user = Auth::user();
 
         $builder = Topic::leftJoin('videos', 'videos.id', '=', 'topics.video_id')
             ->leftJoin('users', 'users.id', '=', 'topics.user_id')
             ->leftJoin('organizations', 'organizations.id', '=', 'users.organization_id')
-            ->where('topics.status', 'active')
-            ->orWhere('users.id', $user->id)
             ->orderBy($validatedData['sort']['field'], $validatedData['sort']['sort'])
-            ->skip($validatedData['pagination']['perpage'] * ($validatedData['pagination']['page']-1))
-            ->take($validatedData['pagination']['perpage']);
+            ->where('topics.status', 'active')
+            ->orWhere('users.id', $user->id);
 
         if (!empty($validatedData['query'])) {
             $query = $validatedData['query'];
@@ -71,17 +57,32 @@ class TopicController extends Controller
             }
         }
 
-        $data = $builder->get([
-            'topics.id',
-            'topics.created_at',
-            'topics.name',
-            'topics.description_short',
-            'topics.description_long',
-            'topics.url',
-            'organizations.name as organization',
-            'videos.cdn_cdn_url as video_url',
-            'videos.cdn_content_type as video_content_type'
-        ]);
+        $total = $builder->count();
+        $pages = $total / $validatedData['pagination']['perpage'];
+
+        $meta = [
+            'page' => $validatedData['pagination']['page'],
+            'perpage' => $validatedData['pagination']['perpage'],
+            'total' => $total,
+            'pages' => $pages,
+            'sort' => $validatedData['sort']['sort'],
+            'field' => $validatedData['sort']['field']
+        ];
+
+        $data = $builder
+            ->skip($validatedData['pagination']['perpage'] * ($validatedData['pagination']['page']-1))
+            ->take($validatedData['pagination']['perpage'])
+            ->get([
+                'topics.id',
+                'topics.created_at',
+                'topics.name',
+                'topics.description_short',
+                'topics.description_long',
+                'topics.url',
+                'organizations.name as organization',
+                'videos.cdn_cdn_url as video_url',
+                'videos.cdn_content_type as video_content_type'
+            ]);
 
         return response()->json([
             'meta' => $meta,
