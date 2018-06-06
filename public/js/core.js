@@ -48,8 +48,14 @@ function sendVideo (method, url, file, fileInput, filePreview) {
 function handleFileSelect (evt) {
     var file = evt.target.files;
     var method = "POST";
-    var fileInput = $(evt.currentTarget).closest('#file-input');
-    var filePreview = $(evt.currentTarget).parent().siblings('#file-preview');
+    var $this = $(this);
+    var fileLocation = evt.target.value;
+    var fileInput = $this.closest('#file-input');
+    var filePreview = $this.parent().siblings('#file-preview');
+    var fileInputLabel = $this.siblings('label');
+    if (fileInputLabel.text() != fileLocation) {
+        fileInputLabel.text(fileLocation)
+    }
     $.ajax({
         type: "GET",
         url: "/platformcraft/url",
