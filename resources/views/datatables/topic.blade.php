@@ -11,6 +11,7 @@
             <div class="col-xl-6">
                 <label for="searchOrganization">Искать по организациям:</label>
                 <input type="text" class="form-control m-input" id="searchOrganization">
+                <i id="searchOrganizationClear" class="flaticon-cancel in-input-clear"></i>
             </div>
             <div class="m-portlet__body">
                 <!--begin: Datatable -->
@@ -51,6 +52,11 @@ $(document).ready(function() {
 
     $("#m_modal_show_topic").on('hidden.bs.modal', function (e) {
         $("#m_modal_show_topic video").trigger('pause');
+    });
+
+    $("#searchOrganizationClear").click(function () {
+        $("#searchOrganization").val('');
+        topicsDT.search('', 'organization');
     });
 });
 

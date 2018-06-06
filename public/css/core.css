@@ -3,3 +3,15 @@
         padding-top: 95px;
     }
 }
+
+.in-input-clear {
+    position: absolute;
+    right: 20px;
+    top: -2px;
+    bottom: 0;
+    height: 0px;
+    margin: auto;
+    font-size: 20px;
+    cursor: pointer;
+    color: #ccc;
+}
