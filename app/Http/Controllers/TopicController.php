@@ -31,7 +31,8 @@ class TopicController extends Controller
         $validatedData = $request->validate([
             'pagination' => 'required|array',
             'sort' => 'nullable|required|array',
-            'query' => 'nullable|array|max:255'
+            'query' => 'nullable|array|max:255',
+            'status' => 'max:255'
         ]);
 
         $total = Topic::count();
@@ -51,11 +52,19 @@ class TopicController extends Controller
         $builder = Topic::leftJoin('videos', 'videos.id', '=', 'topics.video_id')
             ->leftJoin('users', 'users.id', '=', 'topics.user_id')
             ->leftJoin('organizations', 'organizations.id', '=', 'users.organization_id')
-            ->where('topics.status', 'active')
-            ->orWhere('users.id', $user->id)
             ->orderBy($validatedData['sort']['field'], $validatedData['sort']['sort'])
             ->skip($validatedData['pagination']['perpage'] * ($validatedData['pagination']['page']-1))
             ->take($validatedData['pagination']['perpage']);
+
+        if (!empty($validatedData['status']) && $validatedData['status'] != 'all') {
+            if ($validatedData['status'] == 'inactive') {
+                $builder->where('topics.status', 'inactive')
+                ->where('users.id', $user->id);
+            }
+        } else {
+            $builder->where('topics.status', 'active')
+            ->orWhere('users.id', $user->id);
+        }
 
         if (!empty($validatedData['query'])) {
             $query = $validatedData['query'];
