@@ -4,15 +4,6 @@
 <div class="row">
     <div class="col-xl-12">
         <div class="m-portlet m-portlet--mobile ">
-            <div class="m-portlet__head">
-                <div class="m-portlet__head-caption">
-                    <div class="m-portlet__head-title">
-                        <h3 class="m-portlet__head-text">
-                            Сюжеты
-                        </h3>
-                    </div>
-                </div>
-            </div>
             <div class="col-xl-6">
                 <label for="searchCreated_at">Искать по дате публикации:</label>
                 <input type="date" class="form-control m-input" id="searchCreated_at">
@@ -20,6 +11,7 @@
             <div class="col-xl-6">
                 <label for="searchOrganization">Искать по организациям:</label>
                 <input type="text" class="form-control m-input" id="searchOrganization">
+                <i id="searchOrganizationClear" class="flaticon-cancel in-input-clear"></i>
             </div>
             <div class="m-portlet__body">
                 <!--begin: Datatable -->
@@ -69,6 +61,10 @@ $(document).ready(function() {
         $("#m_modal_show_topic video").trigger('pause');
     });
 
+    $("#searchOrganizationClear").click(function () {
+        $("#searchOrganization").val('');
+        topicsDT.search('', 'organization');
+    });
 });
 
 var datatableTopics = function() {
@@ -100,7 +96,11 @@ var datatableTopics = function() {
             layout: {
                 theme: 'default',
                 class: '',
-                footer: false
+                scroll: false,
+                footer: false,
+                smoothScroll: {
+                  scrollbarShown: false
+                }
             },
 
             sortable: true,
@@ -124,15 +124,16 @@ var datatableTopics = function() {
             }, {
                 field: "description_short",
                 title: "Короткое описание",
-                width: 150
+                width: 400,
             }, {
                 field: "url",
                 title: "Ссылка на сюжет",
-                width: 150
+                width: 200
             }, {
                 field: "organization",
                 title: "Компания правообладатель",
-                width: 150
+                width: 150,
+                textAlign: 'center'
             }, {
                 field: 'video_url',
                 title: 'Ссылка на видео',
@@ -148,6 +149,7 @@ var datatableTopics = function() {
             }, {
                 field: "Actions",
                 title: "Действия",
+                width: 70,
                 sortable: false,
                 overflow: "visible",
                 template: function (row) {
