@@ -34,10 +34,14 @@ class TopicController extends Controller
             'query' => 'nullable|array|max:255'
         ]);
 
+        $user = Auth::user();
+
         $builder = Topic::leftJoin('videos', 'videos.id', '=', 'topics.video_id')
             ->leftJoin('users', 'users.id', '=', 'topics.user_id')
             ->leftJoin('organizations', 'organizations.id', '=', 'users.organization_id')
-            ->orderBy($validatedData['sort']['field'], $validatedData['sort']['sort']);
+            ->orderBy($validatedData['sort']['field'], $validatedData['sort']['sort'])
+            ->where('topics.status', 'active')
+            ->orWhere('users.id', $user->id);
 
         if (!empty($validatedData['query'])) {
             $query = $validatedData['query'];
