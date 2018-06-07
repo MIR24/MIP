@@ -22,7 +22,9 @@ class Topic extends Model
         'description_long',
         'url',
         'user_id',
-        'video_id'
+        'video_id',
+        'status',
+        'published_at',
     ];
 
     /**

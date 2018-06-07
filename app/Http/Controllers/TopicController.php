@@ -160,6 +160,14 @@ class TopicController extends Controller
 
         $validatedData = $validator->getData();
 
+        if (array_key_exists('status', $validatedData)) {
+            $validatedData['status'] = 'active';
+            $validatedData['published_at'] = date("Y-m-d H:i:s");
+        } else {
+            $validatedData['status'] = 'inactive';
+            $validatedData['published_at'] = null;
+        }
+
         $user = Auth::user();
         $validatedData['user_id'] = $user->id;
 
@@ -216,7 +224,8 @@ class TopicController extends Controller
             'name' => $topic->name,
             'url' => $topic->url,
             'description_short' => $topic->description_short,
-            'description_long' => $topic->description_long
+            'description_long' => $topic->description_long,
+            'status' => $topic->status,
         ];
 
         $video = $topic->Video;
@@ -262,6 +271,14 @@ class TopicController extends Controller
 
         $validatedData = $validator->getData();
 
+        if(array_key_exists('status', $validatedData)) {
+            $validatedData['status'] = 'active';
+            $validatedData['published_at'] = date("Y-m-d H:i:s");
+        } else {
+            $validatedData['status'] = 'inactive';
+            $validatedData['published_at'] = null;
+        }
+
         $user = Auth::user();
         $validatedData['user_id'] = $user->id;
 
@@ -277,13 +294,7 @@ class TopicController extends Controller
                 );
         }
 
-        $topic->update([
-            'name' => $validatedData['name'],
-            'description_short' => $validatedData['description_short'],
-            'description_long' => $validatedData['description_long'],
-            'url' => $validatedData['url'],
-            'video_id' => $validatedData['video_id']
-        ]);
+        $topic->update($validatedData);
 
         return redirect()
             ->route('topics.index')

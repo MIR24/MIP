@@ -176,6 +176,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <script src="{{ asset('/assets/vendors/custom/fullcalendar/fullcalendar.bundle.js') }}" type="text/javascript"></script>
     <!--end::Page Vendors -->
     <!--begin::Page Snippets -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.4/js/bootstrap-switch.min.js"></script>
     <script src="{{ asset('assets/app/js/dashboard.js') }}" type="text/javascript"></script>
     <script src="{{ asset('/js/core.js') }}"></script>
     <script src="{{ asset('/js/datepicker.min.js') }}"></script>
