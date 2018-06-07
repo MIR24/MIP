@@ -3,7 +3,9 @@
         padding-top: 95px;
     }
 }
-
+.margin-bottom-custom {
+    margin-bottom: 1rem
+}
 .in-input-clear {
     position: absolute;
     right: 20px;
