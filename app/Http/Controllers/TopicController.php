@@ -56,9 +56,15 @@ class TopicController extends Controller
             $query = $validatedData['query'];
 
             if (!empty($query['created_at'])) {
-                $start = Date::parse($query['created_at']);
-                $end = $start->copy()->addDay();
-                $builder->whereBetween('topics.created_at', [$start, $end]);
+                $dates = explode(config('constants.datepicker_delimiter'), $query['created_at']);
+                if (count($dates) > 1) {
+                    $start = Date::parse($dates[0])->hour(0)->minute(0)->second(0);
+                    $end = Date::parse($dates[1])->hour(23)->minute(59)->second(59);
+                    $builder->whereBetween('topics.created_at', [$start, $end]);
+                } else {
+                    $start = Date::parse($dates[0])->hour(0)->minute(0)->second(0);
+                    $builder->whereDate('topics.created_at', '>', $start);
+                }
             }
 
             if (!empty($query['organization'])) {
