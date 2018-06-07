@@ -5,8 +5,9 @@
     <div class="col-xl-12">
         <div class="m-portlet m-portlet--mobile ">
             <div class="col-xl-6">
-                <label for="searchCreated_at">Искать по дате публикации:</label>
-                <input type="date" class="form-control m-input" id="searchCreated_at">
+                <label for="searchCreated_atAir">Фильтр по диапозону дат:</label>
+                <input type="text" class="form-control m-input" id="searchCreated_atAir"/>
+                <i id="searchCreated_atAirClear" class="flaticon-cancel in-input-clear"></i>
             </div>
             <div class="col-xl-6">
                 <label for="searchOrganization">Искать по организациям:</label>
@@ -33,10 +34,10 @@ $(document).ready(function() {
     if(window.location.href.indexOf('#m_modal_create_topic') != -1) {
         $('#m_modal_create_topic').modal('show');
     }
-
     if(window.location.href.indexOf('#m_modal_edit_topic') != -1) {
         $('#m_modal_edit_topic').modal('show');
     }
+
     @if(\Session::has('msg'))
         showToasterMessage('{{ Session::get("msg.type") }}', '{{ Session::get("msg.text") }}')
     @endif
@@ -64,6 +65,22 @@ $(document).ready(function() {
     $("#searchOrganizationClear").click(function () {
         $("#searchOrganization").val('');
         topicsDT.search('', 'organization');
+    });
+
+    $("#searchCreated_atAirClear").click(function () {
+        $('#searchCreated_atAir').datepicker().data('datepicker').clear();
+        topicsDT.search('', 'created_at');
+    });
+
+    var datepicker = $('#searchCreated_atAir').datepicker({
+        range: true,
+        multipleDatesSeparator: "{{ config('constants.datepicker_delimiter') }}",
+        toggleSelected: false,
+        onSelect : function (formattedDate, date, inst) {
+            if (date.length > 1) {
+                topicsDT.search(formattedDate, 'created_at');
+            }
+        }
     });
 });
 
