@@ -36,12 +36,15 @@ class TopicController extends Controller
         ]);
 
         $user = Auth::user();
+        if (!$user || !$user->organization) {
+            return response()->json(['error' => 'user has no organization'], 404);
+        }
 
         $builder = Topic::leftJoin('videos', 'videos.id', '=', 'topics.video_id')
             ->leftJoin('users', 'users.id', '=', 'topics.user_id')
             ->leftJoin('organizations', 'organizations.id', '=', 'users.organization_id')
             ->orderBy($validatedData['sort']['field'], $validatedData['sort']['sort'])
-            ->where('organizations.id', $user->organization ? $user->organization->id : null);
+            ->where('organizations.id', $user->organization->id);
 
         if (!empty($validatedData['status']) && $validatedData['status'] != 'all') {
             if ($validatedData['status'] == 'inactive') {
