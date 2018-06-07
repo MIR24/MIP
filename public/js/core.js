@@ -48,8 +48,14 @@ function sendVideo (method, url, file, fileInput, filePreview) {
 function handleFileSelect (evt) {
     var file = evt.target.files;
     var method = "POST";
-    var fileInput = $(evt.currentTarget).closest('#file-input');
-    var filePreview = $(evt.currentTarget).parent().siblings('#file-preview');
+    var $this = $(this);
+    var fileLocation = evt.target.value;
+    var fileInput = $this.closest('#file-input');
+    var filePreview = $this.parent().siblings('#file-preview');
+    var fileInputLabel = $this.siblings('label');
+    if (fileInputLabel.text() != fileLocation) {
+        fileInputLabel.text(fileLocation)
+    }
     $.ajax({
         type: "GET",
         url: "/platformcraft/url",
@@ -118,7 +124,13 @@ function makeVideoTag (src, type) {
 }
 function openShowTopicModal (obj) {
     var row = $(obj.closest("tr"));
-    $("#m_modal_show_topic_cdn_video").append(makeVideoTag(row.find("[data-field='video_url']").text(), row.find("[data-field='video_content_type']").text()));
+    var videoUrl = row.find("[data-field='video_url']").text();
+    var videoType = row.find("[data-field='video_content_type']").text();
+    if (videoUrl && videoType) {
+        $("#m_modal_show_topic_cdn_video").append(makeVideoTag(videoUrl, videoType));
+    } else {
+        $("#m_modal_show_topic_cdn_video").append("Видеофайл отсутствует");
+    }
     $("#m_modal_show_topic_description_short").text(row.find("[data-field='description_short']").text());
     $("#m_modal_show_topic_description_long").text(row.find("[data-field='description_long']").text());
     $("#m_modal_show_topic_name").text(row.find("[data-field='name']").text());

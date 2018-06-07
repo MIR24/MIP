@@ -15,9 +15,23 @@
                 <i id="searchOrganizationClear" class="flaticon-cancel in-input-clear"></i>
             </div>
             <div class="m-portlet__body">
-                <!--begin: Datatable -->
-                <div class="m_datatable" id="m_datatable_topics"></div>
-                <!--end: Datatable -->
+                <!--begin: Nav tabs -->
+                <ul class="nav nav-tabs  m-tabs-line m-tabs-line--2x" role="tablist">
+                    <li class="nav-item m-tabs__item">
+                       <a class="nav-link m-tabs__link" href="#m_datatable_status" data-toggle="tab" data-status="all">Все сюжеты</a>
+                    </li>
+                    <li class="nav-item m-tabs__item">
+                        <a class="nav-link m-tabs__link" href="#m_datatable_status" data-toggle="tab" data-status="inactive">Неактивные сюжеты</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                   <div class="tab-pane active" id="m_datatable_status">
+                       <!--begin: Datatable -->
+                       <div class="m_datatable" id="m_datatable_topics"></div>
+                       <!--end: Datatable -->
+                   </div>
+                </div>
+                <!--end: Nav tabs -->
             </div>
         </div>
     </div>
@@ -73,6 +87,11 @@ $(document).ready(function() {
 
     $("#m_modal_show_topic").on('hidden.bs.modal', function (e) {
         $("#m_modal_show_topic video").trigger('pause');
+    });
+
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+         topicsDT.setDataSourceParam('status',  $(this).attr("data-status"));
+         topicsDT.reload();
     });
 
     $("#searchOrganizationClear").click(function () {
@@ -214,6 +233,11 @@ var datatableTopics = function() {
         return datatable;
     }
     var topicsDT = datatableTopics();
+    var dataStatus = topicsDT.API.params.status;
+    if (!dataStatus) {
+        dataStatus = 'all';
+    }
+    $('a[data-status="'+ dataStatus +'"]').addClass('active');
 </script>
 @endpush
 
