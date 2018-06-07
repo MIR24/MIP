@@ -6,8 +6,8 @@
         </div>
         <div class="icons"><span class="download">Скачать ⬇</span><span class="age-restriction">4+</span></div>
         <a href="#" class="description">
-            <div>Разнообразный и богатый опыт, постоянный количественный рост</div>
-            <div>Задача организации, в особенности же дальнейшее развитие различных форм деятельности требуют определения и уточнения</div>
+            <div>{{$topic->description_short}}</div>
+            <div>{{$topic->description_long}}</div>
         </a>
         <div class="pub-date">10 мая 2018</div>
         <div class="pub-geo">Ереван, Армения <span class="country-mini" style="background-image: url(/images/armenia.png)"></span></div>

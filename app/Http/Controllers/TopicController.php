@@ -20,6 +20,46 @@ class TopicController extends Controller
         return view('datatables.topic');
     }
 
+    private static function getTopics($num = 0, $organization = null) {
+        if ($first_date = Topic::orderBy('created_at', 'asc')->pluck('created_at')->first()) {
+            $first_date = Date::createFromFormat('d F Y года H:i', $first_date);
+        }
+        $day = $num;
+        do {
+            $date = date('Y-m-d', strtotime("-$day days"));
+            if (Topic::whereDate('created_at', $date)->count() > 0) {
+                break;
+            } else if ($date <= $first_date) return [
+                'models' => null,
+                'day' => -1,
+            ];
+        } while (++$day);
+        $builder = Topic::leftjoin('videos', 'videos.id', '=', 'topics.video_id')
+            ->join('users', 'users.id', '=', 'topics.user_id')
+            ->join('organizations', 'organizations.id', '=', 'users.organization_id')
+            ->orderBy('topics.created_at', 'desc');
+        if ($organization) {
+            $builder->where('organizations.id', $organization);
+        }
+        $builder->whereDate('topics.created_at', date('Y-m-d', strtotime("-$day days")));
+
+        $models = $builder->get([
+            'topics.id',
+            'topics.created_at',
+            'topics.name',
+            'topics.description_short',
+            'topics.description_long',
+            'topics.url',
+            'organizations.name as organization',
+            'videos.cdn_cdn_url as video_url',
+            'videos.cdn_content_type as video_content_type'
+        ]);
+        return [
+            'models'=>$models,
+            'day'=>$day
+        ];
+    }
+
     /**
      * Display a listing of the resource as JSON.
      *
@@ -93,28 +133,9 @@ class TopicController extends Controller
      */
     public function indexFront()
     {
-        $builder = Topic::join('videos', 'videos.id', '=', 'topics.video_id')
-            ->join('users', 'users.id', '=', 'topics.user_id')
-            ->join('organizations', 'organizations.id', '=', 'users.organization_id')
-            ->orderBy('topics.created_at', 'desc');
+        $result = self::getTopics(0);
 
-        $topicLatest = $builder->first(['topics.created_at']);
-        $dateLatest = Date::createFromFormat('d F Y года H:i', $topicLatest->created_at);
-        $builder->whereDate('topics.created_at', $dateLatest->toDateString());
-
-        $models = $builder->get([
-            'topics.id',
-            'topics.created_at',
-            'topics.name',
-            'topics.description_short',
-            'topics.description_long',
-            'topics.url',
-            'organizations.name as organization',
-            'videos.cdn_cdn_url as video_url',
-            'videos.cdn_content_type as video_content_type'
-        ]);
-
-        return view('indexes.topics', ['models' => $models]);
+        return view('indexes.index', ['models' => $result['models']]);
     }
 
     /**
@@ -221,37 +242,9 @@ class TopicController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function row(Request $request)
+    public function row(Request $request, $num)
     {
-        $builder = Topic::join('videos', 'videos.id', '=', 'topics.video_id')
-            ->join('users', 'users.id', '=', 'topics.user_id')
-            ->join('organizations', 'organizations.id', '=', 'users.organization_id')
-            ->orderBy('topics.created_at', 'desc');
-
-        $dateStart = $request->query('date_start', Date::today());
-        if ($dateStart) {
-            $dateStart = Date::parse($dateStart)->hour(0)->minute(0)->second(0);
-            $builder->where('topics.created_at', '>=', $dateStart);
-        }
-
-        $dateEnd = $request->query('date_end', Date::today());
-        if ($dateEnd) {
-            $dateEnd = Date::parse($dateEnd)->hour(23)->minute(59)->second(59);
-            $builder->where('topics.created_at', '<=', $dateEnd);
-        }
-
-        $models = $builder->get([
-            'topics.id',
-            'topics.created_at',
-            'topics.name',
-            'topics.description_short',
-            'topics.description_long',
-            'topics.url',
-            'organizations.name as organization',
-            'videos.cdn_cdn_url as video_url',
-            'videos.cdn_content_type as video_content_type'
-        ]);
-
-        return view('indexes.topicsMore', ['models' => $models]);
+        $topics = self::getTopics($num);
+        return view('columns.topics', ['models' => $topics]);
     }
 }

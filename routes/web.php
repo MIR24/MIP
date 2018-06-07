@@ -14,7 +14,7 @@
 Route::get('/', 'TopicController@indexFront')
     ->name('topics.index.front');
 
-Route::get('/api/topics/row', 'TopicController@row')
+Route::get('/api/topics/row/{num}', 'TopicController@row')
     ->name('api.topics.index.row');
 
 Route::get('/api/organizations/{id}/topics/row', 'OrganizationController@topicsRow')
@@ -37,9 +37,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/platformcraft/url', 'VideoController@platformcraftUrl')
         ->name('platformcraftUrl');
-});
-Route::get('/main', function () {
-    return view('mainPage');
 });
 Route::get('/detail', function () {
     return view('detailPage');
