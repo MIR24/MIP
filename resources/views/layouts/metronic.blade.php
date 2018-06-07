@@ -42,6 +42,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <link href="{{ asset('assets/demo/demo2/base/style.bundle.css') }}" rel="stylesheet" type="text/css" />
         <!--end::Base Styles -->
         <link href="{{ asset('/css/core.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('/css/datepicker.min.css') }}" rel="stylesheet" type="text/css">
         <link rel="shortcut icon" href="{{ asset('assets/demo/demo2/media/img/logo/favicon.ico') }}" />
     </head>
     <!-- end::Head -->
@@ -178,6 +179,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.4/js/bootstrap-switch.min.js"></script>
     <script src="{{ asset('assets/app/js/dashboard.js') }}" type="text/javascript"></script>
     <script src="{{ asset('/js/core.js') }}"></script>
+    <script src="{{ asset('/js/datepicker.min.js') }}"></script>
     <!--end::Page Snippets -->
     @stack('scripts')
 </body>
