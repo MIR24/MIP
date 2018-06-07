@@ -44,7 +44,7 @@
         @endif
     </div>
     <div class="form-group m-form__group">
-        <label for="exampleInputEmail1">Преьвю</label>
+        <label for="exampleInputEmail1">Превью</label>
         <div></div>
         <div class="custom-file" style="margin-bottom: 1rem">
             <input type="file" class="custom-file-input" id="file-input" accept="video/mp4,video/x-m4v,video/*">
