@@ -2,10 +2,13 @@
 
 @section('content')
 
-    @include('layouts_partials.carousel')
+    @include('layouts_partials.carousel', ['items'=> $models])
 
-    @include('columns.topics', ['topics' => $models])
+    <div class="grid-container">
+        <div class="new-video">+ Видео</div>
+        @include('columns.topics', ['topics' => $models])
+    </div>
 
-    @include('columns.organizations')
+    @include('columns.organizations', ['orgs' => $organizations])
 
 @endsection

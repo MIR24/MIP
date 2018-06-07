@@ -2,7 +2,9 @@
     <div class="cellwrap">
         <div class="preview">
             <img class="channel-logo" src="/images/vgtrk.png"/>
-            <iframe width="100%" height="370" src="//video.platformcraft.ru/embed/5b0ea5bfef3db55a0cf40915" frameborder="0" scrolling="no" allowfullscreen=""></iframe>
+            @if($topic->video_url)
+                @include('columns_partials.CDNVideoPlayer', ['video_url' => $topic->video_url])
+            @endif
         </div>
         <div class="icons"><span class="download">Скачать ⬇</span><span class="age-restriction">4+</span></div>
         <a href="#" class="description">

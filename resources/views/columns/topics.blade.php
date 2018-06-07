@@ -1,4 +1,4 @@
-<div class="day-divider current"><div>12 мая</div><div>сб</div><div class="new-video">+ Видео</div></div>
+<div class="day-divider {{$date['is_current'] ? 'current' : ''}}"><div>{{$date['day_month']}}</div><div>{{$date['day_of_the_week']}}</div></div>
 <div class="row">
     @for($i=0; $i<count($topics); $i++)
         @if($i%3==0)
@@ -8,4 +8,4 @@
         @include('columns_partials.topic', ['topic' => $topics[$i]])
     @endfor
 </div>
-<div class="show-more">Показать еще</div>
+<div class="show-more" data-next="{{$date['days_ago']+1}}">Показать еще</div>

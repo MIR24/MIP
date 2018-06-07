@@ -1,8 +1,8 @@
 <a class="poster" href="#" style="background-image: url(/images/grapes.jpg)">
     <div class="poster-content">
         <div class="poster-titles">
-            <div>Современные исследования</div>
-            <div>Реплицированные с зарубежных источников</div>
+            <div>{{$topic->description_short}}</div>
+            <div>{{$topic->description_long}}</div>
         </div>
         <div class="poster-arrow">➔</div>
     </div>

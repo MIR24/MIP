@@ -354,7 +354,6 @@ $preview-height: 215px;
 
 }
 .day-divider {
-  margin: 5px 0;
   text-align: left;
   clear: both;
 
@@ -364,25 +363,17 @@ $preview-height: 215px;
     color: #fff;
     font-size: 21px;
     font-weight: bold;
+    height: 35px;
+    line-height: 35px;
+    width: 45px;
+    text-align: center;
     background-color: #CCCDCC;
   }
 
-  div.new-video {
-    background: none;
-    color: #808080;
-    cursor: pointer;
-    text-transform: uppercase;
-    font-size: 18px;
-    font-weight: initial;
-    margin-left: 10px;
-  }
-  div.new-video:hover {
-    text-decoration: underline;
-  }
-
   div:first-child {
-    padding-left: 50px;
     background-color: #3096D4;
+    width: 130px;
+    text-align: right;
   }
 }
 .day-divider.current {
@@ -420,6 +411,26 @@ $preview-height: 215px;
   z-index: 100;
 }
 
+.grid-container {
+
+  position: relative;
+  max-width: $container-width;
+  overflow: hidden;
+
+  .new-video {
+    position: absolute;
+    padding: 0 10px;
+    left: 190px;
+    height: 35px;
+    cursor: pointer;
+    font-size: 17px;
+    line-height: 35px;
+  }
+  .new-video:hover {
+    text-decoration: underline;
+  }
+}
+
 .col-md-4 {
   position: relative;
   padding: 15px;
@@ -428,10 +439,11 @@ $preview-height: 215px;
   .cellwrap {
     background-color: #fff;
     border: 1px solid #e9ebec;
+    height: 100%;
   }
 
   .preview {
-
+    background-color: #cecece;
     position: relative;
     padding-bottom: 56%;
     height: 0;

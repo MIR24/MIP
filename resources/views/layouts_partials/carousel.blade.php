@@ -1,13 +1,13 @@
 <div id="carouselExampleIndicators" class="carousel fade" data-ride="carousel">
     <ol class="carousel-indicators">
-        @for($i=0;$i<3;$i++)
+        @for($i=0; $i<count($items); $i++)
             <li data-target="#carouselExampleIndicators" data-slide-to="{{$i}}" class="{{$i!=0?:'active'}}"></li>
         @endfor
     </ol>
     <div class="carousel-inner">
-        @for($i=0;$i<3;$i++)
+        @for($i=0; $i<count($items); $i++)
             <div class="carousel-item {{$i!=0?:'active'}}">
-                @include('layouts_partials.carousel_image')
+                @include('layouts_partials.carousel_image', ['topic' => $items[$i]])
             </div>
         @endfor
     </div>

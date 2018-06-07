@@ -1,11 +1,11 @@
 <div class="ch container">
     <div class="row">
-    @for($i=0; $i<14; $i++)
+    @for($i=0; $i<count($orgs); $i++)
         @if($i%3==0)
             </div>
             <div class="row">
         @endif
-        @include('columns_partials.organization')
+        @include('columns_partials.organization', ['org' => $orgs[$i]])
     @endfor
     <a href="#" class="ch ch-mip col-md-4">
         <div class="cellwrap">

@@ -4,7 +4,7 @@
             <div class="country" style="background-image: url(/images/qazahstan.png)"></div>
         </div>
         <div class="advert">
-            <div>Значимость этих проблем настолько очевидна, насколько возможно</div>
+            <div>{{$org->name}}</div>
             <div class="ch-arrow"></div>
         </div>
     </div>
