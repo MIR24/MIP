@@ -48,6 +48,7 @@ $(document).ready(function() {
     if(window.location.href.indexOf('#m_modal_create_topic') != -1) {
         $('#m_modal_create_topic').modal('show');
     }
+
     if(window.location.href.indexOf('#m_modal_edit_topic') != -1) {
         $('#m_modal_edit_topic').modal('show');
     }
@@ -60,10 +61,6 @@ $(document).ready(function() {
         var that = this;
         topicsDT.search($(that).val(), 'created_at');
     });
-
-    if(window.location.href.indexOf('#m_modal_edit_topic') != -1) {
-        $('#m_modal_edit_topic').modal('show');
-    }
 
     @if(\Session::has('msg'))
         showToasterMessage('{{ Session::get("msg.type") }}', '{{ Session::get("msg.text") }}')
