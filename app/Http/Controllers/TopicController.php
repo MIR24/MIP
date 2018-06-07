@@ -34,13 +34,14 @@ class TopicController extends Controller
             'query' => 'nullable|array|max:255',
             'status' => 'max:255'
         ]);
-  
+
         $user = Auth::user();
-  
+
         $builder = Topic::leftJoin('videos', 'videos.id', '=', 'topics.video_id')
             ->leftJoin('users', 'users.id', '=', 'topics.user_id')
             ->leftJoin('organizations', 'organizations.id', '=', 'users.organization_id')
-            ->orderBy($validatedData['sort']['field'], $validatedData['sort']['sort']);
+            ->orderBy($validatedData['sort']['field'], $validatedData['sort']['sort'])
+            ->where('organizations.id', $user->organization ? $user->organization->id : null);
 
         if (!empty($validatedData['status']) && $validatedData['status'] != 'all') {
             if ($validatedData['status'] == 'inactive') {
@@ -219,7 +220,9 @@ class TopicController extends Controller
         if ($id == null || !is_numeric($id)) {
             return redirect()
                 ->route('topics.index')
-                ->with('msg', [
+                ->with(
+                    'msg',
+                    [
                         'type' => 'error',
                         'text' => 'Сюжет не существует'
                     ]
@@ -262,7 +265,9 @@ class TopicController extends Controller
         if ($id == null || !is_numeric($id)) {
             return redirect()
                 ->route('topics.index')
-                ->with('msg', [
+                ->with(
+                    'msg',
+                    [
                         'type' => 'error',
                         'text' => 'Сюжет не существует'
                     ]
@@ -284,7 +289,7 @@ class TopicController extends Controller
 
         $validatedData = $validator->getData();
 
-        if(array_key_exists('status', $validatedData)) {
+        if (array_key_exists('status', $validatedData)) {
             $validatedData['status'] = 'active';
             $validatedData['published_at'] = date("Y-m-d H:i:s");
         } else {
@@ -300,7 +305,9 @@ class TopicController extends Controller
         if (!$topic) {
             return redirect()
                 ->route('topics.index')
-                ->with('msg', [
+                ->with(
+                    'msg',
+                    [
                         'type' => 'error',
                         'text' => 'Сюжет не существует'
                     ]
@@ -311,7 +318,9 @@ class TopicController extends Controller
 
         return redirect()
             ->route('topics.index')
-            ->with('msg', [
+            ->with(
+                'msg',
+                [
                     'type' => 'success',
                     'text' => 'Сюжет изменен'
                 ]
