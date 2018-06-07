@@ -62,15 +62,6 @@ $(document).ready(function() {
         topicsDT.search($(that).val(), 'created_at');
     });
 
-    @if(\Session::has('msg'))
-        showToasterMessage('{{ Session::get("msg.type") }}', '{{ Session::get("msg.text") }}')
-    @endif
-
-    $('#searchCreated_at').change(function() {
-        var that = this;
-        topicsDT.search($(that).val(), 'created_at');
-    });
-
     var timeoutOrganization = null;
     $('#searchOrganization').on('keyup', function () {
         var that = this;
