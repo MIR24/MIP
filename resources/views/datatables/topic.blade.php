@@ -166,7 +166,7 @@ var datatableTopics = function() {
             }, {
                 field: "Actions",
                 title: "Действия",
-                width: 70,
+                width: 90,
                 sortable: false,
                 overflow: "visible",
                 template: function (row) {
