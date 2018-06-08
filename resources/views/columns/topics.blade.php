@@ -1,11 +1,14 @@
-<div class="day-divider {{$date['is_current'] ? 'current' : ''}}"><div>{{$date['day_month']}}</div><div>{{$date['day_of_the_week']}}</div></div>
+@foreach($days as $day => $topics)
+<div class="day-divider {{$current == $day ? 'current' : ''}}"><div>{{explode(' ', $day)[0].' '.explode(' ', $day)[1]}}</div><div>{{explode(' ', $day)[2]}}</div></div>
 <div class="row">
     @for($i=0; $i<count($topics); $i++)
-        @if($i%3==0)
-            </div>
-            <div class="row">
-        @endif
         @include('columns_partials.topic', ['topic' => $topics[$i]])
     @endfor
+    @if(($lack = ceil(count($topics)/3)*3 - count($topics)) !== 0)
+        @for($i=0; $i<$lack; $i++)
+            @include('columns_partials.dummy')
+        @endfor
+    @endif
 </div>
-<div class="show-more" data-next="{{$date['days_ago']+1}}">Показать еще</div>
+@endforeach
+<div class="show-more" data-next="{{$next_day}}">Показать еще</div>

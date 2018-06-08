@@ -9,7 +9,7 @@ use App\Topic;
 use App\Organization;
 use Validator;
 
-class TopicController extends Controller
+class TopicController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -19,62 +19,6 @@ class TopicController extends Controller
     public function index()
     {
         return view('datatables.topic');
-    }
-
-    private static function getTopics($days_old = 0, $organization = null) {
-
-        Date::setLocale('ru');
-
-        $cur_date = Date::now();
-
-        if ($first_date = Topic::orderBy('created_at', 'asc')->pluck('created_at')->first()) {
-            $first_date = Date::createFromFormat('d F Y года H:i', $first_date);
-        }
-
-        $day = $days_old;
-
-        do {
-            $date = date('Y-m-d', strtotime("-$day days"));
-            if (Topic::whereDate('created_at', $date)->count() > 0) {
-                break;
-            } else if ($date <= $first_date) return null;
-        } while (++$day);
-
-        $builder = Topic::leftjoin('videos', 'videos.id', '=', 'topics.video_id')
-            ->join('users', 'users.id', '=', 'topics.user_id')
-            ->join('organizations', 'organizations.id', '=', 'users.organization_id')
-            ->orderBy('topics.created_at', 'desc');
-        if ($organization) {
-            $builder->where('organizations.id', $organization);
-        }
-
-        $new_date = new Date(strtotime("-$day days"));
-
-        $builder->whereDate('topics.created_at', $new_date->format('Y-m-d'));
-
-        $models = $builder->get([
-            'topics.id',
-            'topics.created_at',
-            'topics.name',
-            'topics.description_short',
-            'topics.description_long',
-            'topics.url',
-            'organizations.name as organization',
-            'videos.cdn_cdn_url as video_url',
-            'videos.cdn_content_type as video_content_type'
-        ]);
-
-        $day_info = [
-            'day_month' => $new_date->format('d F'),
-            'day_of_the_week' => $new_date->format('D'),
-            'is_current' => $cur_date->format('Y-m-d') == $new_date->format('Y-m-d'),
-            'days_ago' => $day
-        ];
-
-        return [
-            'models'=> $models,
-            'date'=> $day_info,
-        ];
     }
 
     /**
@@ -150,15 +94,16 @@ class TopicController extends Controller
      */
     public function indexFront()
     {
-        $result = self::getTopics(0);
-
         $organizations = Organization::all();
-
-        return view('indexes.index', [
-            'models' => $result['models'],
-            'date' => $result['date'],
+        $set = self::getTopicsByDay(0);
+        $vars = [
+            'days' => $set['models'],
+            'next_day' => $set['day']+1,
+            'current'=> Date::now()->format('j F D Y'),
             'organizations' => $organizations,
-        ]);
+        ];
+
+        return view('indexes.index', $vars);
     }
 
     /**
@@ -266,16 +211,15 @@ class TopicController extends Controller
      * @param  int  $days_old
      * @return \Illuminate\Http\Response
      */
-    public function row(Request $request, $days_old)
+    public function row(Request $request, $days_ago)
     {
-        $result = self::getTopics($days_old);
-        if ($result['models']) {
-            return view('columns.topics', [
-                'topics' => $result['models'],
-                'date' => $result['date'],
-            ]);
-        } else {
-            abort(404,'Page not found');
-        }
+        $set = self::getTopicsByDay($days_ago);
+        $vars = [
+            'days' => $set['models'],
+            'next_day' => $set['day']+1,
+            'current'=> Date::now()->format('d F D Y'),
+        ];
+
+        return view('columns.topics', $vars);
     }
 }
