@@ -141,11 +141,21 @@
 <tbody>
 <tr><td>open</td><td>http://mip.mirtv.ru/topics<datalist><option>http://mip.mirtv.ru/topics</option></datalist></td><td></td>
 </tr>
-<tr><td>type</td><td>id=searchCreated_at<datalist><option>id=searchCreated_at</option><option>//input[@id='searchCreated_at']</option><option>//div/div/div/div[2]/input</option><option>css=#searchCreated_at</option></datalist></td><td>2018-06-01</td>
+<tr><td>type</td><td>id=searchCreated_atAir<datalist><option>id=searchCreated_atAir</option><option>//input[@id='searchCreated_atAir']</option><option>//div/div/div/div/div/input</option><option>css=#searchCreated_atAir</option></datalist></td><td>01.06.2018 - 01.06.2018</td>
 </tr>
 <tr><td>pause</td><td>1000<datalist><option>1000</option></datalist></td><td></td>
 </tr>
-<tr><td>assertXpathCount</td><td>//div[@id='m_datatable_topics']/table/tbody/tr<datalist><option>//div[@id='m_datatable_topics']/table/tbody/tr/td</option><option>//td</option><option>css=td.m-datatable__cell--center.m-datatable__cell</option><option>//div[@id='m_datatable_topics']/table/tbody/tr</option></datalist></td><td>4</td>
+<tr><td>click</td><td>id=searchCreated_atAir<datalist><option>id=searchCreated_atAir</option><option>//input[@id='searchCreated_atAir']</option><option>//div/div/div/div/div/input</option><option>css=#searchCreated_atAir</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>//div[@id='datepickers-container']/div/div/div/div[2]/div[5]<datalist><option>//div[@id='datepickers-container']/div/div/div/div[2]/div[5]</option><option>//div[2]/div[5]</option><option>css=div.datepicker--cell.datepicker--cell-day.-focus-</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>//div[@id='datepickers-container']/div/div/div/div[2]/div[5]<datalist><option>//div[@id='datepickers-container']/div/div/div/div[2]/div[5]</option><option>//div[2]/div[5]</option><option>css=div.datepicker--cell.datepicker--cell-day.-range-from-.-focus-.-selected-</option></datalist></td><td></td>
+</tr>
+<tr><td>select</td><td>//div[@id='m_datatable_topics']/div/div/div/select<datalist><option>//div[@id='m_datatable_topics']/div/div/div/select</option><option>//select</option><option>css=select.selectpicker.m-datatable__pager-size</option></datalist></td><td>label=100</td>
+</tr>
+<tr><td>pause</td><td>2000<datalist><option>2000</option></datalist></td><td></td>
+</tr>
+<tr><td>assertXpathCount</td><td>//div[@id='m_datatable_topics']/table/tbody/tr<datalist><option>//div[@id='m_datatable_topics']/table/tbody/tr</option></datalist></td><td>11</td>
 </tr>
 </tbody></table>
 <table cellpadding="1" cellspacing="1" border="1">
