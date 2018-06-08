@@ -11,7 +11,11 @@
             </div>
             <form method="POST" action="{{ route('topics.store') }}">
                 @csrf
-                @include('modals.partials.editableFields')
+                @if(isset($updateFailed))
+                    @include('modals.partials.editableFields', ['renderErrors' => false])
+                @else
+                    @include('modals.partials.editableFields', ['renderErrors' => true])
+                @endif
                 @include('modals.partials.footer', ['submitTranslate' => __('Create') ])
             </form>
         </div>
@@ -49,4 +53,7 @@
     </div>
 </div>
 <!-- end::Modal Show Topic -->
+@if(isset($updateFailed))
+    @include('modals.edit', ['id' => $id, 'renderErrors' => true])
+@endif
 @endpush

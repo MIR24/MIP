@@ -11,14 +11,16 @@
             <form method="POST" action="{{ route('topics.update', $id) }}">
                 @method('PUT')
                 @csrf
-                @include('modals.partials.editableFields')
+                @include('modals.partials.editableFields', ['renderErrors' => $renderErrors])
                 @include('modals.partials.footer', ['submitTranslate' => 'Сохранить'])
             </form>
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    $('.custom-file-input').on('change', handleFileSelect);
-    $('[name="status"]').bootstrapSwitch();
-</script>
+@if($renderErrors == false)
+    <script type="text/javascript">
+        $('.custom-file-input').on('change', handleFileSelect);
+        $('[name="status"]').bootstrapSwitch();
+    </script>
+@endif
 <!-- end::Modal Update Topic -->

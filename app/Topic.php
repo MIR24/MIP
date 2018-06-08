@@ -27,6 +27,24 @@ class Topic extends Model
         'published_at',
     ];
 
+    static $validateActive = [
+        'name' => 'required|string|max:255',
+        'description_short' => 'required|string',
+        'description_long' => 'required|string',
+        'url' => 'required|url|max:255',
+        'status' => 'required|string',
+        'video_id' => 'required|int'
+    ];
+
+    static $validateInactive = [
+        'name' => 'nullable|string|max:255',
+        'description_short' => 'nullable|string',
+        'description_long' => 'nullable|string',
+        'url' => 'nullable|url|max:255',
+        'status' => 'nullable|string',
+        'video_id' => 'nullable|int'
+    ];
+
     /**
      * Get the user record associated with the topic.
      */

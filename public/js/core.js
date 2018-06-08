@@ -9,7 +9,10 @@ function saveVideoInfo (obj, fileInput, filePreview ) {
         },
         success: function (data) {
             fileInput.prop('disabled', false);
-            fileInput.parent().siblings('#video_id').attr('value', data.id);
+            var videoId = fileInput.parent().siblings('#video_id');
+            videoId.attr('value', data.id);
+            videoId.parent().removeClass('has-danger');
+            $('#video_id_warning').remove();
             toogleDisableBtn(false);
             showToasterMessage('info', 'Видео сохранено');
         },
@@ -131,11 +134,18 @@ function openShowTopicModal (obj) {
     } else {
         $("#m_modal_show_topic_cdn_video").append("Видеофайл отсутствует");
     }
-    $("#m_modal_show_topic_description_short").text(row.find("[data-field='description_short']").text());
-    $("#m_modal_show_topic_description_long").text(row.find("[data-field='description_long']").text());
-    $("#m_modal_show_topic_name").text(row.find("[data-field='name']").text());
+    checkTextAndAddTo(row.find("[data-field='description_short']").text(), '#m_modal_show_topic_description_short', 'Краткое описание отсутствует');
+    checkTextAndAddTo(row.find("[data-field='description_long']").text(), '#m_modal_show_topic_description_long', 'Полное описание отсутствует');
+    checkTextAndAddTo(row.find("[data-field='name']").text(), '#m_modal_show_topic_name', 'Название отсутствует');
     $('#m_modal_show_topic_download_bottom').attr('href', row.find("[data-field='url']").text());
     $('#m_modal_show_topic').modal('toggle');
+}
+function checkTextAndAddTo (text, addTo, error) {
+    if (text) {
+        $(addTo).text(text);
+    } else {
+        $(addTo).text(error);
+    }
 }
 function showToasterMessage (type, message) {
     toastr.options = {
@@ -159,9 +169,9 @@ function showToasterMessage (type, message) {
   toastr[type](message)
 }
 $(document).ready(function () {
-    document.getElementById('file-input').addEventListener('change', handleFileSelect, false);
+    $('.custom-file-input').on('change', handleFileSelect);
     $('#m_modal_show_topic').on('hidden.bs.modal', function () {
         emptyShowTopicModal();
     });
-    $('#switch-modal-status').bootstrapSwitch();
+    $('[name="status"]').bootstrapSwitch();
 });
