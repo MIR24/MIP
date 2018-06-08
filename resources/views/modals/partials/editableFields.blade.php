@@ -5,9 +5,9 @@
             name="status"
             type="checkbox"
             data-handle-width="100"
-            data-on-text="Активен"
+            data-on-text="Опубликован"
             data-on-color="success"
-            data-off-text="Неактивен"
+            data-off-text="Неопубликован"
             data-off-color="danger"
             @if(isset($status) && $status == 'active')
                 checked="true"
