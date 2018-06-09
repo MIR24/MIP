@@ -68,7 +68,7 @@ class TopicController extends Controller
             }
 
             if (!empty($query['organization'])) {
-                $builder->where('organizations.name', 'rlike', $query['organization']);
+                $builder->where('organizations.name', 'like', '%'.$query['organization'].'%');
             }
         }
 
