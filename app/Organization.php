@@ -17,4 +17,12 @@ class Organization extends Model
     {
         return $this->hasMany('App\User');
     }
+
+    /**
+     * Get the country record associated with the organization.
+     */
+    public function country()
+    {
+        return $this->belongsTo('App\Country');
+    }
 }
