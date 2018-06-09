@@ -1,13 +1,37 @@
 @extends('layouts.metronic')
 
 @section('content')
-<div class="m-portlet m-portlet--mobile ">
-    <div class="m-portlet__head">
-        <div class="m-portlet__head-caption">
-            <div class="m-portlet__head-title">
-                <h3 class="m-portlet__head-text">
-                    Сюжеты
-                </h3>
+<div class="row">
+    <div class="col-xl-12">
+        <div class="m-portlet m-portlet--mobile ">
+            <div class="col-xl-6">
+                <label for="searchCreated_atAir">Фильтр по диапозону дат:</label>
+                <input type="text" class="form-control m-input" id="searchCreated_atAir"/>
+                <i id="searchCreated_atAirClear" class="flaticon-cancel in-input-clear"></i>
+            </div>
+            <div class="col-xl-6">
+                <label for="searchOrganization">Искать по организациям:</label>
+                <input type="text" class="form-control m-input" id="searchOrganization">
+                <i id="searchOrganizationClear" class="flaticon-cancel in-input-clear"></i>
+            </div>
+            <div class="m-portlet__body">
+                <!--begin: Nav tabs -->
+                <ul class="nav nav-tabs  m-tabs-line m-tabs-line--2x" role="tablist">
+                    <li class="nav-item m-tabs__item">
+                       <a class="nav-link m-tabs__link" href="#m_datatable_status" data-toggle="tab" data-status="all">Все сюжеты</a>
+                    </li>
+                    <li class="nav-item m-tabs__item">
+                        <a class="nav-link m-tabs__link" href="#m_datatable_status" data-toggle="tab" data-status="inactive">Неактивные сюжеты</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                   <div class="tab-pane active" id="m_datatable_status">
+                       <!--begin: Datatable -->
+                       <div class="m_datatable" id="m_datatable_topics"></div>
+                       <!--end: Datatable -->
+                   </div>
+                </div>
+                <!--end: Nav tabs -->
             </div>
         </div>
     </div>
@@ -38,6 +62,23 @@ $(document).ready(function() {
         $('#m_modal_create_topic').modal('show');
     }
 
+    if(window.location.href.indexOf('#m_modal_edit_topic') != -1) {
+        $('#m_modal_edit_topic').modal('show');
+    }
+
+    @if(\Session::has('msg'))
+        showToasterMessage('{{ Session::get("msg.type") }}', '{{ Session::get("msg.text") }}')
+    @endif
+
+    $('#searchCreated_at').change(function() {
+        var that = this;
+        topicsDT.search($(that).val(), 'created_at');
+    });
+
+    @if(\Session::has('msg'))
+        showToasterMessage('{{ Session::get("msg.type") }}', '{{ Session::get("msg.text") }}')
+    @endif
+
     $('#searchCreated_at').change(function() {
         var that = this;
         topicsDT.search($(that).val(), 'created_at');
@@ -56,6 +97,32 @@ $(document).ready(function() {
 
     $("#m_modal_show_topic").on('hidden.bs.modal', function (e) {
         $("#m_modal_show_topic video").trigger('pause');
+    });
+
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+         topicsDT.setDataSourceParam('status',  $(this).attr("data-status"));
+         topicsDT.reload();
+    });
+
+    $("#searchOrganizationClear").click(function () {
+        $("#searchOrganization").val('');
+        topicsDT.search('', 'organization');
+    });
+
+    $("#searchCreated_atAirClear").click(function () {
+        $('#searchCreated_atAir').datepicker().data('datepicker').clear();
+        topicsDT.search('', 'created_at');
+    });
+
+    var datepicker = $('#searchCreated_atAir').datepicker({
+        range: true,
+        multipleDatesSeparator: "{{ config('constants.datepicker_delimiter') }}",
+        toggleSelected: false,
+        onSelect : function (formattedDate, date, inst) {
+            if (date.length > 1) {
+                topicsDT.search(formattedDate, 'created_at');
+            }
+        }
     });
 });
 
@@ -88,7 +155,11 @@ var datatableTopics = function() {
             layout: {
                 theme: 'default',
                 class: '',
-                footer: false
+                scroll: false,
+                footer: false,
+                smoothScroll: {
+                  scrollbarShown: false
+                }
             },
 
             sortable: true,
@@ -112,15 +183,16 @@ var datatableTopics = function() {
             }, {
                 field: "description_short",
                 title: "Короткое описание",
-                width: 150
+                width: 400,
             }, {
                 field: "url",
                 title: "Ссылка на сюжет",
-                width: 150
+                width: 200
             }, {
                 field: "organization",
                 title: "Компания правообладатель",
-                width: 150
+                width: 150,
+                textAlign: 'center'
             }, {
                 field: 'video_url',
                 title: 'Ссылка на видео',
@@ -136,10 +208,12 @@ var datatableTopics = function() {
             }, {
                 field: "Actions",
                 title: "Действия",
+                width: 90,
                 sortable: false,
                 overflow: "visible",
                 template: function (row) {
-                    return '<button type="button" class="btn" onClick="openShowTopicModal(this)">Показать</button>';
+                    return '<button type="button" class="btn margin-bottom-custom" onClick="openShowTopicModal(this)">Показать</button>\
+                            <button type="button" class="btn margin-bottom-custom" onClick="getTopicEditById(this)">Редактировать</button>';
                 }
             }],
 
@@ -169,100 +243,14 @@ var datatableTopics = function() {
         return datatable;
     }
     var topicsDT = datatableTopics();
+    var dataStatus = topicsDT.API.params.status;
+    if (!dataStatus) {
+        dataStatus = 'all';
+    }
+    $('a[data-status="'+ dataStatus +'"]').addClass('active');
 </script>
 @endpush
 
 @push('modals')
-<!-- begin::Modal Create Topic -->
-<div class="modal fade" id="m_modal_create_topic" tabindex="-1" role="dialog" aria-labelledby="topic-create" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="topic-create">Новый сюжет</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <form method="POST" action="{{ route('topics.store') }}">
-                @csrf
-                <div class="modal-body">
-                    <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
-                        <label for="name" class="form-control-label">Название</label>
-                        <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
-                        @if ($errors->has('name'))
-                            <div class="form-control-feedback">{{ $errors->first('name') }}</div>
-                        @endif
-                    </div>
-                    <div class="form-group{{ $errors->has('description_short') ? ' has-danger' : '' }}">
-                        <label for="description_short" class="form-control-label">Краткое описание сюжета</label>
-                        <input id="description_short" type="text" class="form-control" name="description_short" value="{{ old('description_short') }}" required>
-                        @if ($errors->has('description_short'))
-                            <div class="form-control-feedback">{{ $errors->first('description_short') }}</div>
-                        @endif
-                    </div>
-                    <div class="form-group{{ $errors->has('description_long') ? ' has-danger' : '' }}">
-                        <label for="description_long" class="form-control-label">Полное описание сюжета</label>
-                        <textarea id="description_long" class="form-control" name="description_long" rows="3" required>{{ old('description_long') }}</textarea>
-                        @if ($errors->has('description_long'))
-                            <div class="form-control-feedback">{{ $errors->first('description_long') }}</div>
-                        @endif
-                    </div>
-                    <div class="form-group{{ $errors->has('url') ? ' has-danger' : '' }}">
-                        <label for="url" class="form-control-label">Ссылка на сюжет</label>
-                        <input id="url" type="text" class="form-control" name="url" value="{{ old('url') }}" required>
-                        @if ($errors->has('url'))
-                            <div class="form-control-feedback">{{ $errors->first('url') }}</div>
-                        @endif
-                    </div>
-                    <div class="form-group m-form__group">
-                        <label for="exampleInputEmail1">Преьвю</label>
-                        <div></div>
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="file-input" accept="video/mp4,video/x-m4v,video/*" required>
-                            <label class="custom-file-label" for="file-input">Выберите файл</label>
-                        </div>
-                    </div>
-                    <input id="video_id" name="video_id" type="hidden" value="">
-                    <div id="file-preview" class="form-group m-form__group"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close') }}</button>
-                    <button type="submit" class="btn btn-primary">{{ __('Create') }}</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<!-- end::Modal Create Topic -->
-<!-- begin::Modal Show Topic -->
-<div class="modal fade" id="m_modal_show_topic" tabindex="-1" role="dialog" aria-labelledby="topic-show" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="m_modal_show_topic_name"></h5>
-                <button id="m_modal_show_topic_exit_top" type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <h5>Краткое описание сюжета</h5>
-                <p id="m_modal_show_topic_description_short"></p>
-                <h5>Полное описание сюжета</h5>
-                <p id="m_modal_show_topic_description_long"></p>
-                <h5>Видео</h5>
-                <div id="m_modal_show_topic_cdn_video"></div>
-            </div>
-            <div class="modal-footer">
-                <a id="m_modal_show_topic_download_bottom" href="" class="btn btn-primary m-btn m-btn--icon" download>
-                    <span>
-                        <i class="fa flaticon-download"></i>
-                        <span>{{ __('Download') }}</span>
-                    </span>
-                </a>
-                <button id="m_modal_show_topic_exit_bottom" type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close') }}</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end::Modal Show Topic -->
+    @include('modals.modals')
 @endpush

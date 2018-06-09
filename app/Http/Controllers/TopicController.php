@@ -32,21 +32,41 @@ class TopicController extends BaseController
         $validatedData = $request->validate([
             'pagination' => 'required|array',
             'sort' => 'nullable|required|array',
-            'query' => 'nullable|array|max:255'
+            'query' => 'nullable|array|max:255',
+            'status' => 'max:255'
         ]);
+
+        $user = Auth::user();
 
         $builder = Topic::leftJoin('videos', 'videos.id', '=', 'topics.video_id')
             ->leftJoin('users', 'users.id', '=', 'topics.user_id')
             ->leftJoin('organizations', 'organizations.id', '=', 'users.organization_id')
-            ->orderBy($validatedData['sort']['field'], $validatedData['sort']['sort']);
+            ->orderBy($validatedData['sort']['field'], $validatedData['sort']['sort'])
+            ->where('organizations.id', $user->organization ? $user->organization->id : null);
+
+        if (!empty($validatedData['status']) && $validatedData['status'] != 'all') {
+            if ($validatedData['status'] == 'inactive') {
+                $builder->where('topics.status', 'inactive')
+                ->where('users.id', $user->id);
+            }
+        } else {
+            $builder->where('topics.status', 'active')
+            ->orWhere('users.id', $user->id);
+        }
 
         if (!empty($validatedData['query'])) {
             $query = $validatedData['query'];
 
             if (!empty($query['created_at'])) {
-                $start = Date::parse($query['created_at']);
-                $end = $start->copy()->addDay();
-                $builder->whereBetween('topics.created_at', [$start, $end]);
+                $dates = explode(config('constants.datepicker_delimiter'), $query['created_at']);
+                if (count($dates) > 1) {
+                    $start = Date::parse($dates[0])->hour(0)->minute(0)->second(0);
+                    $end = Date::parse($dates[1])->hour(23)->minute(59)->second(59);
+                    $builder->whereBetween('topics.created_at', [$start, $end]);
+                } else {
+                    $start = Date::parse($dates[0])->hour(0)->minute(0)->second(0);
+                    $builder->whereDate('topics.created_at', '>', $start);
+                }
             }
 
             if (!empty($query['organization'])) {
@@ -143,6 +163,14 @@ class TopicController extends BaseController
 
         $validatedData = $validator->getData();
 
+        if (array_key_exists('status', $validatedData)) {
+            $validatedData['status'] = 'active';
+            $validatedData['published_at'] = date("Y-m-d H:i:s");
+        } else {
+            $validatedData['status'] = 'inactive';
+            $validatedData['published_at'] = null;
+        }
+
         $user = Auth::user();
         $validatedData['user_id'] = $user->id;
 
@@ -178,7 +206,40 @@ class TopicController extends BaseController
      */
     public function edit($id)
     {
-        //
+        if ($id == null || !is_numeric($id)) {
+            return redirect()
+                ->route('topics.index')
+                ->with(
+                    'msg',
+                    [
+                        'type' => 'error',
+                        'text' => 'Сюжет не существует'
+                    ]
+                );
+        }
+
+        $topic = Topic::find($id);
+
+        if (!$topic) {
+            return response()->json(['error' => 'topic not found'], 404);
+        }
+
+        $params = [
+            'id' => $topic->id,
+            'name' => $topic->name,
+            'url' => $topic->url,
+            'description_short' => $topic->description_short,
+            'description_long' => $topic->description_long,
+            'status' => $topic->status,
+        ];
+
+        $video = $topic->Video;
+        if ($video) {
+            $params['video_id'] = $video->id;
+            $params['videoTag'] = '<video class="col-lg-12 col-md-12 col-sm-12" controls><source src="https://'. $video->cdn_cdn_url .'" type="'. $video->cdn_content_type .'">Ваш браузер не поддерживает воспроизведение видео</video>';
+        }
+
+        return view('modals.edit', $params);
     }
 
     /**
@@ -190,7 +251,69 @@ class TopicController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        //
+        if ($id == null || !is_numeric($id)) {
+            return redirect()
+                ->route('topics.index')
+                ->with(
+                    'msg',
+                    [
+                        'type' => 'error',
+                        'text' => 'Сюжет не существует'
+                    ]
+                );
+        }
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'description_short' => 'required|string',
+            'description_long' => 'required|string',
+            'url' => 'required|url|max:255'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('topics#m_modal_edit_topic')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $validatedData = $validator->getData();
+
+        if (array_key_exists('status', $validatedData)) {
+            $validatedData['status'] = 'active';
+            $validatedData['published_at'] = date("Y-m-d H:i:s");
+        } else {
+            $validatedData['status'] = 'inactive';
+            $validatedData['published_at'] = null;
+        }
+
+        $user = Auth::user();
+        $validatedData['user_id'] = $user->id;
+
+        $topic = Topic::find($id);
+
+        if (!$topic) {
+            return redirect()
+                ->route('topics.index')
+                ->with(
+                    'msg',
+                    [
+                        'type' => 'error',
+                        'text' => 'Сюжет не существует'
+                    ]
+                );
+        }
+
+        $topic->update($validatedData);
+
+        return redirect()
+            ->route('topics.index')
+            ->with(
+                'msg',
+                [
+                    'type' => 'success',
+                    'text' => 'Сюжет изменен'
+                ]
+            );
     }
 
     /**
