@@ -186,12 +186,13 @@ var datatableTopics = function() {
             }, {
                 field: "Actions",
                 title: "Действия",
-                width: 90,
+                width: 70,
                 sortable: false,
                 overflow: "visible",
+                textAlign: "center",
                 template: function (row) {
-                    return '<button type="button" class="btn margin-bottom-custom" onClick="openShowTopicModal(this)">Показать</button>\
-                            <button type="button" class="btn margin-bottom-custom" onClick="getTopicEditById(this)">Редактировать</button>';
+                    return '<button type="button" class="btn margin-bottom-custom" onClick="openShowTopicModal(this)" title="Показать"><i class="flaticon-interface-6"></i></button>\
+                            <button type="button" class="btn margin-bottom-custom" onClick="getTopicEditById(this)" title="Редактировать"><i class="flaticon-edit-1"></i></button>';
                 }
             }],
 
