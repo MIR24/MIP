@@ -6,9 +6,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Jenssegers\Date\Date;
 use App\Topic;
+use App\Organization;
 use Validator;
 
-class TopicController extends Controller
+class TopicController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -113,28 +114,16 @@ class TopicController extends Controller
      */
     public function indexFront()
     {
-        $builder = Topic::join('videos', 'videos.id', '=', 'topics.video_id')
-            ->join('users', 'users.id', '=', 'topics.user_id')
-            ->join('organizations', 'organizations.id', '=', 'users.organization_id')
-            ->orderBy('topics.created_at', 'desc');
+        $organizations = Organization::all();
+        $set = self::getTopicsByDay(0);
+        $vars = [
+            'days' => $set['models'],
+            'next_day' => $set['day']+1,
+            'current'=> Date::now()->format('j F D Y'),
+            'organizations' => $organizations,
+        ];
 
-        $topicLatest = $builder->first(['topics.created_at']);
-        $dateLatest = Date::createFromFormat('d F Y года H:i', $topicLatest->created_at);
-        $builder->whereDate('topics.created_at', $dateLatest->toDateString());
-
-        $models = $builder->get([
-            'topics.id',
-            'topics.created_at',
-            'topics.name',
-            'topics.description_short',
-            'topics.description_long',
-            'topics.url',
-            'organizations.name as organization',
-            'videos.cdn_cdn_url as video_url',
-            'videos.cdn_content_type as video_content_type'
-        ]);
-
-        return view('indexes.topics', ['models' => $models]);
+        return view('indexes.index', $vars);
     }
 
     /**
@@ -342,39 +331,18 @@ class TopicController extends Controller
      * Display a portion of the resource.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  int  $days_old
      * @return \Illuminate\Http\Response
      */
-    public function row(Request $request)
+    public function row(Request $request, $days_ago)
     {
-        $builder = Topic::join('videos', 'videos.id', '=', 'topics.video_id')
-            ->join('users', 'users.id', '=', 'topics.user_id')
-            ->join('organizations', 'organizations.id', '=', 'users.organization_id')
-            ->orderBy('topics.created_at', 'desc');
+        $set = self::getTopicsByDay($days_ago);
+        $vars = [
+            'days' => $set['models'],
+            'next_day' => $set['day']+1,
+            'current'=> Date::now()->format('d F D Y'),
+        ];
 
-        $dateStart = $request->query('date_start', Date::today());
-        if ($dateStart) {
-            $dateStart = Date::parse($dateStart)->hour(0)->minute(0)->second(0);
-            $builder->where('topics.created_at', '>=', $dateStart);
-        }
-
-        $dateEnd = $request->query('date_end', Date::today());
-        if ($dateEnd) {
-            $dateEnd = Date::parse($dateEnd)->hour(23)->minute(59)->second(59);
-            $builder->where('topics.created_at', '<=', $dateEnd);
-        }
-
-        $models = $builder->get([
-            'topics.id',
-            'topics.created_at',
-            'topics.name',
-            'topics.description_short',
-            'topics.description_long',
-            'topics.url',
-            'organizations.name as organization',
-            'videos.cdn_cdn_url as video_url',
-            'videos.cdn_content_type as video_content_type'
-        ]);
-
-        return view('indexes.topicsMore', ['models' => $models]);
+        return view('columns.topics', $vars);
     }
 }

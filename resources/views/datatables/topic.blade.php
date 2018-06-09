@@ -35,6 +35,19 @@
             </div>
         </div>
     </div>
+    <div class="col-xl-6">
+        <label for="searchCreated_at">Искать по дате публикации:</label>
+        <input type="date" class="form-control m-input" id="searchCreated_at">
+    </div>
+    <div class="col-xl-6">
+        <label for="searchOrganization">Искать по организациям:</label>
+        <input type="text" class="form-control m-input" id="searchOrganization">
+    </div>
+    <div class="m-portlet__body">
+        <!--begin: Datatable -->
+        <div class="m_datatable" id="m_datatable_topics"></div>
+        <!--end: Datatable -->
+    </div>
 </div>
 @endsection
 
