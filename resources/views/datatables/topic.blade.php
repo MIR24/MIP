@@ -184,6 +184,10 @@ var datatableTopics = function() {
                 title: 'Полное описание',
                 responsive: {hidden: 'xl'},
             }, {
+                field: 'status',
+                title: 'Статус',
+                responsive: {hidden: 'xl'},
+            }, {
                 field: "Actions",
                 title: "Действия",
                 width: 90,
