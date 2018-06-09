@@ -1,7 +1,7 @@
 <div class="col-md-4">
     <div class="cellwrap">
         <div class="preview">
-            <img class="channel-logo" src="/images/vgtrk.png"/>
+            <img class="channel-logo" src="{{$topic->logo}}"/>
             @if($topic->video_url)
                 @include('columns_partials.CDNVideoPlayer', ['video_url' => $topic->video_url])
             @endif
@@ -11,7 +11,7 @@
             <div>{{$topic->description_short}}</div>
             <div>{{$topic->description_long}}</div>
         </a>
-        <div class="pub-date">10 мая 2018</div>
-        <div class="pub-geo">Ереван, Армения <span class="country-mini" style="background-image: url(/images/armenia.png)"></span></div>
+        <div class="pub-date">{{$topic->created_at}}</div>
+        <div class="pub-geo">{{$topic->country}} <span class="country-mini" style="background-image: url({{$topic->flag}})"></span></div>
     </div>
 </div>

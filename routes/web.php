@@ -17,7 +17,10 @@ Route::get('/', 'TopicController@indexFront')
 Route::get('/api/topics/row/{num}', 'TopicController@row')
     ->name('api.topics.index.row');
 
-Route::get('/api/organizations/{id}/topics/row', 'OrganizationController@topicsRow')
+Route::post('/topics/search', 'TopicController@search')
+    ->name('api.topics.index.search');
+
+Route::get('/api/organizations/{id}/topics/row/{num}', 'OrganizationController@topicsRow')
     ->where('id', '[0-9]+')
     ->name('api.organizations.topics.index.row');
 

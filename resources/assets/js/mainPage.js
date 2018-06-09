@@ -2,7 +2,7 @@ function clickHandler() {
     var $more = $(this);
     $.get('/api/topics/row/'+$(this).data('next'), function (data) {
         $more.remove();
-        $('.grid-container').append(data);
+        $('.grid-wrap').append(data);
         $('.show-more').on('click', clickHandler);
     })
 }

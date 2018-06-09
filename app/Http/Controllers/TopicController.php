@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Jenssegers\Date\Date;
 use App\Topic;
 use App\Organization;
+use App\Country;
 use Validator;
 
 class TopicController extends BaseController
@@ -27,6 +28,23 @@ class TopicController extends BaseController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    public function search(Request $request)
+    {
+        $input = $request->all();
+        $date_start = isset($input['date_start']) ? $input['date_start'] : null;
+        $date_end = isset($input['date_end']) ? $input['date_end'] : null;
+        $organizations = isset($input['organizations']) ? $input['organizations'] : null;
+        $countries = isset($input['countries']) ? $input['countries'] : null;
+        $days = self::getTopicsBetween($date_start, $date_end, $organizations, $countries);
+        die(var_dump($input));
+
+        return view('columns.topics', [
+            'days' => $days,
+            'current'=> Date::now()->format('d F D Y'),
+        ]);
+
+    }
     public function indexDT(Request $request)
     {
         $validatedData = $request->validate([
@@ -114,13 +132,21 @@ class TopicController extends BaseController
      */
     public function indexFront()
     {
-        $organizations = Organization::all();
+        $organizations = Organization::join('countries', 'organizations.country_id', '=', 'countries.id')
+            ->get([
+                'organizations.name as name',
+                'organizations.image_url_lg as logo',
+                'countries.image_url as flag',
+                'countries.name as country_name'
+            ]);
+        $countries = Country::all();
         $set = self::getTopicsByDay(0);
         $vars = [
             'days' => $set['models'],
             'next_day' => $set['day']+1,
             'current'=> Date::now()->format('j F D Y'),
             'organizations' => $organizations,
+            'countries' => $countries
         ];
 
         return view('indexes.index', $vars);

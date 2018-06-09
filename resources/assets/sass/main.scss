@@ -10,7 +10,8 @@ $preview-height: 215px;
 .channel-logo {
   position: absolute;
   z-index: 100;
-  width: 20%;
+  max-height: 40px;
+  max-width: 70px;
   top: 10px;
   left: 10px;
 }
@@ -24,7 +25,9 @@ $preview-height: 215px;
   height: 100%;
   width: 100%;
   display: block;
-  background-size: cover;
+  background-size: contain;
+  background-position: right;
+  background-repeat: no-repeat;
 }
 .mip-logo {
   width: 20%;
@@ -535,9 +538,11 @@ $preview-height: 215px;
   position: relative;
   background-repeat: no-repeat;
   background-position: center;
+  background-size: contain;
 }
 .ch-mip.col-md-4 .channel-logo-big {
   background-image: url(/images/mip-ch.png);
+  background-size: initial;
 }
 .country {
   width: 44px;
@@ -578,6 +583,14 @@ $preview-height: 215px;
 }
 .ch-mip.col-md-4 .ch-arrow {
   background-image: url(/images/arrow-white.png);
+}
+.dummy .cellwrap {
+  background-color: #ebebeb;
+  border: none;
+  background-size: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url(/images/film.png);
 }
 footer {
   width: 100%;

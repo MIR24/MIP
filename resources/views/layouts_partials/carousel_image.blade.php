@@ -1,8 +1,10 @@
-<a class="poster" href="#" style="background-image: url(/images/grapes.jpg)">
+<a class="poster" href="#" style="background-image: url(/images/back.png)">
     <div class="poster-content">
         <div class="poster-titles">
-            <div>{{$topic->description_short}}</div>
-            <div>{{$topic->description_long}}</div>
+            {{--<div>{{$topic->description_short}}</div>--}}
+{{--            <div>{{$topic->description_long}}</div>--}}
+            <div>Заглушка для слайдера {{$num}}</div>
+            <div>Описание для слайдера {{$num}}</div>
         </div>
         <div class="poster-arrow">➔</div>
     </div>

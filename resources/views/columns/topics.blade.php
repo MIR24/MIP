@@ -11,4 +11,6 @@
     @endif
 </div>
 @endforeach
+@if(isset($next_day))
 <div class="show-more" data-next="{{$next_day}}">Показать еще</div>
+@endif
