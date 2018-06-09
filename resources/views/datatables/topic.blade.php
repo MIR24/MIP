@@ -191,8 +191,8 @@ var datatableTopics = function() {
                 overflow: "visible",
                 textAlign: "center",
                 template: function (row) {
-                    return '<button type="button" class="btn margin-bottom-custom" onClick="openShowTopicModal(this)" title="Показать"><i class="flaticon-interface-6"></i></button>\
-                            <button type="button" class="btn margin-bottom-custom" onClick="getTopicEditById(this)" title="Редактировать"><i class="flaticon-edit-1"></i></button>';
+                    return '<button type="button" class="btn" onClick="openShowTopicModal(this)" title="Показать"><i class="flaticon-interface-6"></i></button>\
+                            <button type="button" class="btn" onClick="getTopicEditById(this)" title="Редактировать"><i class="flaticon-edit-1"></i></button>';
                 }
             }],
 
