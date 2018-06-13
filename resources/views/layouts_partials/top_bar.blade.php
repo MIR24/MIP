@@ -1,6 +1,6 @@
 <div class="top-bar">
     <div class="top-menu main">
-        <a href="#">Участники пула</a><a href="#">О проекте</a><a href="#">Присоединиться к пулу</a><a href="#">Личный раздел</a>
+        <a href="#participants">Участники пула</a><a href="#">О проекте</a><a href="#">Присоединиться к пулу</a><a href="#">Личный раздел</a>
     </div>
     <div class="search-box">
         <input type="text" placeholder="ПОИСК"/>
