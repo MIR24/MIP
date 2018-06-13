@@ -132,6 +132,7 @@ class TopicController extends BaseController
     {
         $organizations = Organization::join('countries', 'organizations.country_id', '=', 'countries.id')
             ->get([
+                'organizations.id as id',
                 'organizations.name as name',
                 'organizations.image_url_lg as logo',
                 'countries.image_url as flag',
