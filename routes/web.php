@@ -25,6 +25,7 @@ Route::get('/api/organizations/{id}/topics/row/{num}', 'OrganizationController@t
     ->name('api.organizations.topics.index.row');
 
 Route::get('/organization/{org_id}', 'OrganizationController@participantPage')
+    ->where('org_id', '[0-9]+')
     ->name('organizations.participant.page');
 
 
