@@ -62,7 +62,7 @@ class BaseController extends Controller
 
         do {
             $search_date = date('Y-m-d', strtotime("-$day days"));
-            if (($models = self::getTopicsBetween($search_date)) && $search_date >= $first_date) {
+            if (($models = self::getTopicsBetween($search_date, null, $organization)) && $search_date >= $first_date) {
                 if (count($models) > 0) {
                     return [
                         'models'=> $models,

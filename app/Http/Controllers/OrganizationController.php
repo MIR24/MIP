@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Organization;
 use Illuminate\Http\Request;
 use Jenssegers\Date\Date;
 use App\Topic;
@@ -16,6 +17,20 @@ class OrganizationController extends BaseController
     public function index()
     {
         //
+    }
+
+    public function participantPage(Request $request, $org_id)
+    {
+        $organization = Organization::find($org_id);
+        $set = self::getTopicsByDay(0, $org_id);
+        $vars = [
+            'days' => $set['models'],
+            'next_day' => $set['day']+1,
+            'current'=> Date::now()->format('j F D Y'),
+            'organization' => $organization,
+        ];
+
+        return view('indexes.organization', $vars);
     }
 
     /**

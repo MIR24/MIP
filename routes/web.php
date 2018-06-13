@@ -24,9 +24,9 @@ Route::get('/api/organizations/{id}/topics/row/{num}', 'OrganizationController@t
     ->where('id', '[0-9]+')
     ->name('api.organizations.topics.index.row');
 
-Route::get('/organizations/{id}/topics', 'OrganizationController@topics')
-    ->where('id', '[0-9]+')
-    ->name('organizations.topics.index');
+Route::get('/organization/{org_id}', 'OrganizationController@participantPage')
+    ->name('organizations.participant.page');
+
 
 Auth::routes();
 

@@ -23,7 +23,9 @@ $(document).ready(function () {
     $('#submit').on('click', function () {
         let query = Object.assign({}, filter);
         query.countries = query.countries.join(', ');
-        query.organizations = query.organizations.join(', ');
+        if (location.pathname.indexOf('organization') !== -1) {
+            query.organizations = [location.pathname.split('/').pop()];
+        }
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

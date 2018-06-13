@@ -14,9 +14,9 @@
             @include('columns_partials.dummy')
         @endfor
     @endif
-</div>
+</div>s
 @endforeach
 @if(isset($next_day))
-<div class="show-more" data-next="{{$next_day}}">Показать еще</div>
+<div class="show-more" data-next="{{$next_day}}" {{isset($organization) ? "data-org='$organization'" : ''}}>Показать еще</div>
 @endif
 @endif
