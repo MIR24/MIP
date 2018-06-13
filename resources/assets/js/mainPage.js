@@ -9,14 +9,15 @@ function clickHandler() {
     })
 }
 function calcHeight () {
-    let rest = 45+$('footer').outerHeight(),
-        height = $(this).innerHeight() - rest,
-        mes_height = $('.message-503').outerHeight();
+    let rest = 45+$('footer').outerHeight()+$('#carouselExampleIndicators').outerHeight(true),
+        height = $(this).innerHeight() - rest;
     $('.content').css('min-height', height+'px');
-    $('.message-503').css('padding-top', ((height - $('#carouselExampleIndicators').outerHeight(true))/2 - mes_height/2 + 'px'));
+    $('.message-503').height(height);
 }
-$(document).ready(function () {
+$(window).on('load', function() {
     calcHeight();
+});
+$(document).ready(function () {
     $(window).on('resize', function () {
         calcHeight();
     });

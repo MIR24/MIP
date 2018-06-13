@@ -4,8 +4,6 @@ $top-menu-height: 45px;
 
 $preview-height: 215px;
 
-.message-503 {
-}
 .clear-fix {
   clear: both;
 }
@@ -37,6 +35,14 @@ $preview-height: 215px;
   top: 13%;
   left: 5%;
   z-index: 11;
+}
+.message-503 {
+  display: table;
+  width: 100%;
+}
+.message-503>div {
+  display: table-cell;
+  vertical-align: middle;
 }
 
 #carouselExampleIndicators {
@@ -367,6 +373,7 @@ $preview-height: 215px;
 .day-divider {
   text-align: left;
   clear: both;
+  margin-top: 15px;
 
   div {
     display: inline-block;
