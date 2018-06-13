@@ -24,7 +24,14 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('topics:delete-old')->daily();
+        $topicsTTL = config('constants.topics_ttl');
+        if ($topicsTTL / 60 > 24) {
+            $schedule->command('topics:delete-old')->daily();
+        } elseif ($topicsTTL / 60 > 1) {
+            $schedule->command('topics:delete-old')->hourly();
+        } else {
+            $schedule->command('topics:delete-old')->everyMinute();
+        }
 
         // $schedule->command('inspire')
         //          ->hourly();

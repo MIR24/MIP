@@ -40,7 +40,7 @@ class TopicsDeleteOld extends Command
     public function handle()
     {
         DB::table('topics')
-            ->where('created_at', '<', Date::now()->subDays(config('constants.topics_ttl')))
+            ->where('created_at', '<', Date::now()->subMinutes(config('constants.topics_ttl')))
             ->whereNull('deleted_at')
             ->update(['deleted_at' => now()]);
     }

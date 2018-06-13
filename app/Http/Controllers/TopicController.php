@@ -54,21 +54,20 @@ class TopicController extends BaseController
         ]);
 
         $user = Auth::user();
+        if (!$user || !$user->organization) {
+            return response()->json(['error' => 'user has no organization'], 404);
+        }
 
         $builder = Topic::leftJoin('videos', 'videos.id', '=', 'topics.video_id')
             ->leftJoin('users', 'users.id', '=', 'topics.user_id')
             ->leftJoin('organizations', 'organizations.id', '=', 'users.organization_id')
             ->orderBy($validatedData['sort']['field'], $validatedData['sort']['sort'])
-            ->where('organizations.id', $user->organization ? $user->organization->id : null);
+            ->where('organizations.id', $user->organization->id);
 
         if (!empty($validatedData['status']) && $validatedData['status'] != 'all') {
             if ($validatedData['status'] == 'inactive') {
-                $builder->where('topics.status', 'inactive')
-                ->where('users.id', $user->id);
+                $builder->where('topics.status', 'inactive');
             }
-        } else {
-            $builder->where('topics.status', 'active')
-            ->orWhere('users.id', $user->id);
         }
 
         if (!empty($validatedData['query'])) {
@@ -198,6 +197,17 @@ class TopicController extends BaseController
         }
 
         $user = Auth::user();
+        if (!$user || !$user->organization) {
+            return redirect()
+                ->route('topics.index')
+                ->with(
+                    'msg',
+                    [
+                        'type' => 'error',
+                        'text' => 'Недостаточно прав для сохранения'
+                    ]
+                );
+        }
         $validatedData['user_id'] = $user->id;
 
         Topic::create($validatedData);
@@ -250,6 +260,19 @@ class TopicController extends BaseController
             return response()->json(['error' => 'topic not found'], 404);
         }
 
+        $user = Auth::user();
+        if (!$user || !$user->organization || $topic->user->organization->id != $user->organization->id) {
+            return redirect()
+                ->route('topics.index')
+                ->with(
+                    'msg',
+                    [
+                        'type' => 'error',
+                        'text' => 'Недостаточно прав для изменения'
+                    ]
+                );
+        }
+
         $params = [
             'id' => $topic->id,
             'name' => $topic->name,
@@ -289,6 +312,32 @@ class TopicController extends BaseController
                 );
         }
 
+        $topic = Topic::find($id);
+        if (!$topic) {
+            return redirect()
+                ->route('topics.index')
+                ->with(
+                    'msg',
+                    [
+                        'type' => 'error',
+                        'text' => 'Сюжет не существует'
+                    ]
+                );
+        }
+
+        $user = Auth::user();
+        if (!$user || !$user->organization || $topic->user->organization->id != $user->organization->id) {
+            return redirect()
+                ->route('topics.index')
+                ->with(
+                    'msg',
+                    [
+                        'type' => 'error',
+                        'text' => 'Недостаточно прав для изменения'
+                    ]
+                );
+        }
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'description_short' => 'required|string',
@@ -311,23 +360,7 @@ class TopicController extends BaseController
             $validatedData['status'] = 'inactive';
             $validatedData['published_at'] = null;
         }
-
-        $user = Auth::user();
         $validatedData['user_id'] = $user->id;
-
-        $topic = Topic::find($id);
-
-        if (!$topic) {
-            return redirect()
-                ->route('topics.index')
-                ->with(
-                    'msg',
-                    [
-                        'type' => 'error',
-                        'text' => 'Сюжет не существует'
-                    ]
-                );
-        }
 
         $topic->update($validatedData);
 
