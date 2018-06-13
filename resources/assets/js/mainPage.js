@@ -8,7 +8,18 @@ function clickHandler() {
         $('.show-more').on('click', clickHandler);
     })
 }
+function calcHeight () {
+    let rest = 45+$('footer').outerHeight(),
+        height = $(this).innerHeight() - rest,
+        mes_height = $('.message-503').outerHeight();
+    $('.content').css('min-height', height+'px');
+    $('.message-503').css('padding-top', ((height - $('#carouselExampleIndicators').outerHeight(true))/2 - mes_height/2 + 'px'));
+}
 $(document).ready(function () {
+    calcHeight();
+    $(window).on('resize', function () {
+        calcHeight();
+    });
     $('.calendar').on('click', function () {
         var calendar = $(this);
         $('.search-date').slideToggle('fast', function () {
