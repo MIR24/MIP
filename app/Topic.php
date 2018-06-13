@@ -25,6 +25,7 @@ class Topic extends Model
         'video_id',
         'status',
         'published_at',
+        'image_url',
     ];
 
     /**

@@ -14,16 +14,19 @@
 Route::get('/', 'TopicController@indexFront')
     ->name('topics.index.front');
 
-Route::get('/api/topics/row', 'TopicController@row')
+Route::get('/api/topics/row/{num}', 'TopicController@row')
     ->name('api.topics.index.row');
 
-Route::get('/api/organizations/{id}/topics/row', 'OrganizationController@topicsRow')
+Route::post('/topics/search', 'TopicController@search')
+    ->name('api.topics.index.search');
+
+Route::get('/api/organizations/{id}/topics/row/{num}', 'OrganizationController@topicsRow')
     ->where('id', '[0-9]+')
     ->name('api.organizations.topics.index.row');
 
-Route::get('/organizations/{id}/topics', 'OrganizationController@topics')
-    ->where('id', '[0-9]+')
-    ->name('organizations.topics.index');
+Route::get('/organization/{org_id}', 'OrganizationController@participantPage')
+    ->name('organizations.participant.page');
+
 
 Auth::routes();
 
@@ -37,4 +40,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/platformcraft/url', 'VideoController@platformcraftUrl')
         ->name('platformcraftUrl');
+});
+Route::get('/detail', function () {
+    return view('detailPage');
 });

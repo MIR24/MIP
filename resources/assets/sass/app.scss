@@ -7,6 +7,15 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+@import '~air-datepicker/dist/css/datepicker.min.css';
+@import '~eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker';
+
+@import 'main';
+
+body {
+  font-family: 'PT Sans', 'Helvetica', sans-serif;
+  background-color: #fafafa;
+}
 
 .navbar-laravel {
   background-color: #fff;
