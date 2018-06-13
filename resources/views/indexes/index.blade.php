@@ -17,6 +17,7 @@
 
     <div class="grid-container">
         <div class="grid-wrap">
+            <div class="new-video">+ Видео</div>
             @include('columns.topics', ['days' => $days, 'current' => $current, 'next_day' => $next_day])
         </div>
     </div>

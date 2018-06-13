@@ -415,7 +415,7 @@ $preview-height: 215px;
 }
 
 .grid-container {
-
+  clear:both;
   position: relative;
   max-width: $container-width;
   overflow: hidden;
@@ -643,7 +643,11 @@ footer {
     left: initial;
   }
 }
-.detail-head>div {
+.detail-head>a {
+  display: block;
+  border:none;
+  text-decoration: none;
+  color: #fff;
   background-image: url(/images/mip-only.png);
   height: 100%;
   width: 150px;

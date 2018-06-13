@@ -34,8 +34,8 @@ class TopicController extends BaseController
         $input = $request->all();
         $date_start = isset($input['date_start']) ? $input['date_start'] : null;
         $date_end = isset($input['date_end']) ? $input['date_end'] : null;
-        $organizations = isset($input['organizations']) ? explode(', ', $input['organizations']) : null;
-        $countries = isset($input['countries']) ? explode(',', $input['countries']) : null;
+        $organizations = isset($input['organizations']) ? $input['organizations'] : null;
+        $countries = isset($input['countries']) ? $input['countries'] : null;
         $days = self::getTopicsBetween($date_start, $date_end, $organizations, $countries);
 
         return view('columns.topics', [
@@ -360,13 +360,18 @@ class TopicController extends BaseController
      * @param  int  $days_old
      * @return \Illuminate\Http\Response
      */
-    public function row(Request $request, $days_ago)
+    public function row(Request $request, $organization, $days_ago)
     {
-        $set = self::getTopicsByDay($days_ago);
+        if ($organization != 'all') {
+            $set = self::getTopicsByDay($days_ago, $organization);
+        } else {
+            $set = self::getTopicsByDay($days_ago);
+        }
         $vars = [
             'days' => $set['models'],
             'next_day' => $set['day']+1,
             'current'=> Date::now()->format('d F D Y'),
+            'organization' => $organization != 'all' ? $organization : null,
         ];
 
         return view('columns.topics', $vars);

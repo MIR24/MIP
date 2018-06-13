@@ -21,7 +21,14 @@ class OrganizationController extends BaseController
 
     public function participantPage(Request $request, $org_id)
     {
-        $organization = Organization::find($org_id);
+        $organization = Organization::join('countries', 'organizations.country_id', '=', 'countries.id')
+            ->where('organizations.id', $org_id)
+            ->get([
+                'organizations.id as id',
+                'organizations.name as name',
+                'organizations.image_url_lg as logo',
+                'countries.image_url as flag',
+            ])->first();
         $set = self::getTopicsByDay(0, $org_id);
         $vars = [
             'days' => $set['models'],

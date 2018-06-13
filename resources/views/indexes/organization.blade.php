@@ -2,10 +2,10 @@
 
 @section('content')
     <div class="detail-head">
-        <div><div class="country" style="background-image: url({{$organization->image_url_lg}});"></div></div>
+        <a href="/"><div class="country" style="background-image: url({{$organization->flag}});"></div></a>
     </div>
     <div class="detail-description">
-        <img src="/images/chahonnamo-big.png"/>
+        <img src="{{$organization->logo}}"/>
         <p class="sup">{{$organization->name}}</p>
         <p>{{$organization->description}}</p>
     </div>
