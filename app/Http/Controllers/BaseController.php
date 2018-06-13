@@ -20,9 +20,11 @@ class BaseController extends Controller
             ->orderBy('topics.created_at', 'desc');
 
         if ($organizations) {
-            $builder->whereIn('organizations.id', $organizations);
+            is_array($organizations) ?: explode(',', $organizations);
+            $builder->whereIn('organizations.id', [$organizations]);
         }
         if ($countries) {
+            is_array($countries) ?: explode(',', $countries);
             $builder->whereIn('countries.id', $countries);
         }
 
@@ -52,7 +54,7 @@ class BaseController extends Controller
         return $models;
     }
 
-    protected static function getTopicsByDay($days_ago = 0, $organization = null) {
+    protected static function getTopicsByDay($days_ago = 0, $organizations = null) {
 
         $day = $days_ago;
 
@@ -62,7 +64,7 @@ class BaseController extends Controller
 
         do {
             $search_date = date('Y-m-d', strtotime("-$day days"));
-            if (($models = self::getTopicsBetween($search_date, null, $organization)) && $search_date >= $first_date) {
+            if (($models = self::getTopicsBetween($search_date, null, $organizations)) && $search_date >= $first_date) {
                 if (count($models) > 0) {
                     return [
                         'models'=> $models,

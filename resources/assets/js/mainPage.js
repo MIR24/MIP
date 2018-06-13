@@ -1,7 +1,7 @@
 function clickHandler() {
     var $more = $(this),
-        link = '/api/topics/row/'+$(this).data('next');
-    link += $(this).data('org') ? '/'+$(this).data('org') : '';
+    org = $(this).data('org') ? $(this).data('org') : 'all',
+    link = `/api/organizations/${org}/topics/row/${$(this).data('next')}`;
     $.get(link, function (data) {
         $more.remove();
         $('.grid-wrap').append(data);

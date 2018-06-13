@@ -22,7 +22,7 @@ $(document).ready(function () {
 
     $('#submit').on('click', function () {
         let query = Object.assign({}, filter);
-        query.countries = query.countries.join(', ');
+        query.countries = query.countries.join(',');
         if (location.pathname.indexOf('organization') !== -1) {
             query.organizations = [location.pathname.split('/').pop()];
         }

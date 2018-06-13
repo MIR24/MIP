@@ -14,17 +14,13 @@
 Route::get('/', 'TopicController@indexFront')
     ->name('topics.index.front');
 
-Route::get('/api/topics/row/{num}', 'TopicController@row')
-    ->name('api.topics.index.row');
-
 Route::post('/topics/search', 'TopicController@search')
     ->name('api.topics.index.search');
 
-Route::get('/api/organizations/{id}/topics/row/{num}', 'OrganizationController@topicsRow')
-    ->where('id', '[0-9]+')
+Route::get('/api/organizations/{organization}/topics/row/{days_ago}', 'TopicController@row')
     ->name('api.organizations.topics.index.row');
 
-Route::get('/organization/{org_id}', 'OrganizationController@participantPage')
+Route::get('/organizations/{org_id}', 'OrganizationController@participantPage')
     ->where('org_id', '[0-9]+')
     ->name('organizations.participant.page');
 
