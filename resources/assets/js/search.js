@@ -3,7 +3,7 @@ var filter = {
     date_start: null,
     date_end: null,
     countries: [],
-    organizations: null
+    organizations: [],
 };
 
 $(document).ready(function () {
@@ -21,18 +21,18 @@ $(document).ready(function () {
     });
 
     $('#submit').on('click', function () {
-        console.log(filter);
+        let query = Object.assign({}, filter);
+        query.countries = query.countries.join(', ');
+        query.organizations = query.organizations.join(', ');
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             url: '/topics/search',
-            dataType : 'json',
             type: 'POST',
-            data: filter,
-            success:function(response) {
-                $('.grid-wrap').html(response);
-            }
+            data: query
+        }).done(function (response) {
+            $('.grid-wrap').html(response);
         });
     });
 

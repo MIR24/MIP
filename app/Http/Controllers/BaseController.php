@@ -22,12 +22,12 @@ class BaseController extends Controller
         if ($organizations) {
             $builder->whereIn('organizations.id', $organizations);
         }
-        if ($organizations) {
+        if ($countries) {
             $builder->whereIn('countries.id', $countries);
         }
 
         if ($date_end) {
-            $builder->whereBetween('topics.created_at', [$date_end, $date_start]);
+            $builder->whereBetween('topics.created_at', [$date_start, $date_end]);
         } else {
             $builder->whereDate('topics.created_at', $date_start);
         }

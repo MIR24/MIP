@@ -16,7 +16,6 @@
     @include('layouts_partials.carousel')
 
     <div class="grid-container">
-        <div class="new-video">+ Видео</div>
         <div class="grid-wrap">
             @include('columns.topics', ['days' => $days, 'current' => $current, 'next_day' => $next_day])
         </div>

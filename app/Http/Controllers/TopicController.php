@@ -34,10 +34,9 @@ class TopicController extends BaseController
         $input = $request->all();
         $date_start = isset($input['date_start']) ? $input['date_start'] : null;
         $date_end = isset($input['date_end']) ? $input['date_end'] : null;
-        $organizations = isset($input['organizations']) ? $input['organizations'] : null;
-        $countries = isset($input['countries']) ? $input['countries'] : null;
+        $organizations = isset($input['organizations']) ? explode(', ', $input['organizations']) : null;
+        $countries = isset($input['countries']) ? explode(',', $input['countries']) : null;
         $days = self::getTopicsBetween($date_start, $date_end, $organizations, $countries);
-        die(var_dump($input));
 
         return view('columns.topics', [
             'days' => $days,
