@@ -190,5 +190,31 @@
 <tr><td>assertNotVisible</td><td>//*[@id="m_modal_show_topic_cdn_video"]<datalist><option>//*[@id="m_modal_show_topic_cdn_video"]</option><option>//div[@id='m_modal_show_topic']/div/div/div[3]</option><option>//div/div/div[3]</option><option>css=div.modal-content &gt; div.modal-footer</option><option>/html/body/div[1]/div[2]/div/div/div[2]/div/video</option></datalist></td><td></td>
 </tr>
 </tbody></table>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Show More</td></tr>
+</thead>
+<tbody>
+<tr><td>open</td><td>http://mip.mirtv.ru/topics<datalist><option>http://mip.mirtv.ru/topics</option></datalist></td><td></td>
+</tr>
+<tr><td>pause</td><td>1000<datalist><option>1000</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>//div[@id='m_datatable_topics']/div/div/div/button/div<datalist><option>//div[@id='m_datatable_topics']/div/div/div/button/div</option><option>//button/div</option><option>css=div.filter-option</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>link=10<datalist><option>link=10</option><option>//div[@id='m_datatable_topics']/div/div/div/div/div/ul/li/a</option><option>//div[3]/div/div/div/div/div/div/div/div/ul/li/a</option><option>css=a.dropdown-item.selected.active</option></datalist></td><td></td>
+</tr>
+<tr><td>pause</td><td>1000<datalist><option>1000</option></datalist></td><td></td>
+</tr>
+<tr><td>assertCssCount</td><td>tr.m-datatable__row<datalist><option>//div[@id='m_datatable_topics']/table/tbody/tr[42]/td</option><option>//tr[42]/td</option><option>css=tr.m-datatable__row.m-datatable__row--even.m-datatable__row--hover &gt; td.m-datatable__cell--center.m-datatable__cell</option><option>tr.m-datatable__row</option></datalist></td><td>11</td>
+</tr>
+<tr><td>click</td><td>//div[@id='m_datatable_topics']/div/div/div/button/div<datalist><option>//div[@id='m_datatable_topics']/div/div/div/button/div</option><option>//button/div</option><option>css=div.filter-option</option></datalist></td><td></td>
+</tr>
+<tr><td>click</td><td>link=20<datalist><option>link=10</option><option>//div[@id='m_datatable_topics']/div/div/div/div/div/ul/li/a</option><option>//div[3]/div/div/div/div/div/div/div/div/ul/li/a</option><option>css=a.dropdown-item.selected.active</option><option>link=100</option><option>link=20</option></datalist></td><td></td>
+</tr>
+<tr><td>pause</td><td>1000<datalist><option>1000</option></datalist></td><td></td>
+</tr>
+<tr><td>assertCssCount</td><td>tr.m-datatable__row<datalist><option>//div[@id='m_datatable_topics']/table/tbody/tr[42]/td</option><option>//tr[42]/td</option><option>css=tr.m-datatable__row.m-datatable__row--even.m-datatable__row--hover &gt; td.m-datatable__cell--center.m-datatable__cell</option><option>tr.m-datatable__row</option></datalist></td><td>21</td>
+</tr>
+</tbody></table>
 </body>
 </html>
