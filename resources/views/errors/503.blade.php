@@ -1,11 +1,12 @@
 @extends('layouts.front')
 
 @section('content')
-<div class="jumbotron" style="text-align: center;
+    @include('layouts_partials.carousel')
+    <div style="text-align: center;
             height: 84vh;
+            padding-top: 35vh;
             align-items: center;
-            display: flex;
-            justify-content: center;
+            background-color: #fafafa;
             position: relative;">
     <div class="display-4">
         Cкоро!
