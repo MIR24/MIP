@@ -3,8 +3,8 @@
         <div class="poster-titles">
             {{--<div>{{$topic->description_short}}</div>--}}
 {{--            <div>{{$topic->description_long}}</div>--}}
-            <div>Заглушка для слайдера {{$num}}</div>
-            <div>Описание для слайдера {{$num}}</div>
+            <div>Таким образом, дальнейшее развитие приводит к пониманию числа {{$num}}</div>
+            <div>{{$num}} меньше, чем {{$num+1}}</div>
         </div>
         <div class="poster-arrow">➔</div>
     </div>
