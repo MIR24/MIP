@@ -33,7 +33,7 @@ class BaseController extends Controller
         }
 
         if ($title) {
-            $builder->where('topics.description_short', 'LIKE', "%$title%");
+            $builder->where('topics.name', 'LIKE', "%$title%")->orWhere('topics.description_short', 'LIKE', "%$title%");
         }
 
         $models = $builder->get([
