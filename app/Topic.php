@@ -38,12 +38,12 @@ class Topic extends Model
     ];
 
     static $validateInactive = [
-        'name' => 'nullable|string|max:255',
-        'description_short' => 'nullable|string',
-        'description_long' => 'nullable|string',
-        'url' => 'nullable|url|max:255',
+        'name' => 'required_without_all:description_short,description_long,url,video_id|nullable|string|max:255',
+        'description_short' => 'required_without_all:name,description_long,url,video_id|nullable|string',
+        'description_long' => 'required_without_all:name,description_short,url,video_id|nullable|string',
+        'url' => 'required_without_all:name,description_long,description_short,video_id|nullable|url|max:255',
         'status' => 'nullable|string',
-        'video_id' => 'nullable|int'
+        'video_id' => 'required_without_all:name,description_long,description_short,url|nullable|int'
     ];
 
     /**
