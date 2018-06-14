@@ -11,7 +11,11 @@
             </div>
             <form method="POST" action="{{ route('topics.store') }}">
                 @csrf
-                @include('modals.partials.editableFields')
+                @if(isset($updateFailed))
+                    @include('modals.partials.editableFields', ['renderErrors' => false])
+                @else
+                    @include('modals.partials.editableFields', ['renderErrors' => true])
+                @endif
                 @include('modals.partials.footer', ['submitTranslate' => __('Create') ])
             </form>
         </div>
@@ -29,6 +33,7 @@
                 </button>
             </div>
             <div class="modal-body">
+                <p id="m_modal_show_topic_status"></p>
                 <h5>Краткое описание сюжета</h5>
                 <p id="m_modal_show_topic_description_short"></p>
                 <h5>Полное описание сюжета</h5>
@@ -49,4 +54,7 @@
     </div>
 </div>
 <!-- end::Modal Show Topic -->
+@if(isset($updateFailed))
+    @include('modals.edit', ['id' => $id, 'renderErrors' => true])
+@endif
 @endpush

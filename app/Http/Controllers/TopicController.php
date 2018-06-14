@@ -9,6 +9,8 @@ use App\Topic;
 use App\Organization;
 use App\Country;
 use Validator;
+use App\Helpers\Helper;
+use App\Video;
 
 class TopicController extends BaseController
 {
@@ -19,7 +21,11 @@ class TopicController extends BaseController
      */
     public function index()
     {
-        return view('datatables.topic');
+        return view('datatables.topic', [
+            'updateFailed' => \Session::get('updateFailed'),
+            'id' => \Session::get('id'),
+            'videoTag' => \Session::get('videoTag')
+        ]);
     }
 
     /**
@@ -86,7 +92,7 @@ class TopicController extends BaseController
             }
 
             if (!empty($query['organization'])) {
-                $builder->where('organizations.name', 'rlike', $query['organization']);
+                $builder->where('organizations.name', 'like', '%'.$query['organization'].'%');
             }
         }
 
@@ -112,6 +118,7 @@ class TopicController extends BaseController
                 'topics.description_short',
                 'topics.description_long',
                 'topics.url',
+                'topics.status',
                 'organizations.name as organization',
                 'videos.cdn_cdn_url as video_url',
                 'videos.cdn_content_type as video_content_type'
@@ -173,12 +180,11 @@ class TopicController extends BaseController
             'url.url' => 'Ссылка должна выглядеть так: ftp://example.com',
         ];
 
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'description_short' => 'required|string',
-            'description_long' => 'required|string',
-            'url' => 'required|url|max:255'
-        ], $messages);
+        if ($request->get('status')) {
+            $validator = Validator::make($request->all(), Topic::$validateActive, $messages);
+        } else {
+            $validator = Validator::make($request->all(), Topic::$validateInactive, $messages);
+        }
 
         if ($validator->fails()) {
             return redirect('topics#m_modal_create_topic')
@@ -280,12 +286,13 @@ class TopicController extends BaseController
             'description_short' => $topic->description_short,
             'description_long' => $topic->description_long,
             'status' => $topic->status,
+            'renderErrors' => false,
         ];
 
         $video = $topic->Video;
         if ($video) {
             $params['video_id'] = $video->id;
-            $params['videoTag'] = '<video class="col-lg-12 col-md-12 col-sm-12" controls><source src="https://'. $video->cdn_cdn_url .'" type="'. $video->cdn_content_type .'">Ваш браузер не поддерживает воспроизведение видео</video>';
+            $params['videoTag'] = Helper::getVideoTag($video->cdn_cdn_url, $video->cdn_content_type);
         }
 
         return view('modals.edit', $params);
@@ -338,17 +345,26 @@ class TopicController extends BaseController
                 );
         }
 
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'description_short' => 'required|string',
-            'description_long' => 'required|string',
-            'url' => 'required|url|max:255'
-        ]);
+        if ($request->get('status')) {
+            $validator = Validator::make($request->all(), Topic::$validateActive);
+        } else {
+            $validator = Validator::make($request->all(), Topic::$validateInactive);
+        }
 
         if ($validator->fails()) {
+            $updateFailedParams = [
+                'updateFailed' => true,
+                'id' => $id,
+            ];
+            $video_id = $request->get('video_id');
+            if ($video_id) {
+                $video = Video::find($video_id);
+                $updateFailedParams['videoTag'] = Helper::getVideoTag($video->cdn_cdn_url, $video->cdn_content_type);
+            }
             return redirect('topics#m_modal_edit_topic')
                 ->withErrors($validator)
-                ->withInput();
+                ->withInput()
+                ->with($updateFailedParams);
         }
 
         $validatedData = $validator->getData();

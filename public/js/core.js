@@ -9,7 +9,10 @@ function saveVideoInfo (obj, fileInput, filePreview ) {
         },
         success: function (data) {
             fileInput.prop('disabled', false);
-            fileInput.parent().siblings('#video_id').attr('value', data.id);
+            var videoId = fileInput.parent().siblings('#video_id');
+            videoId.attr('value', data.id);
+            videoId.parent().removeClass('has-danger');
+            $('#video_id_warning').remove();
             toogleDisableBtn(false);
             showToasterMessage('info', 'Видео сохранено');
         },
@@ -118,12 +121,19 @@ function emptyShowTopicModal (type) {
     $("#m_modal_show_topic_description_short").empty();
     $("#m_modal_show_topic_description_long").empty();
     $("#m_modal_show_topic_name").empty();
+    $("#m_modal_show_topic_status").empty();
 }
 function makeVideoTag (src, type) {
     return '<video class="col-lg-12 col-md-12 col-sm-12" controls><source src="https://' + src + '" type="' + type + '">Ваш браузер не поддерживает воспроизведение видео</video>';
 }
 function openShowTopicModal (obj) {
     var row = $(obj.closest("tr"));
+    var status = row.find("[data-field='status']").text();
+    if (status == 'active') {
+        $("#m_modal_show_topic_status").append('<h5 class="m-portlet__head-text m--font-success">Опубликован</h5>');
+    } else {
+        $("#m_modal_show_topic_status").append('<h5 class="m-portlet__head-text m--font-danger">Неопубликован</h5>');
+    }
     var videoUrl = row.find("[data-field='video_url']").text();
     var videoType = row.find("[data-field='video_content_type']").text();
     if (videoUrl && videoType) {
@@ -131,11 +141,18 @@ function openShowTopicModal (obj) {
     } else {
         $("#m_modal_show_topic_cdn_video").append("Видеофайл отсутствует");
     }
-    $("#m_modal_show_topic_description_short").text(row.find("[data-field='description_short']").text());
-    $("#m_modal_show_topic_description_long").text(row.find("[data-field='description_long']").text());
-    $("#m_modal_show_topic_name").text(row.find("[data-field='name']").text());
+    checkTextAndAddTo(row.find("[data-field='description_short']").text(), '#m_modal_show_topic_description_short', 'Краткое описание отсутствует');
+    checkTextAndAddTo(row.find("[data-field='description_long']").text(), '#m_modal_show_topic_description_long', 'Полное описание отсутствует');
+    checkTextAndAddTo(row.find("[data-field='name']").text(), '#m_modal_show_topic_name', 'Название отсутствует');
     $('#m_modal_show_topic_download_bottom').attr('href', row.find("[data-field='url']").text());
     $('#m_modal_show_topic').modal('toggle');
+}
+function checkTextAndAddTo (text, addTo, error) {
+    if (text) {
+        $(addTo).text(text);
+    } else {
+        $(addTo).text(error);
+    }
 }
 function showToasterMessage (type, message) {
     toastr.options = {
@@ -159,9 +176,9 @@ function showToasterMessage (type, message) {
   toastr[type](message)
 }
 $(document).ready(function () {
-    document.getElementById('file-input').addEventListener('change', handleFileSelect, false);
+    $('.custom-file-input').on('change', handleFileSelect);
     $('#m_modal_show_topic').on('hidden.bs.modal', function () {
         emptyShowTopicModal();
     });
-    $('#switch-modal-status').bootstrapSwitch();
+    $('[name="status"]').bootstrapSwitch();
 });
