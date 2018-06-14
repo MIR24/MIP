@@ -27,6 +27,7 @@ class OrganizationController extends BaseController
                 'organizations.id as id',
                 'organizations.name as name',
                 'organizations.image_url_lg as logo',
+                'organizations.description as description',
                 'countries.image_url as flag',
             ])->first();
         $set = self::getTopicsByDay(0, $org_id);
