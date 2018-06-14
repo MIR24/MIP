@@ -64,11 +64,17 @@ class Topic extends Model
 
     public function getPublishedAtAttribute($value)
     {
-        return Date::createFromFormat('Y-m-d H:i:s', $value)->format('d F Y года H:i');
+        if ($value) {
+            return Date::createFromFormat('Y-m-d H:i:s', $value)->format('d F Y года H:i');
+        }
+        return $value;
     }
 
     public function getCreatedAtAttribute($value)
     {
-        return Date::createFromFormat('Y-m-d H:i:s', $value)->format('d F Y года H:i');
+        if ($value) {
+            return Date::createFromFormat('Y-m-d H:i:s', $value)->format('d F Y года H:i');
+        }
+        return $value;
     }
 }
