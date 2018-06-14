@@ -38,6 +38,3 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/platformcraft/url', 'VideoController@platformcraftUrl')
         ->name('platformcraftUrl');
 });
-Route::get('/detail', function () {
-    return view('detailPage');
-});
