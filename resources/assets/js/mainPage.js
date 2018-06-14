@@ -1,8 +1,10 @@
 function clickHandler() {
-    var $more = $(this);
-    $.get('/api/topics/row/'+$(this).data('next'), function (data) {
+    var $more = $(this),
+    org = $(this).data('org') ? $(this).data('org') : 'all',
+    link = `/api/organizations/${org}/topics/row/${$(this).data('next')}`;
+    $.get(link, function (data) {
         $more.remove();
-        $('.grid-container').append(data);
+        $('.grid-wrap').append(data);
         $('.show-more').on('click', clickHandler);
     })
 }

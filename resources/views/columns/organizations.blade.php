@@ -1,4 +1,4 @@
-<div class="ch container">
+<div id="participants" class="ch container">
     <div class="row">
     @for($i=0; $i<count($orgs); $i++)
         @if($i%3==0)

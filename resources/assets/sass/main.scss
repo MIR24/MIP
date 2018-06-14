@@ -10,7 +10,8 @@ $preview-height: 215px;
 .channel-logo {
   position: absolute;
   z-index: 100;
-  width: 20%;
+  max-height: 40px;
+  max-width: 70px;
   top: 10px;
   left: 10px;
 }
@@ -24,7 +25,9 @@ $preview-height: 215px;
   height: 100%;
   width: 100%;
   display: block;
-  background-size: cover;
+  background-size: contain;
+  background-position: right;
+  background-repeat: no-repeat;
 }
 .mip-logo {
   width: 20%;
@@ -412,7 +415,7 @@ $preview-height: 215px;
 }
 
 .grid-container {
-
+  clear:both;
   position: relative;
   max-width: $container-width;
   overflow: hidden;
@@ -535,9 +538,11 @@ $preview-height: 215px;
   position: relative;
   background-repeat: no-repeat;
   background-position: center;
+  background-size: contain;
 }
 .ch-mip.col-md-4 .channel-logo-big {
   background-image: url(/images/mip-ch.png);
+  background-size: initial;
 }
 .country {
   width: 44px;
@@ -578,6 +583,14 @@ $preview-height: 215px;
 }
 .ch-mip.col-md-4 .ch-arrow {
   background-image: url(/images/arrow-white.png);
+}
+.dummy .cellwrap {
+  background-color: #ebebeb;
+  border: none;
+  background-size: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url(/images/film.png);
 }
 footer {
   width: 100%;
@@ -630,7 +643,11 @@ footer {
     left: initial;
   }
 }
-.detail-head>div {
+.detail-head>a {
+  display: block;
+  border:none;
+  text-decoration: none;
+  color: #fff;
   background-image: url(/images/mip-only.png);
   height: 100%;
   width: 150px;
@@ -659,6 +676,15 @@ footer {
 .detail-description p.sup{
   font-size: 16px;
   font-weight: bold;
+}
+.banana {
+  width: 100%;
+  height: 200px;
+  padding-top: 90px;
+  text-align: center;
+  font-size: 14px;
+  color: #929292;
+  text-transform: uppercase;
 }
 
 @media (max-width: 850px) {
@@ -771,13 +797,4 @@ footer {
     display: block;
     margin: 20px auto;
   }
-}
-
-// Спрячем панель и маржины для нормального превью
-
-.pb-4, .py-4 {
-  padding: 0 !important;
-}
-nav {
-  display: none !important;
 }

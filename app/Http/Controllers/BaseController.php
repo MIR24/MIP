@@ -9,21 +9,27 @@ use Validator;
 class BaseController extends Controller
 {
 
-    protected static function getTopicsBetween($date_start = null, $date_end = null, $organization = null) {
+    protected static function getTopicsBetween($date_start = null, $date_end = null, $organizations = null, $countries = null) {
 
         if (!$date_start) $date_start = Date::now()->format('Y-m-d');
 
         $builder = Topic::leftjoin('videos', 'videos.id', '=', 'topics.video_id')
             ->join('users', 'users.id', '=', 'topics.user_id')
             ->join('organizations', 'organizations.id', '=', 'users.organization_id')
+            ->join('countries', 'organizations.country_id', '=', 'countries.id')
             ->orderBy('topics.created_at', 'desc');
 
-        if ($organization) {
-            $builder->where('organizations.id', $organization);
+        if ($organizations) {
+            is_array($organizations) ?: explode(',', $organizations);
+            $builder->whereIn('organizations.id', [$organizations]);
+        }
+        if ($countries) {
+            is_array($countries) ?: explode(',', $countries);
+            $builder->whereIn('countries.id', $countries);
         }
 
         if ($date_end) {
-            $builder->whereBetween('topics.created_at', [$date_end, $date_start]);
+            $builder->whereBetween('topics.created_at', [$date_start, $date_end]);
         } else {
             $builder->whereDate('topics.created_at', $date_start);
         }
@@ -36,6 +42,9 @@ class BaseController extends Controller
             'topics.description_long',
             'topics.url',
             'organizations.name as organization',
+            'organizations.image_url_sm as logo',
+            'countries.name as country',
+            'countries.image_url as flag',
             'videos.cdn_cdn_url as video_url',
             'videos.cdn_content_type as video_content_type'
         ])
@@ -45,7 +54,7 @@ class BaseController extends Controller
         return $models;
     }
 
-    protected static function getTopicsByDay($days_ago = 0, $organization = null) {
+    protected static function getTopicsByDay($days_ago = 0, $organizations = null) {
 
         $day = $days_ago;
 
@@ -55,7 +64,7 @@ class BaseController extends Controller
 
         do {
             $search_date = date('Y-m-d', strtotime("-$day days"));
-            if (($models = self::getTopicsBetween($search_date)) && $search_date >= $first_date) {
+            if (($models = self::getTopicsBetween($search_date, null, $organizations)) && $search_date >= $first_date) {
                 if (count($models) > 0) {
                     return [
                         'models'=> $models,
