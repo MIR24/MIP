@@ -15,7 +15,7 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Topic::class, function (Faker $faker) {
     return [
-        'published_at' => $faker->dateTimeThisMonth('2018-12-30 21:00:00', 'Europe/Moscow'),
+        'published_at' => $faker->dateTimeThisYear('now', 'Europe/Moscow'),
         'user_id' => $faker->numberBetween(1, 10),
         'name' => $faker->word,
         'description_short' => $faker->paragraph(3, true),

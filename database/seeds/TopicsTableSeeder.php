@@ -12,6 +12,10 @@ class TopicsTableSeeder extends Seeder
     public function run()
     {
         DB::table('topics')->truncate();
-        factory(App\Topic::class, 22)->create();
+        foreach (DB::table('users')->get(['id']) as $user) {
+            factory(App\Topic::class, 22)->create([
+                'user_id' => $user->id
+            ]);
+        }
     }
 }
