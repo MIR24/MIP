@@ -9,9 +9,7 @@ use Validator;
 class BaseController extends Controller
 {
 
-    protected static function getTopicsBetween($date_start = null, $date_end = null, $organizations = null, $countries = null) {
-
-        if (!$date_start) $date_start = Date::now()->format('Y-m-d');
+    protected static function getTopicsBetween($date_start = null, $date_end = null, $organizations = null, $countries = null, $title = null) {
 
         $builder = Topic::leftjoin('videos', 'videos.id', '=', 'topics.video_id')
             ->join('users', 'users.id', '=', 'topics.user_id')
@@ -20,18 +18,22 @@ class BaseController extends Controller
             ->orderBy('topics.created_at', 'desc');
 
         if ($organizations) {
-            is_array($organizations) ?: explode(',', $organizations);
+            is_array($organizations) ?: $organizations = explode(',', $organizations);
             $builder->whereIn('organizations.id', [$organizations]);
         }
         if ($countries) {
-            is_array($countries) ?: explode(',', $countries);
+            is_array($countries) ?: $countries = explode(',', $countries);
             $builder->whereIn('countries.id', $countries);
         }
 
         if ($date_end) {
             $builder->whereBetween('topics.created_at', [$date_start, $date_end]);
-        } else {
+        } else if ($date_start) {
             $builder->whereDate('topics.created_at', $date_start);
+        }
+
+        if ($title) {
+            $builder->where('topics.description_short', 'LIKE', "%$title%");
         }
 
         $models = $builder->get([
