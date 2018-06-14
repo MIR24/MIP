@@ -24,9 +24,9 @@
     <div class="main-container">
 
         @include('layouts_partials.top_bar')
-
-        @yield('content')
-
+        <div class="content">
+            @yield('content')
+        </div>
         @include('layouts_partials.footer')
 
 
