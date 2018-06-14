@@ -4,15 +4,19 @@
 <div class="row">
     <div class="col-xl-12">
         <div class="m-portlet m-portlet--mobile ">
-            <div class="col-xl-6">
-                <label for="searchCreated_atAir">Фильтр по диапозону дат:</label>
-                <input type="text" class="form-control m-input" id="searchCreated_atAir"/>
-                <i id="searchCreated_atAirClear" class="flaticon-cancel in-input-clear"></i>
-            </div>
-            <div class="col-xl-6">
-                <label for="searchOrganization">Искать по организациям:</label>
-                <input type="text" class="form-control m-input" id="searchOrganization">
-                <i id="searchOrganizationClear" class="flaticon-cancel in-input-clear"></i>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xl-6">
+                        <label for="searchCreated_atAir">Фильтр по диапозону дат:</label>
+                        <input type="text" class="form-control m-input" id="searchCreated_atAir"/>
+                        <i id="searchCreated_atAirClear" class="flaticon-cancel in-input-clear"></i>
+                    </div>
+                    <div class="col-xl-6">
+                        <label for="searchOrganization">Искать по организациям:</label>
+                        <input type="text" class="form-control m-input" id="searchOrganization">
+                        <i id="searchOrganizationClear" class="flaticon-cancel in-input-clear"></i>
+                    </div>
+                </div>
             </div>
             <div class="m-portlet__body">
                 <!--begin: Nav tabs -->
@@ -197,14 +201,19 @@ var datatableTopics = function() {
                 title: 'Полное описание',
                 responsive: {hidden: 'xl'},
             }, {
+                field: 'status',
+                title: 'Статус',
+                responsive: {hidden: 'xl'},
+            }, {
                 field: "Actions",
                 title: "Действия",
-                width: 90,
+                width: 100,
                 sortable: false,
                 overflow: "visible",
+                textAlign: "center",
                 template: function (row) {
-                    return '<button type="button" class="btn margin-bottom-custom" onClick="openShowTopicModal(this)">Показать</button>\
-                            <button type="button" class="btn margin-bottom-custom" onClick="getTopicEditById(this)">Редактировать</button>';
+                    return '<button type="button" class="btn" onClick="openShowTopicModal(this)" title="Показать"><i class="flaticon-interface-6"></i></button>\
+                            <button type="button" class="btn" onClick="getTopicEditById(this)" title="Редактировать"><i class="flaticon-edit-1"></i></button>';
                 }
             }],
 

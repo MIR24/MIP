@@ -156,5 +156,10 @@ return [
     */
 
     'attributes' => [
+        'name' => 'название',
+        'url' => 'ссылка на сюжет',
+        'description_short' => 'краткое описание сюжета',
+        'description_long' => 'полное описание сюжета',
+        'video_id' => 'видео',
     ],
 ];
