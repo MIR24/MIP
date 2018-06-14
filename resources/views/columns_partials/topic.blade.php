@@ -11,7 +11,7 @@
             <div>{{$topic->description_short}}</div>
             <div>{{$topic->description_long}}</div>
         </a>
-        <div class="pub-date">{{$topic->created_at}}</div>
+        <div class="pub-date">{{$topic->published_at}}</div>
         <div class="pub-geo">{{$topic->country}} <span class="country-mini" style="background-image: url({{$topic->flag}})"></span></div>
     </div>
 </div>

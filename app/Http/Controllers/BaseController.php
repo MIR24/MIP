@@ -15,7 +15,7 @@ class BaseController extends Controller
             ->join('users', 'users.id', '=', 'topics.user_id')
             ->join('organizations', 'organizations.id', '=', 'users.organization_id')
             ->join('countries', 'organizations.country_id', '=', 'countries.id')
-            ->orderBy('topics.created_at', 'desc');
+            ->orderBy('topics.published_at', 'desc');
 
         if ($organizations) {
             is_array($organizations) ?: $organizations = explode(',', $organizations);
@@ -27,9 +27,9 @@ class BaseController extends Controller
         }
 
         if ($date_end) {
-            $builder->whereBetween('topics.created_at', [$date_start, $date_end]);
+            $builder->whereBetween('topics.published_at', [$date_start, $date_end]);
         } else if ($date_start) {
-            $builder->whereDate('topics.created_at', $date_start);
+            $builder->whereDate('topics.published_at', $date_start);
         }
 
         if ($title) {
@@ -38,7 +38,7 @@ class BaseController extends Controller
 
         $models = $builder->get([
             'topics.id',
-            'topics.created_at',
+            'topics.published_at',
             'topics.name',
             'topics.description_short',
             'topics.description_long',
@@ -51,7 +51,7 @@ class BaseController extends Controller
             'videos.cdn_content_type as video_content_type'
         ])
             ->groupBy(function($topic){
-                return Date::createFromFormat('d F Y года H:i', $topic->created_at)->format('j F D Y');
+                return Date::createFromFormat('d F Y года H:i', $topic->published_at)->format('j F D Y');
             });
         return $models;
     }
@@ -60,7 +60,7 @@ class BaseController extends Controller
 
         $day = $days_ago;
 
-        if ($first_date = Topic::orderBy('created_at', 'asc')->pluck('created_at')->first()) {
+        if ($first_date = Topic::orderBy('published_at', 'asc')->pluck('published_at')->first()) {
             $first_date = Date::createFromFormat('d F Y года H:i', $first_date)->format('Y-m-d');
         }
 

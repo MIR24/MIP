@@ -62,6 +62,11 @@ class Topic extends Model
         return $this->belongsTo('App\Video');
     }
 
+    public function getPublishedAtAttribute($value)
+    {
+        return Date::createFromFormat('Y-m-d H:i:s', $value)->format('d F Y года H:i');
+    }
+
     public function getCreatedAtAttribute($value)
     {
         return Date::createFromFormat('Y-m-d H:i:s', $value)->format('d F Y года H:i');
