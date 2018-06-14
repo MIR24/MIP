@@ -338,7 +338,7 @@ $preview-height: 215px;
         }
 
         .datepicker--cell.-selected- {
-          background: #a0d216;
+          background: #a0d216 !important;
           color:#000;
         }
 
@@ -766,6 +766,16 @@ footer {
   }
 
 }
+
+.main-container .top-bar .search-box .search-buttons .datepicker--cell.-in-range- {
+  background-color: #e6e6e6;
+}
+
+.main-container .top-bar .search-box .search-buttons .datepicker--cell.-focus- {
+  background-color: #919191;
+  color: #fff;
+}
+
 @media (max-width: 700px) {
   .col-md-4 .description {
     font-size: 12px;

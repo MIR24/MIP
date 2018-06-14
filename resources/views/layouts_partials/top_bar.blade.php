@@ -8,7 +8,7 @@
             <div class="submit luppa"></div><div class="calendar" data-position="right top"></div>
             <div class="search-date">
                 <div id="dtpckr" class="datepicker-here"
-                     data-multiple-dates="2"
+                     data-range="true"
                      data-multiple-dates-separator=", "
                 ></div>
                 @yield('country_list')
