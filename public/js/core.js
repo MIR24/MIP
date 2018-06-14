@@ -121,12 +121,19 @@ function emptyShowTopicModal (type) {
     $("#m_modal_show_topic_description_short").empty();
     $("#m_modal_show_topic_description_long").empty();
     $("#m_modal_show_topic_name").empty();
+    $("#m_modal_show_topic_status").empty();
 }
 function makeVideoTag (src, type) {
     return '<video class="col-lg-12 col-md-12 col-sm-12" controls><source src="https://' + src + '" type="' + type + '">Ваш браузер не поддерживает воспроизведение видео</video>';
 }
 function openShowTopicModal (obj) {
     var row = $(obj.closest("tr"));
+    var status = row.find("[data-field='status']").text();
+    if (status == 'active') {
+        $("#m_modal_show_topic_status").append('<h5 class="m-portlet__head-text m--font-success">Опубликован</h5>');
+    } else {
+        $("#m_modal_show_topic_status").append('<h5 class="m-portlet__head-text m--font-danger">Неопубликован</h5>');
+    }
     var videoUrl = row.find("[data-field='video_url']").text();
     var videoType = row.find("[data-field='video_content_type']").text();
     if (videoUrl && videoType) {

@@ -33,6 +33,7 @@
                 </button>
             </div>
             <div class="modal-body">
+                <p id="m_modal_show_topic_status"></p>
                 <h5>Краткое описание сюжета</h5>
                 <p id="m_modal_show_topic_description_short"></p>
                 <h5>Полное описание сюжета</h5>
