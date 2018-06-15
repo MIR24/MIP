@@ -1,5 +1,5 @@
 @if(count($days) == 0)
-<div class="banana">К сожалению, поиск не дал результатов</div>
+<div class="banana">Нет записей</div>
 @else
 @foreach($days as $day => $topics)
 <div class="day-divider {{$current == $day ? 'current' : ''}}"><div>{{explode(' ', $day)[0].' '.explode(' ', $day)[1]}}</div><div>{{explode(' ', $day)[2]}}</div></div>
