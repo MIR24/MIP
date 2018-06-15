@@ -91,6 +91,10 @@ class TopicController extends BaseController
             if (!empty($query['organization'])) {
                 $builder->where('organizations.name', 'like', '%'.$query['organization'].'%');
             }
+
+            if (!empty($query['name'])) {
+                $builder->where('topics.name', 'like', '%'.$query['name'].'%');
+            }
         }
 
         $total = $builder->count();

@@ -36,6 +36,20 @@ $preview-height: 215px;
   left: 5%;
   z-index: 11;
 }
+.message-503 {
+  display: table;
+  width: 100%;
+}
+.message-503>div {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+#carouselExampleIndicators {
+  max-height: 220px;
+  overflow: hidden;
+  margin: auto;
+}
 
 .main-container {
 
@@ -359,6 +373,7 @@ $preview-height: 215px;
 .day-divider {
   text-align: left;
   clear: both;
+  margin-top: 15px;
 
   div {
     display: inline-block;

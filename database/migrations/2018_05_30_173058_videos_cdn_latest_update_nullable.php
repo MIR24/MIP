@@ -25,6 +25,7 @@ class VideosCdnLatestUpdateNullable extends Migration
      */
     public function down()
     {
+        DB::table('videos')->whereNull('cdn_latest_update')->update(['cdn_latest_update' => '0']);
         Schema::table('videos', function (Blueprint $table) {
             $table->string('cdn_latest_update')->nullable(false)->change();
         });
