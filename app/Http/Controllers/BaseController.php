@@ -18,7 +18,7 @@ class BaseController extends Controller
      *               $filter['organizations'] array of organizations ids
      *               $filter['countries'] array of countries ids
      *               $filter['query'] string search query
-     * @return array array of models
+     * @return array
      */
     protected static function getTopicsByFilter($filter) {
 
