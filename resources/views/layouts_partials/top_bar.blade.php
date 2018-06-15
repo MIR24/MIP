@@ -1,6 +1,13 @@
 <div class="top-bar">
     <div class="top-menu main">
-        <a href="#participants">Участники пула</a><a href="#">О проекте</a><a href="#">Присоединиться к пулу</a><a href="#">Личный раздел</a>
+        <a href="#participants">Участники пула</a>
+        <a href="#">О проекте</a>
+        <a href="#">Присоединиться к пулу</a>
+        @guest
+            <a href="{{ route('login') }}">Войти</a>
+        @else
+            <a href="{{ route('topics.index') }}">Личный раздел</a>
+        @endguest
     </div>
     <div class="search-box">
         <input id="search" type="text" placeholder="ПОИСК"/>
