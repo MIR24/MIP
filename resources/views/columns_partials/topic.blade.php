@@ -16,7 +16,7 @@
             <div>{{$topic['name']}}</div>
             <div>{{$topic['description_short']}}</div>
         </a>
-        <div class="pub-date">{{$topic['created_at']}}</div>
+        <div class="pub-date">{{$topic['published_at']}}</div>
         <div class="pub-geo">{{$topic['country']}} <span class="country-mini" style="background-image: url({{$topic['flag']}})"></span></div>
     </div>
 </div>
