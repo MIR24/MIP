@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Jenssegers\Date\Date;
 use App\Topic;
 use Validator;
+use DB;
 
 class BaseController extends Controller
 {
@@ -17,7 +18,7 @@ class BaseController extends Controller
      *               $filter['organizations'] array of organizations ids
      *               $filter['countries'] array of countries ids
      *               $filter['query'] string search query
-     * @return Illuminate\Database\Eloquent\Collection
+     * @return array
      */
     protected static function getTopicsByFilter($filter) {
 
@@ -27,6 +28,8 @@ class BaseController extends Controller
             ->join('users', 'users.id', '=', 'topics.user_id')
             ->join('organizations', 'organizations.id', '=', 'users.organization_id')
             ->join('countries', 'organizations.country_id', '=', 'countries.id')
+            ->where('topics.status', '=', 'active')
+            ->whereNotNull('topics.published_at')
             ->orderBy('topics.published_at', 'desc');
 
         if (isset($organizations)) {
@@ -39,10 +42,10 @@ class BaseController extends Controller
         }
 
         if (isset($date_end) && isset($date_start)) {
-            $builder->whereDate('topics.created_at', '>=', $date_start)
-                ->whereDate('topics.created_at', '<=', $date_end);
+            $builder->whereDate('topics.published_at', '>=', $date_start)
+                ->whereDate('topics.published_at', '<=', $date_end);
         } else if (isset($date_start)) {
-            $builder->whereDate('topics.created_at', $date_start);
+            $builder->whereDate('topics.published_at', $date_start);
         }
 
         if (isset($query)) {
@@ -77,13 +80,13 @@ class BaseController extends Controller
 
         $day = $days_ago;
 
-        if ($first_date = Topic::orderBy('published_at', 'asc')->pluck('published_at')->first()) {
+        if ($first_date = Topic::orderBy('created_at', 'asc')->pluck('created_at')->first()) {
             $first_date = Date::createFromFormat('d F Y года H:i', $first_date)->format('Y-m-d');
         }
 
         do {
             $search_date = date('Y-m-d', strtotime("-$day days"));
-            if (($models = self::getTopicsByFilter(['date_start' => $search_date, 'organizations' => $organizations])) && $search_date >= $first_date) {
+            if ($search_date >= $first_date && ($models = self::getTopicsByFilter(['date_start' => $search_date, 'organizations' => $organizations]))) {
                 if (count($models) > 0) {
                     return [
                         'models'=> $models,
