@@ -16,7 +16,7 @@ class BaseController extends Controller
      *               $filter['date_end'] string format Y-m-d set end date for selection
      *               $filter['organizations'] array of organizations ids
      *               $filter['countries'] array of countries ids
-     *               $filter['title'] string search query
+     *               $filter['query'] string search query
      * @return Illuminate\Database\Eloquent\Collection
      */
     protected static function getTopicsByFilter($filter) {
