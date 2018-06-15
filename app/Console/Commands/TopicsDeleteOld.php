@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Jenssegers\Date\Date;
+use Log;
 use DB;
 
 class TopicsDeleteOld extends Command
@@ -30,6 +31,8 @@ class TopicsDeleteOld extends Command
     public function __construct()
     {
         parent::__construct();
+
+        $this->prefix = $this->signature.': ';
     }
 
     /**
@@ -39,9 +42,17 @@ class TopicsDeleteOld extends Command
      */
     public function handle()
     {
-        DB::table('topics')
-            ->where('created_at', '<', Date::now()->subMinutes(config('constants.topics_ttl')))
+        $records = DB::table('topics')
+            ->where('published_at', '<', Date::now()->subMinutes(config('constants.topics_ttp')))
+            ->where('status', 'active')
+            ->whereNull('deleted_at')
+            ->update(['status' => 'inactive']);
+        Log::info($this->prefix.$records.' records unpublished');
+        $records = DB::table('topics')
+            ->where('published_at', '<', Date::now()->subMinutes(config('constants.topics_ttl')))
+            ->where('status', 'inactive')
             ->whereNull('deleted_at')
             ->update(['deleted_at' => now()]);
+        Log::info($this->prefix.$records.' records deleted');
     }
 }

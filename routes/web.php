@@ -15,7 +15,7 @@ Route::get('/', 'TopicController@indexFront')
     ->name('topics.index.front');
 
 Route::post('/topics/search', 'TopicController@search')
-    ->name('api.topics.index.search');
+    ->name('topics.search.front');
 
 Route::get('/api/organizations/{organization}/topics/row/{days_ago}', 'TopicController@row')
     ->name('api.organizations.topics.index.row');

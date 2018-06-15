@@ -1,6 +1,12 @@
 <div class="top-bar">
     <div class="top-menu main">
-        <a href="#participants">Участники пула</a><a href="#">О проекте</a><a id="home" href="#">Личный раздел</a>
+        <a href="#participants">Участники пула</a>
+        <a href="#">О проекте</a>
+        @guest
+            <a id="home" href="{{ route('login') }}">Войти</a>
+        @else
+            <a id="home" href="{{ route('topics.index') }}">Личный раздел</a>
+        @endguest
     </div>
     <div class="search-box-wrap">
         <div class="search-box">
@@ -20,6 +26,14 @@
     </div>
     <div class="top-menu bayan">
         <a id="menu-btn" href="#menu" data-toggle="collapse">Меню</a>
-        <div id="menu" class="collapse"><a href="#participants">Участники пула</a><a href="#">О проекте</a><a href="#">Личный раздел</a></div>
+        <div id="menu" class="collapse">
+            <a href="#participants">Участники пула</a>
+            <a href="#">О проекте</a>
+            @guest
+            <a href="{{ route('login') }}">Войти</a>
+            @else
+                <a href="{{ route('topics.index') }}">Личный раздел</a>
+            @endguest
+        </div>
     </div>
 </div>

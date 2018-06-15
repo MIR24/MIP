@@ -8,7 +8,19 @@ function clickHandler() {
         $('.show-more').on('click', clickHandler);
     })
 }
+function calcHeight () {
+    let rest = 45+$('footer').outerHeight()+$('#carouselExampleIndicators').outerHeight(true),
+        height = $(this).innerHeight() - rest;
+    $('.content').css('min-height', height+'px');
+    $('.message-503').height(height);
+}
+$(window).on('load', function() {
+    calcHeight();
+});
 $(document).ready(function () {
+    $(window).on('resize', function () {
+        calcHeight();
+    });
     $('.calendar').on('click', function () {
         var calendar = $(this);
         $('.search-date').slideToggle('fast', function () {
