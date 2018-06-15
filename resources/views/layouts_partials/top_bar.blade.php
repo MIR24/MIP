@@ -2,7 +2,6 @@
     <div class="top-menu main">
         <a href="#participants">Участники пула</a>
         <a href="#">О проекте</a>
-        <a href="#">Присоединиться к пулу</a>
         @guest
             <a href="{{ route('login') }}">Войти</a>
         @else
@@ -28,7 +27,6 @@
         <div id="menu" class="collapse">
             <a href="#participants">Участники пула</a>
             <a href="#">О проекте</a>
-            <a href="#">Присоединиться к пулу</a>
             @guest
             <a href="{{ route('login') }}">Войти</a>
             @else

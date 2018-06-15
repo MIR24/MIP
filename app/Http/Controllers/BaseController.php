@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Jenssegers\Date\Date;
 use App\Topic;
 use Validator;
+use DB;
 
 class BaseController extends Controller
 {
@@ -27,7 +28,8 @@ class BaseController extends Controller
         }
 
         if ($date_end) {
-            $builder->whereBetween('topics.published_at', [$date_start, $date_end]);
+            $builder->whereRaw(DB::raw("DATE(topics.created_at) >= '$date_start'"))
+                ->whereRaw(DB::raw("DATE(topics.created_at) <= '$date_end'"));
         } else if ($date_start) {
             $builder->whereDate('topics.published_at', $date_start);
         }
