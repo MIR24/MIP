@@ -6,7 +6,12 @@
                 @include('columns_partials.CDNVideoPlayer', ['video_url' => $topic->video_url])
             @endif
         </div>
-        <div class="icons"><span class="download">Скачать ⬇</span><span class="age-restriction">4+</span></div>
+        <div class="icons">
+            @auth
+                <span class="download">Скачать ⬇</span>
+            @endauth
+            <span class="age-restriction">18+</span>
+        </div>
         <a href="#" class="description">
             <div>{{$topic->name}}</div>
             <div>{{$topic->description_short}}</div>
