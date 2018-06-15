@@ -15,12 +15,13 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Topic::class, function (Faker $faker) {
     return [
-        'published_at' => $faker->dateTimeThisMonth('2018-12-30 21:00:00', 'Europe/Moscow'),
-        'video_id' => factory('App\Video')->create()->id,
-        'user_id' => factory('App\User')->create()->id,
+        'published_at' => $faker->dateTimeThisYear('now', 'Europe/Moscow'),
+        'user_id' => $faker->numberBetween(1, 10),
         'name' => $faker->word,
-        'description_short' => $faker->paragraph($nbSentences = 3, $variableNbSentences = true),
-        'description_long' => $faker->paragraph($nbSentences = 6, $variableNbSentences = true),
+        'description_short' => $faker->paragraph(3, true),
+        'description_long' => $faker->paragraph(6, true),
         'url' => $faker->url,
+        'status' => 'inactive',
+        'image_url' => $faker->imageUrl(640, 480, 'cats'),
     ];
 });
