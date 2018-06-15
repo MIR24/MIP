@@ -6,15 +6,20 @@
         <div class="m-portlet m-portlet--mobile ">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-xl-6">
+                    <div class="col-xl">
                         <label for="searchCreated_atAir">Фильтр по диапозону дат:</label>
                         <input type="text" class="form-control m-input" id="searchCreated_atAir"/>
                         <i id="searchCreated_atAirClear" class="flaticon-cancel in-input-clear"></i>
                     </div>
-                    <div class="col-xl-6">
+                    <div class="col-xl">
                         <label for="searchOrganization">Искать по организациям:</label>
-                        <input type="text" class="form-control m-input" id="searchOrganization">
-                        <i id="searchOrganizationClear" class="flaticon-cancel in-input-clear"></i>
+                        <input type="text" class="form-control m-input" id="searchOrganization" data-search="organization">
+                        <i id="searchOrganizationClear" class="flaticon-cancel in-input-clear" data-clear="searchOrganization"></i>
+                    </div>
+                    <div class="col-xl">
+                        <label for="searchName">Искать по названию:</label>
+                        <input type="text" class="form-control m-input" id="searchName" data-search="name">
+                        <i id="searchNameClear" class="flaticon-cancel in-input-clear" data-clear="searchName"></i>
                     </div>
                 </div>
             </div>
@@ -25,7 +30,7 @@
                        <a class="nav-link m-tabs__link" href="#m_datatable_status" data-toggle="tab" data-status="all">Все сюжеты</a>
                     </li>
                     <li class="nav-item m-tabs__item">
-                        <a class="nav-link m-tabs__link" href="#m_datatable_status" data-toggle="tab" data-status="inactive">Неактивные сюжеты</a>
+                        <a class="nav-link m-tabs__link" href="#m_datatable_status" data-toggle="tab" data-status="inactive">Неопубликованные сюжеты</a>
                     </li>
                 </ul>
                 <div class="tab-content">
@@ -49,6 +54,8 @@
 @push('scripts')
 <script type="text/javascript">
 $(document).ready(function() {
+    var searchInputs = '#searchName, #searchOrganization',
+        searchClear = '#searchNameClear, #searchOrganizationClear';
     if(window.location.href.indexOf('#m_modal_create_topic') != -1) {
         $('#m_modal_create_topic').modal('show');
     }
@@ -61,20 +68,15 @@ $(document).ready(function() {
         showToasterMessage('{{ Session::get("msg.type") }}', '{{ Session::get("msg.text") }}')
     @endif
 
-    $('#searchCreated_at').change(function() {
-        var that = this;
-        topicsDT.search($(that).val(), 'created_at');
+    $(searchInputs).on('input', function() {
+        var $this = $(this);
+        topicsDT.search($this.val(), $(this).attr("data-search"));
     });
 
-    var timeoutOrganization = null;
-    $('#searchOrganization').on('keyup', function () {
-        var that = this;
-        if (timeoutOrganization !== null) {
-            clearTimeout(timeoutOrganization);
-        }
-        timeoutOrganization = setTimeout(function () {
-            topicsDT.search($(that).val(), 'organization');
-        }, 400);
+    $(searchClear).click(function () {
+        var target = $('#' + $(this).attr("data-clear"));
+        target.val('');
+        topicsDT.search('', target.attr("data-search"));
     });
 
     $("#m_modal_show_topic").on('hidden.bs.modal', function (e) {
@@ -84,11 +86,6 @@ $(document).ready(function() {
     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
          topicsDT.setDataSourceParam('status',  $(this).attr("data-status"));
          topicsDT.reload();
-    });
-
-    $("#searchOrganizationClear").click(function () {
-        $("#searchOrganization").val('');
-        topicsDT.search('', 'organization');
     });
 
     $("#searchCreated_atAirClear").click(function () {
