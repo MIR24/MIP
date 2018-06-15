@@ -7,6 +7,16 @@ var filter = {
 };
 
 function submit () {
+    let query = $('input#search').val();
+    if (query.length > 0 && query.length <3) {
+        $('#search').tooltip('enable');
+        $('#search').tooltip('show');
+        setTimeout(()=>{
+            $('#search').tooltip('hide');
+            $('#search').tooltip('disable');
+        }, 3000);
+        return false;
+    }
     let new_filter = Object.assign({}, filter);
     new_filter.countries = new_filter.countries.join(',');
     if (location.pathname.indexOf('organization') !== -1) {
