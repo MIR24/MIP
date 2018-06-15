@@ -37,13 +37,9 @@ class TopicController extends BaseController
 
     public function search(Request $request)
     {
-        $input = $request->all();
-        $date_start = isset($input['date_start']) ? $input['date_start'] : null;
-        $date_end = isset($input['date_end']) ? $input['date_end'] : null;
-        $organizations = isset($input['organizations']) ? $input['organizations'] : null;
-        $countries = isset($input['countries']) ? $input['countries'] : null;
-        $title = isset($input['query']) ? $input['query'] : null;
-        $days = self::getTopicsBetween($date_start, $date_end, $organizations, $countries, $title);
+        $query = $request->all();
+        $query['take'] = config('constants.search_limit');
+        $days = self::getTopicsByFilter($query);
 
         return view('columns.topics', [
             'days' => $days,
@@ -147,10 +143,15 @@ class TopicController extends BaseController
                 'countries.name as country_name'
             ]);
         $countries = Country::all();
-        $set = self::getTopicsByDay(0);
+        $models = [];
+        for ($days = 0, $ago = 0; $days < config('constants.days_on_main'); ++$days) {
+            $set = self::getTopicsByDay($ago);
+            $models = array_merge($models, is_array($set['models']) ? $set['models'] : $set['models']->toArray());
+            $ago = $set['day']+1;
+        }
         $vars = [
-            'days' => $set['models'],
-            'next_day' => $set['day']+1,
+            'days' => $models,
+            'next_day' => $ago,
             'current'=> Date::now()->format('j F D Y'),
             'organizations' => $organizations,
             'countries' => $countries

@@ -5,12 +5,23 @@ namespace App\Http\Controllers;
 use Jenssegers\Date\Date;
 use App\Topic;
 use Validator;
-use DB;
 
 class BaseController extends Controller
 {
+    /**
+     * Get topics by filter array.
+     *
+     * @param  array $filter
+     *               $filter['date_start'] string format Y-m-d set start date for selection
+     *               $filter['date_end'] string format Y-m-d set end date for selection
+     *               $filter['organizations'] array of organizations ids
+     *               $filter['countries'] array of countries ids
+     *               $filter['title'] string search query
+     * @return Illuminate\Database\Eloquent\Collection
+     */
+    protected static function getTopicsByFilter($filter) {
 
-    protected static function getTopicsBetween($date_start = null, $date_end = null, $organizations = null, $countries = null, $title = null) {
+        extract($filter);
 
         $builder = Topic::leftjoin('videos', 'videos.id', '=', 'topics.video_id')
             ->join('users', 'users.id', '=', 'topics.user_id')
@@ -18,24 +29,28 @@ class BaseController extends Controller
             ->join('countries', 'organizations.country_id', '=', 'countries.id')
             ->orderBy('topics.created_at', 'desc');
 
-        if ($organizations) {
+        if (isset($organizations)) {
             is_array($organizations) ?: $organizations = explode(',', $organizations);
             $builder->whereIn('organizations.id', [$organizations]);
         }
-        if ($countries) {
+        if (isset($countries)) {
             is_array($countries) ?: $countries = explode(',', $countries);
             $builder->whereIn('countries.id', $countries);
         }
 
-        if ($date_end) {
-            $builder->whereRaw(DB::raw("DATE(topics.created_at) >= '$date_start'"))
-                ->whereRaw(DB::raw("DATE(topics.created_at) <= '$date_end'"));
-        } else if ($date_start) {
+        if (isset($date_end) && isset($date_start)) {
+            $builder->whereDate('topics.created_at', '>=', $date_start)
+                ->whereDate('topics.created_at', '<=', $date_end);
+        } else if (isset($date_start)) {
             $builder->whereDate('topics.created_at', $date_start);
         }
 
-        if ($title) {
-            $builder->where('topics.name', 'LIKE', "%$title%")->orWhere('topics.description_short', 'LIKE', "%$title%");
+        if (isset($query)) {
+            $builder->where('topics.name', 'LIKE', "%$query%")->orWhere('topics.description_short', 'LIKE', "%$query%");
+        }
+
+        if (isset($take)) {
+            $builder->take($take);
         }
 
         $models = $builder->get([
@@ -68,7 +83,7 @@ class BaseController extends Controller
 
         do {
             $search_date = date('Y-m-d', strtotime("-$day days"));
-            if (($models = self::getTopicsBetween($search_date, null, $organizations)) && $search_date >= $first_date) {
+            if (($models = self::getTopicsByFilter(['date_start' => $search_date, 'organizations' => $organizations])) && $search_date >= $first_date) {
                 if (count($models) > 0) {
                     return [
                         'models'=> $models,

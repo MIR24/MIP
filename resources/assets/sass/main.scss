@@ -717,6 +717,16 @@ footer {
   height: 28px;
 
 }
+.search-box-wrap {
+  position: relative;
+  float: right;
+  width: 266px;
+  height: 45px;
+}
+#home {
+  float: right;
+  margin-right: 10px;
+}
 @media (max-width: 800px) {
   .top-menu {
     font-size: 12px;
@@ -763,6 +773,11 @@ footer {
   }
   .detail-head > div {
     margin: auto;
+  }
+  .search-box-wrap {
+    position: initial;
+    float: none;
+    width: initial;
   }
 
 }
