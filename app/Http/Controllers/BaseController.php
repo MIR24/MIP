@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Jenssegers\Date\Date;
 use App\Topic;
 use Validator;
-use DB;
 
 class BaseController extends Controller
 {
@@ -49,7 +48,10 @@ class BaseController extends Controller
         }
 
         if (isset($query)) {
-            $builder->where('topics.name', 'LIKE', "%$query%")->orWhere('topics.description_short', 'LIKE', "%$query%");
+            $builder->where( function ($builder) use ($query) {
+                $builder->where('topics.name', 'LIKE', "%$query%")
+                    ->orWhere('topics.description_short', 'LIKE', "%$query%");
+            });
         }
 
         if (isset($take)) {
