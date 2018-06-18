@@ -8,7 +8,7 @@
         </div>
         <div class="icons">
             @auth
-                <span class="download">Скачать ⬇</span>
+                <span class="download" data-meta-id="#showTopics{{ $topic['id'] }}">Скачать ⬇</span>
             @endauth
             <span class="age-restriction">18+</span>
         </div>
@@ -18,6 +18,6 @@
         </div>
         <div class="pub-date">{{$topic['published_at']}}</div>
         <div class="pub-geo">{{$topic['country']}} <span class="country-mini" style="background-image: url({{$topic['flag']}})"></span></div>
-        <div class="meta" data-name="{{$topic['name']}}" data-short="{{$topic['description_short']}}" data-full="{{$topic['description_long']}}" data-link="{{$topic['ftp_url']}}"></div>
+        <div id="showTopics{{ $topic['id'] }}" class="meta" data-name="{{$topic['name']}}" data-short="{{$topic['description_short']}}" data-full="{{$topic['description_long']}}" data-link="{{$topic['ftp_url']}}"></div>
     </div>
 </div>

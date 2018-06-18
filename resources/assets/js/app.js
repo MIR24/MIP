@@ -11,6 +11,7 @@ require('./mainPage');
 require('./search');
 
 window.Vue = require('vue');
+window.Clipboard = require('clipboard');
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
