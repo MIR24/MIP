@@ -64,7 +64,7 @@ class BaseController extends Controller
             'topics.name',
             'topics.description_short',
             'topics.description_long',
-            'topics.url',
+            'topics.url as ftp_url',
             'organizations.name as organization',
             'organizations.image_url_sm as logo',
             'countries.name as country',
