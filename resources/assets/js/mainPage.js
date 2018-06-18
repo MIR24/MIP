@@ -24,8 +24,9 @@ function setTooltip(btn, message) {
 }
 function hideTooltip(btn) {
   setTimeout(function() {
-    $(btn).tooltip('hide');
-}, 500);
+    $(btn).tooltip('hide')
+    .attr('data-original-title', '');
+}, 1000);
 }
 function openShowTopicModalFront () {
     var clipboard = new window.Clipboard('#copy');
@@ -45,10 +46,7 @@ function openShowTopicModalFront () {
     $('#m_modal_show_topic_link').val(metaEl.attr('data-link'));
     $('#m_modal_show_topic').modal('toggle');
 }
-function download1(file)
-{
- window.location=file;
-}
+
 $(document).ready(function () {
     $(window).on('resize', function () {
         calcHeight();
