@@ -14,6 +14,7 @@
                 <div class="form-group">
                     <label for="m_modal_show_topic_description_long">Полное описание сюжета</label>
                     <textarea type="text" class="form-control" id="m_modal_show_topic_description_long" rows="8" value="" readonly></textarea>
+                </div>
                 <div class="form-group">
                     <label for="m_modal_show_topic_link">Ссылка на сюжет</label>
                     <div class="input-group">
