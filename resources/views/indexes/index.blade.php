@@ -23,5 +23,8 @@
     </div>
 
     @include('columns.organizations', ['orgs' => $organizations])
+    @auth
+        @include('modals.download')
+    @endauth
 
 @endsection

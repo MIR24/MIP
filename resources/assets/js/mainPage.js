@@ -17,7 +17,46 @@ function calcHeight () {
 $(window).on('load', function() {
     calcHeight();
 });
+function setTooltip(btn, message) {
+  $(btn).tooltip('hide')
+    .attr('data-original-title', message)
+    .tooltip('show');
+}
+function hideTooltip(btn) {
+  setTimeout(function() {
+    $(btn).tooltip('hide')
+    .attr('data-original-title', '');
+}, 1000);
+}
+function openShowTopicModalFront () {
+    var clipboard = new window.Clipboard('#copy');
+    clipboard.on('success', function(e) {
+        setTooltip(e.trigger, 'Скопировано');
+        hideTooltip(e.trigger);
+    });
+    clipboard.on('error', function(e) {
+        setTooltip(e.trigger, 'Ошибка копирования');
+        hideTooltip(e.trigger);
+    });
+
+    var metaEl = $($(this).attr('data-meta-id'));
+    $('#m_modal_show_topic_name').val(metaEl.attr('data-name'));
+    $('#m_modal_show_topic_description_short').val(metaEl.attr('data-short'));
+    $('#m_modal_show_topic_description_long').val(metaEl.attr('data-full'));
+    $('#m_modal_show_topic_link').val(metaEl.attr('data-link'));
+    $('#m_modal_show_topic').modal('toggle');
+}
+
 $(document).ready(function () {
+    $('#open-url').on('click', function () {
+        var url = $('#m_modal_show_topic_link').val();
+        var win = window.open(url, '_blank');
+        if (win) {
+            win.focus();
+        } else {
+            alert('Пожалуйста, разрешите всплывающие окна для этого веб-сайта');
+        }
+    });
     $(window).on('resize', function () {
         calcHeight();
     });
@@ -35,4 +74,5 @@ $(document).ready(function () {
         })
     });
     $('.show-more').on('click', clickHandler)
+    $('.download').on('click', openShowTopicModalFront)
 });

@@ -6,15 +6,17 @@
         <div class="m-portlet m-portlet--mobile ">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-xl">
+                    <div class="col-xl m-form">
                         <label for="searchCreated_atAir">Фильтр по диапозону дат:</label>
                         <input type="text" class="form-control m-input" id="searchCreated_atAir"/>
                         <i id="searchCreated_atAirClear" class="flaticon-cancel in-input-clear"></i>
+                        <span class="m-form__help">Выберите две даты</span>
                     </div>
-                    <div class="col-xl">
+                    <div class="col-xl m-form">
                         <label for="searchName">Искать по названию:</label>
                         <input type="text" class="form-control m-input" id="searchName" data-search="name">
                         <i id="searchNameClear" class="flaticon-cancel in-input-clear" data-clear="searchName"></i>
+                        <span class="m-form__help">От 3х до 255ти символов</span>
                     </div>
                 </div>
             </div>

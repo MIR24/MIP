@@ -7,7 +7,7 @@
             data-handle-width="100"
             data-on-text="Опубликован"
             data-on-color="success"
-            data-off-text="Неопубликован"
+            data-off-text="Скрыт"
             data-off-color="danger"
             @if(isset($status) && $status == 'active' || old('status') == 'on' && $renderErrors)
                 checked="true"
