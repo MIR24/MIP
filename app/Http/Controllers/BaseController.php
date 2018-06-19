@@ -45,6 +45,8 @@ class BaseController extends Controller
                 ->whereDate('topics.published_at', '<=', $date_end);
         } else if (isset($date_start)) {
             $builder->whereDate('topics.published_at', $date_start);
+        } else if (!isset($query)) {
+            $builder->whereDate('topics.published_at', date('Y-m-d'));
         }
 
         if (isset($query)) {
