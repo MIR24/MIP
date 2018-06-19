@@ -13,12 +13,6 @@
                         <span class="m-form__help">Выберите две даты</span>
                     </div>
                     <div class="col-xl m-form">
-                        <label for="searchOrganization">Искать по организациям:</label>
-                        <input type="text" class="form-control m-input" id="searchOrganization" data-search="organization">
-                        <i id="searchOrganizationClear" class="flaticon-cancel in-input-clear" data-clear="searchOrganization"></i>
-                        <span class="m-form__help">От 3х до 255ти символов</span>
-                    </div>
-                    <div class="col-xl m-form">
                         <label for="searchName">Искать по названию:</label>
                         <input type="text" class="form-control m-input" id="searchName" data-search="name">
                         <i id="searchNameClear" class="flaticon-cancel in-input-clear" data-clear="searchName"></i>
@@ -57,8 +51,8 @@
 @push('scripts')
 <script type="text/javascript">
 $(document).ready(function() {
-    var searchInputs = '#searchName, #searchOrganization',
-        searchClear = '#searchNameClear, #searchOrganizationClear';
+    var searchInputs = '#searchName',
+        searchClear = '#searchNameClear';
     if(window.location.href.indexOf('#m_modal_create_topic') != -1) {
         $('#m_modal_create_topic').modal('show');
     }
