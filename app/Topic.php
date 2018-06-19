@@ -32,7 +32,7 @@ class Topic extends Model
         'name' => 'required|string|max:255',
         'description_short' => 'required|string',
         'description_long' => 'required|string',
-        'url' => 'required|url|max:255',
+        'url' => 'required|string|max:255',
         'status' => 'required|string',
         'video_id' => 'required|int'
     ];
@@ -41,7 +41,7 @@ class Topic extends Model
         'name' => 'required_without_all:description_short,description_long,url,video_id|nullable|string|max:255',
         'description_short' => 'required_without_all:name,description_long,url,video_id|nullable|string',
         'description_long' => 'required_without_all:name,description_short,url,video_id|nullable|string',
-        'url' => 'required_without_all:name,description_long,description_short,video_id|nullable|url|max:255',
+        'url' => 'required_without_all:name,description_long,description_short,video_id|nullable|string|max:255',
         'status' => 'nullable|string',
         'video_id' => 'required_without_all:name,description_long,description_short,url|nullable|int'
     ];
