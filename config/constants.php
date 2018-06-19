@@ -7,5 +7,5 @@ return [
     'datepicker_delimiter' => env('CONSTANTS_DATEPICKER_DELIMITER', ' - '),
     'days_on_main' => 3,
     'search_limit' => 200,
-
+    'ftp_download_prefix' => 'http://downloads.mip.news/',
 ];
