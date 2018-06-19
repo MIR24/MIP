@@ -18,7 +18,7 @@ function saveVideoInfo (obj, fileInput, filePreview ) {
         },
         error: function(result) {
             filePreview.empty();
-            filePreview.append('Ошибка сохронения видео!').css("color", "red");
+            filePreview.append('Ошибка сохранения видео!').css("color", "red");
             showToasterMessage('error', 'Ошибка сохранения видео');
             toogleDisableBtn(false);
         }
