@@ -8,7 +8,7 @@ var filter = {
 
 function submit () {
     let query = $('input#search').val();
-    if (query.length >= 0 && query.length <3) {
+    if (!filter.date_start && query.length >= 0 && query.length <3) {
         $('#search').tooltip('enable');
         $('#search').tooltip('show');
         setTimeout(()=>{
