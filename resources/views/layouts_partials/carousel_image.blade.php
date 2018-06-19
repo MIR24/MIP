@@ -1,4 +1,4 @@
-<a class="poster" href="#" style="background-image: url(/images/back.png)">
+<a class="poster" href="#" style="background-image: url({{$image}})">
     {{--<div class="poster-content">--}}
         {{--<div class="poster-titles">--}}
             {{--<div>{{$topic->description_short}}</div>--}}
