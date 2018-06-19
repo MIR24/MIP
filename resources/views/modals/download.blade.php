@@ -21,7 +21,12 @@
                         <input type="text" class="form-control" id="m_modal_show_topic_link" value="" readonly>
                         <div class="input-group-append">
                             <button id="copy" class="input-group-text" data-clipboard-target="#m_modal_show_topic_link">
-                                <img  src="images/clippy.png" alt="Copy to clipboard">
+                                <img  src="images/copy-clipboard-26.png" alt="Copy to clipboard">
+                            </button>
+                        </div>
+                        <div class="input-group-append">
+                            <button id="open-url" class="input-group-text">
+                                <img  src="images/download-26.png" alt="Download">
                             </button>
                         </div>
                     </div>
