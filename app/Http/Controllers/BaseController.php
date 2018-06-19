@@ -39,13 +39,12 @@ class BaseController extends Controller
             is_array($countries) ?: $countries = explode(',', $countries);
             $builder->whereIn('countries.id', $countries);
         }
-
         if (isset($date_end) && isset($date_start)) {
             $builder->whereDate('topics.published_at', '>=', $date_start)
                 ->whereDate('topics.published_at', '<=', $date_end);
         } else if (isset($date_start)) {
             $builder->whereDate('topics.published_at', $date_start);
-        } else if (!isset($query)) {
+        } else if (!isset($query) && !isset($countries)) {
             $builder->whereDate('topics.published_at', date('Y-m-d'));
         }
 
