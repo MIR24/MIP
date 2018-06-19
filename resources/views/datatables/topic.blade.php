@@ -12,11 +12,6 @@
                         <i id="searchCreated_atAirClear" class="flaticon-cancel in-input-clear"></i>
                     </div>
                     <div class="col-xl">
-                        <label for="searchOrganization">Искать по организациям:</label>
-                        <input type="text" class="form-control m-input" id="searchOrganization" data-search="organization">
-                        <i id="searchOrganizationClear" class="flaticon-cancel in-input-clear" data-clear="searchOrganization"></i>
-                    </div>
-                    <div class="col-xl">
                         <label for="searchName">Искать по названию:</label>
                         <input type="text" class="form-control m-input" id="searchName" data-search="name">
                         <i id="searchNameClear" class="flaticon-cancel in-input-clear" data-clear="searchName"></i>
@@ -54,8 +49,8 @@
 @push('scripts')
 <script type="text/javascript">
 $(document).ready(function() {
-    var searchInputs = '#searchName, #searchOrganization',
-        searchClear = '#searchNameClear, #searchOrganizationClear';
+    var searchInputs = '#searchName',
+        searchClear = '#searchNameClear';
     if(window.location.href.indexOf('#m_modal_create_topic') != -1) {
         $('#m_modal_create_topic').modal('show');
     }
