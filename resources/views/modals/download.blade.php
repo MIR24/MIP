@@ -23,6 +23,11 @@
                                 <img  src="images/copy-clipboard-26.png" alt="Copy to clipboard">
                             </button>
                         </div>
+                        <div class="input-group-append">
+                            <button id="open-url" class="input-group-text">
+                                <img  src="images/download-26.png" alt="Download">
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

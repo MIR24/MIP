@@ -48,6 +48,15 @@ function openShowTopicModalFront () {
 }
 
 $(document).ready(function () {
+    $('#open-url').on('click', function () {
+        var url = $('#m_modal_show_topic_link').val();
+        var win = window.open(url, '_blank');
+        if (win) {
+            win.focus();
+        } else {
+            alert('Пожалуйста, разрешите всплывающие окна для этого веб-сайта');
+        }
+    });
     $(window).on('resize', function () {
         calcHeight();
     });
