@@ -57,15 +57,18 @@ class TopicController extends BaseController
         ]);
 
         $user = Auth::user();
-        if (!$user || !$user->organization) {
+        if (!$user || !$user->organization || !$user->hasRole('admin')) {
             return response()->json(['error' => 'user has no organization'], 404);
         }
 
         $builder = Topic::leftJoin('videos', 'videos.id', '=', 'topics.video_id')
             ->leftJoin('users', 'users.id', '=', 'topics.user_id')
             ->leftJoin('organizations', 'organizations.id', '=', 'users.organization_id')
-            ->orderBy($validatedData['sort']['field'], $validatedData['sort']['sort'])
-            ->where('organizations.id', $user->organization->id);
+            ->orderBy($validatedData['sort']['field'], $validatedData['sort']['sort']);
+
+        if (!$user->hasRole('admin')) {
+            $builder->where('organizations.id', $user->organization->id);
+        }
 
         if (!empty($validatedData['status']) && $validatedData['status'] != 'all') {
             if ($validatedData['status'] == 'inactive') {
@@ -209,7 +212,7 @@ class TopicController extends BaseController
         }
 
         $user = Auth::user();
-        if (!$user || !$user->organization) {
+        if (!$user || !$user->organization || !$user->hasRole('admin')) {
             return redirect()
                 ->route('topics.index')
                 ->with(
@@ -220,7 +223,24 @@ class TopicController extends BaseController
                     ]
                 );
         }
-        $validatedData['user_id'] = $user->id;
+        if ($user->hasRole('admin')) {
+            $org = Organization::find($validatedData['organization']);
+            if (empty($org)) {
+                return redirect()
+                ->route('topics.index')
+                ->with(
+                    'msg',
+                    [
+                        'type' => 'error',
+                        'text' => 'Организация не найдена'
+                    ]
+                );
+            }
+            $fakeUser = $org->users()->first();
+            $validatedData['user_id'] = $fakeUser->id;
+        } else {
+            $validatedData['user_id'] = $user->id;
+        }
 
         Topic::create($validatedData);
 
@@ -339,7 +359,7 @@ class TopicController extends BaseController
         }
 
         $user = Auth::user();
-        if (!$user || !$user->organization || $topic->user->organization->id != $user->organization->id) {
+        if (!$user || !$user->organization || ($topic->user->organization->id != $user->organization->id || !$user->hasRole('admin'))) {
             return redirect()
                 ->route('topics.index')
                 ->with(
@@ -382,7 +402,25 @@ class TopicController extends BaseController
             $validatedData['status'] = 'inactive';
             $validatedData['published_at'] = null;
         }
-        $validatedData['user_id'] = $user->id;
+
+        if ($user->hasRole('admin')) {
+            $org = Organization::find($validatedData['organization']);
+            if (empty($org)) {
+                return redirect()
+                ->route('topics.index')
+                ->with(
+                    'msg',
+                    [
+                        'type' => 'error',
+                        'text' => 'Организация не найдена'
+                    ]
+                );
+            }
+            $fakeUser = $org->users()->first();
+            $validatedData['user_id'] = $fakeUser->id;
+        } else {
+            $validatedData['user_id'] = $user->id;
+        }
 
         $topic->update($validatedData);
 

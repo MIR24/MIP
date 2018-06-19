@@ -14,6 +14,33 @@
             @endif
         >
     </div>
+    @role('admin')
+    <div class="form-group{{ $errors->has('organization') && $renderErrors ? ' has-danger' : '' }}">
+        <label for="organization" class="form-control-label">Организация</label>
+        @if(isset($organization))
+            <select class="form-control" id="organization" name="organization">,
+                @foreach(App\Organization::all() as $org)
+                <option value="{{ $org->id }}" @if($organization->id == $org->id) selected @endif>{{ $org->name }}</option>
+                @endforeach
+            </select>
+        @elseif(!$renderErrors)
+            <select class="form-control" id="organization" name="organization">,
+                @foreach(App\Organization::all() as $org)
+                <option value="{{ $org->id }}">{{ $org->name }}</option>
+                @endforeach
+            </select>
+        @else
+            <select class="form-control" id="organization" name="organization">,
+                @foreach(App\Organization::all() as $org)
+                <option value="{{ $org->id }}" @if(old('organization') == $org->id) selected @endif>{{ $org->name }}</option>
+                @endforeach
+            </select>
+            @if ($errors->has('organization'))
+                <div class="form-control-feedback">{{ $errors->first('organization') }}</div>
+            @endif
+        @endif
+    </div>
+    @endrole
     <div class="form-group{{ $errors->has('name') && $renderErrors ? ' has-danger' : '' }}">
         <label for="name" class="form-control-label">Название</label>
         @if(isset($name))
