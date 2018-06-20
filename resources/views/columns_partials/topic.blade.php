@@ -3,7 +3,7 @@
         <div class="preview">
             <img class="channel-logo" src="{{$topic['logo']}}"/>
             @if($topic['video_url'])
-                @include('columns_partials.CDNVideoPlayer', ['video_url' => $topic['video_url']])
+                @include('columns_partials.CDNVideoPlayer', ['video_url' => $topic['video_url'], 'cover' => $topic['cover']])
             @endif
         </div>
         <div class="icons">
