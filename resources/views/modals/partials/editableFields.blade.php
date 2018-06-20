@@ -85,7 +85,11 @@
             <input id="video_id" name="video_id" type="hidden" value="{{ old('video_id') }}">
             <div id="file-preview" class="form-group m-form__group">
                 @if (isset($videoTag))
-                    {!! $videoTag !!}
+                    @if(isset($cover))
+                        @include('columns_partials.CDNVideoPlayer', ['video_url' => $video_url, 'cover' => $cover])
+                    @else
+                        {!! $videoTag !!}
+                    @endif
                 @endif
             </div>
             @if ($errors->has('video_id'))
