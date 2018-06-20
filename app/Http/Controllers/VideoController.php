@@ -121,7 +121,7 @@ class VideoController extends Controller
     /**
      * Get cover for platform video.
      *
-     * @param string @platform_id
+     * @param string $platform_id
      *
      * @return string
      */
