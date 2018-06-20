@@ -7,5 +7,13 @@ return [
     'datepicker_delimiter' => env('CONSTANTS_DATEPICKER_DELIMITER', ' - '),
     'days_on_main' => 3,
     'search_limit' => 200,
-
+    'ftp_download_prefix' => 'http://downloads.mip.news/',
+    'carousel_images' => [
+        '/images/am1.jpg',
+        '/images/by1.jpg',
+        '/images/kg1.jpg',
+        '/images/kz1.jpg',
+        '/images/ru1.jpg',
+        '/images/tj1.jpg',
+    ]
 ];

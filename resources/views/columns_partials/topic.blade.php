@@ -18,6 +18,6 @@
         </div>
         <div class="pub-date">{{$topic['published_at']}}</div>
         <div class="pub-geo">{{$topic['country']}} <span class="country-mini" style="background-image: url({{$topic['flag']}})"></span></div>
-        <div id="showTopics{{ $topic['id'] }}" class="meta" data-name="{{$topic['name']}}" data-short="{{$topic['description_short']}}" data-full="{{$topic['description_long']}}" data-link="{{$topic['ftp_url']}}"></div>
+        <div id="showTopics{{ $topic['id'] }}" class="meta" data-name="{{$topic['name']}}" data-short="{{$topic['description_short']}}" data-full="{{$topic['description_long']}}" data-link="{{config('constants.ftp_download_prefix')}}{{$topic['ftp_url']}}"></div>
     </div>
 </div>

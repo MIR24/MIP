@@ -8,7 +8,24 @@ var filter = {
 
 function submit () {
     let query = $('input#search').val();
-    if (!filter.date_start && query.length >= 0 && query.length <3) {
+    if (filter.date_start || query.length > 2 || filter.countries.length>0) {
+        let new_filter = Object.assign({}, filter);
+        new_filter.countries = new_filter.countries.join(',');
+        if (location.pathname.indexOf('organization') !== -1) {
+            new_filter.organizations = [location.pathname.split('/').pop()];
+        }
+        new_filter.query = $('input#search').val();
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: '/topics/search',
+            type: 'POST',
+            data: new_filter
+        }).done(function (response) {
+            $('.grid-wrap').html(response);
+        });
+    } else {
         $('#search').tooltip('enable');
         $('#search').tooltip('show');
         setTimeout(()=>{
@@ -17,22 +34,7 @@ function submit () {
         }, 3000);
         return false;
     }
-    let new_filter = Object.assign({}, filter);
-    new_filter.countries = new_filter.countries.join(',');
-    if (location.pathname.indexOf('organization') !== -1) {
-        new_filter.organizations = [location.pathname.split('/').pop()];
-    }
-    new_filter.query = $('input#search').val();
-    $.ajax({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        url: '/topics/search',
-        type: 'POST',
-        data: new_filter
-    }).done(function (response) {
-        $('.grid-wrap').html(response);
-    });
+
 };
 
 $(document).ready(function () {
