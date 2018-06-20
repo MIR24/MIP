@@ -20,32 +20,6 @@ class VideoController extends Controller
     }
 
     /**
-     * Get cover for platform video.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public static function getCover($id)
-    {
-        $platform = new Platform(config('platformcraft.api_user_id'), config('platformcraft.hmac_key'));
-
-        $url = $platform->getUrl('objects', 'get', $id);
-
-        $ch = curl_init();
-
-        curl_setopt($ch, CURLOPT_URL, htmlspecialchars_decode($url));
-
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-        $data = curl_exec($ch);
-
-        curl_close($ch);
-
-        if (isset($data['previews'])) return $data['previews'][0];
-
-        return null;
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -142,6 +116,37 @@ class VideoController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Get cover for platform video.
+     *
+     * @param string @platform_id
+     *
+     * @return string
+     */
+
+    public static function getCover($platform_id)
+    {
+        $platform = new Platform(config('platformcraft.api_user_id'), config('platformcraft.hmac_key'));
+
+        $url = $platform->getUrl('objects', 'get', $platform_id);
+
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, htmlspecialchars_decode($url));
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $data = json_decode(curl_exec($ch));
+
+        curl_close($ch);
+
+        if ($data->code == 200) {
+            return $data->object->previews[0];
+        }
+
+        return null;
     }
 
     public function platformcraftUrl(Request $request)
