@@ -208,6 +208,10 @@ class TopicController extends BaseController
             $validatedData['published_at'] = null;
         }
 
+        if (isset($validatedData['platform_id']) && $preview = VideoController::getCover($validatedData['platform_id'])) {
+            $validatedData['image_url'] = $preview;
+        }
+
         $user = Auth::user();
         if (!$user || !$user->organization) {
             return redirect()

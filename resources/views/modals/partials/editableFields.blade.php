@@ -92,5 +92,6 @@
                 <div id="video_id_warning" class="form-control-feedback">{{ $errors->first('video_id') }}</div>
             @endif
         @endif
+        <input id="platform_id" name="platform_id" type="hidden" value="">
     </div>
 </div>
