@@ -37,6 +37,7 @@ function sendVideo (method, url, file, fileInput, filePreview) {
         success: function(data) {
             showToasterMessage('info', 'Видео загрузилось');
             saveVideoInfo(data, fileInput, filePreview);
+            $('#platform_id').attr('value', data.object.id);
             filePreview.empty();
             filePreview.append(makeVideoTag(data.object.cdn_url, data.object.content_type));
         },
@@ -49,14 +50,15 @@ function sendVideo (method, url, file, fileInput, filePreview) {
     });
 }
 function handleFileSelect (evt) {
-    var file = evt.target.files;
-    var method = "POST";
-    var $this = $(this);
-    var fileLocation = evt.target.value;
-    var fileInput = $this.closest('#file-input');
-    var filePreview = $this.parent().siblings('#file-preview');
-    var fileInputLabel = $this.siblings('label');
-    if (fileInputLabel.text() != fileLocation) {
+    let file = evt.target.files,
+    method = "POST",
+    $this = $(this),
+    fileLocation = evt.target.value,
+    fileInput = $this.closest('#file-input'),
+    filePreview = $this.parent().siblings('#file-preview'),
+    fileInputLabel = $this.siblings('label');
+
+    if (fileInputLabel.text() !== fileLocation) {
         fileInputLabel.text(fileLocation)
     }
     $.ajax({

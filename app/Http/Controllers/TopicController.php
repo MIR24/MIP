@@ -208,6 +208,10 @@ class TopicController extends BaseController
             $validatedData['published_at'] = null;
         }
 
+        if (isset($validatedData['platform_id']) && $preview = VideoController::getCover($validatedData['platform_id'])) {
+            $validatedData['image_url'] = $preview;
+        }
+
         $user = Auth::user();
         if (!$user || !$user->organization) {
             return redirect()
@@ -289,6 +293,7 @@ class TopicController extends BaseController
             'id' => $topic->id,
             'name' => $topic->name,
             'url' => $topic->url,
+            'cover' => $topic->image_url,
             'description_short' => $topic->description_short,
             'description_long' => $topic->description_long,
             'status' => $topic->status,
@@ -298,6 +303,7 @@ class TopicController extends BaseController
         $video = $topic->Video;
         if ($video) {
             $params['video_id'] = $video->id;
+            $params['video_url'] = $video->cdn_cdn_url;
             $params['videoTag'] = Helper::getVideoTag($video->cdn_cdn_url, $video->cdn_content_type);
         }
 
