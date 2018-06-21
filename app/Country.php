@@ -9,6 +9,10 @@ class Country extends Model
 {
     use SoftDeletes;
     protected $dates = ['deleted_at'];
+    protected $fillable = [
+        'name',
+        'image_url',
+    ];
 
     /**
      * Get the organization records associated with the countru.

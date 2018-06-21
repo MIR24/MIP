@@ -150,11 +150,11 @@ class TopicController extends BaseController
             ->get([
                 'organizations.id as id',
                 'organizations.name as name',
+                'organizations.name_short as name_short',
                 'organizations.image_url_lg as logo',
                 'countries.image_url as flag',
                 'countries.name as country_name'
             ]);
-        $countries = Country::all();
         $models = [];
         for ($days = 0, $ago = 0; $days < config('constants.days_on_main'); ++$days) {
             $set = self::getTopicsByDay($ago);
@@ -166,7 +166,6 @@ class TopicController extends BaseController
             'next_day' => $ago,
             'current'=> Date::now()->format('j F D Y'),
             'organizations' => $organizations,
-            'countries' => $countries
         ];
 
         return view('indexes.index', $vars);

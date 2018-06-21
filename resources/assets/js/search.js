@@ -8,9 +8,9 @@ var filter = {
 
 function submit () {
     let query = $('input#search').val();
-    if (filter.date_start || query.length > 2 || filter.countries.length>0) {
+    if (filter.date_start || query.length > 2 || filter.organizations.length>0) {
         let new_filter = Object.assign({}, filter);
-        new_filter.countries = new_filter.countries.join(',');
+        new_filter.organizations = new_filter.organizations.join(',');
         if (location.pathname.indexOf('organization') !== -1) {
             new_filter.organizations = [location.pathname.split('/').pop()];
         }
@@ -42,11 +42,11 @@ $(document).ready(function () {
         let id = this.id,
             index;
         if (this.checked) {
-            filter.countries.push(id);
+            filter.organizations.push(id);
         } else {
-            index = filter.countries.indexOf(id);
+            index = filter.organizations.indexOf(id);
             if (index !== -1) {
-                filter.countries.splice(index, 1);
+                filter.organizations.splice(index, 1);
             }
         }
     });
