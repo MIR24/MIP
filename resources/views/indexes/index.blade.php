@@ -3,8 +3,8 @@
 @section('country_list')
     <div class="countries">
         <ul>
-            @foreach($countries as $country)
-                <li><input type="checkbox" id="{{$country->id}}" class="chckbx"><label for="{{$country->id}}" class="chckbx-label">{{$country->name}}</label></li>
+            @foreach($organizations as $org)
+                <li><input type="checkbox" id="{{$org->id}}" class="chckbx"><label for="{{$org->id}}" class="chckbx-label">{{$org->name_short}}</label></li>
             @endforeach
         </ul>
     </div>

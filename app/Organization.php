@@ -9,6 +9,10 @@ class Organization extends Model
 {
     use SoftDeletes;
     protected $dates = ['deleted_at'];
+    protected $fillable = [
+        'name',
+        'name_short',
+    ];
 
     /**
      * Get the users records associated with the organization.

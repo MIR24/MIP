@@ -33,7 +33,7 @@ class BaseController extends Controller
 
         if (isset($organizations)) {
             is_array($organizations) ?: $organizations = explode(',', $organizations);
-            $builder->whereIn('organizations.id', [$organizations]);
+            $builder->whereIn('organizations.id', $organizations);
         }
         if (isset($countries)) {
             is_array($countries) ?: $countries = explode(',', $countries);
@@ -44,7 +44,7 @@ class BaseController extends Controller
                 ->whereDate('topics.published_at', '<=', $date_end);
         } else if (isset($date_start)) {
             $builder->whereDate('topics.published_at', $date_start);
-        } else if (!isset($query) && !isset($countries)) {
+        } else if (!isset($query) && !isset($organizations)) {
             $builder->whereDate('topics.published_at', date('Y-m-d'));
         }
 

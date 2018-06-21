@@ -316,12 +316,12 @@ $preview-height: 215px;
             padding: 0;
           }
           li {
-            height: 30px;
-            line-height: 30px;
+            margin-bottom: 10px;
           }
           label {
             cursor:pointer;
             margin-left: 10px;
+            display: inline;
           }
         }
 
