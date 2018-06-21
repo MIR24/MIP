@@ -1,52 +1,50 @@
 @extends('layouts.metronic')
 
 @section('content')
-<div class="row">
-    <div class="col-xl-12">
-        <div class="m-portlet m-portlet--mobile ">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-xl m-form">
-                        <label for="searchCreated_atAir">Фильтр по диапозону дат:</label>
-                        <input type="text" class="form-control m-input" id="searchCreated_atAir"/>
-                        <i id="searchCreated_atAirClear" class="flaticon-cancel in-input-clear"></i>
-                        <span class="m-form__help">Выберите две даты</span>
-                    </div>
-                    @role('admin')
-                    <div class="col-xl m-form">
-                        <label for="searchOrganization">Искать по организациям:</label>
-                        <input type="text" class="form-control m-input" id="searchOrganization" data-search="organization">
-                        <i id="searchOrganizationClear" class="flaticon-cancel in-input-clear" data-clear="searchOrganization"></i>
-                        <span class="m-form__help">От 3х до 255ти символов</span>
-                    </div>
-                    @endrole
-                    <div class="col-xl m-form">
-                        <label for="searchName">Искать по названию:</label>
-                        <input type="text" class="form-control m-input" id="searchName" data-search="name">
-                        <i id="searchNameClear" class="flaticon-cancel in-input-clear" data-clear="searchName"></i>
-                        <span class="m-form__help">От 3х до 255ти символов</span>
-                    </div>
+<div class="col-xl-12">
+    <div class="m-portlet m-portlet--mobile ">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl m-form">
+                    <label for="searchCreated_atAir">Фильтр по диапозону дат:</label>
+                    <input type="text" class="form-control m-input" id="searchCreated_atAir"/>
+                    <i id="searchCreated_atAirClear" class="flaticon-cancel in-input-clear"></i>
+                    <span class="m-form__help">Выберите две даты</span>
+                </div>
+                @role('admin')
+                <div class="col-xl m-form">
+                    <label for="searchOrganization">Искать по организациям:</label>
+                    <input type="text" class="form-control m-input" id="searchOrganization" data-search="organization">
+                    <i id="searchOrganizationClear" class="flaticon-cancel in-input-clear" data-clear="searchOrganization"></i>
+                    <span class="m-form__help">От 3х до 255ти символов</span>
+                </div>
+                @endrole
+                <div class="col-xl m-form">
+                    <label for="searchName">Искать по названию:</label>
+                    <input type="text" class="form-control m-input" id="searchName" data-search="name">
+                    <i id="searchNameClear" class="flaticon-cancel in-input-clear" data-clear="searchName"></i>
+                    <span class="m-form__help">От 3х до 255ти символов</span>
                 </div>
             </div>
-            <div class="m-portlet__body">
-                <!--begin: Nav tabs -->
-                <ul class="nav nav-tabs  m-tabs-line m-tabs-line--2x" role="tablist">
-                    <li class="nav-item m-tabs__item">
-                       <a class="nav-link m-tabs__link" href="#m_datatable_status" data-toggle="tab" data-status="all">Все сюжеты</a>
-                    </li>
-                    <li class="nav-item m-tabs__item">
-                        <a class="nav-link m-tabs__link" href="#m_datatable_status" data-toggle="tab" data-status="inactive">Неопубликованные сюжеты</a>
-                    </li>
-                </ul>
-                <div class="tab-content">
-                   <div class="tab-pane active" id="m_datatable_status">
-                       <!--begin: Datatable -->
-                       <div class="m_datatable" id="m_datatable_topics"></div>
-                       <!--end: Datatable -->
-                   </div>
-                </div>
-                <!--end: Nav tabs -->
+        </div>
+        <div class="m-portlet__body">
+            <!--begin: Nav tabs -->
+            <ul class="nav nav-tabs  m-tabs-line m-tabs-line--2x" role="tablist">
+                <li class="nav-item m-tabs__item">
+                   <a class="nav-link m-tabs__link" href="#m_datatable_status" data-toggle="tab" data-status="all">Все сюжеты</a>
+                </li>
+                <li class="nav-item m-tabs__item">
+                    <a class="nav-link m-tabs__link" href="#m_datatable_status" data-toggle="tab" data-status="inactive">Неопубликованные сюжеты</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+               <div class="tab-pane active" id="m_datatable_status">
+                   <!--begin: Datatable -->
+                   <div class="m_datatable" id="m_datatable_topics"></div>
+                   <!--end: Datatable -->
+               </div>
             </div>
+            <!--end: Nav tabs -->
         </div>
     </div>
 </div>
