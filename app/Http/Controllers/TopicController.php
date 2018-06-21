@@ -57,15 +57,23 @@ class TopicController extends BaseController
         ]);
 
         $user = Auth::user();
-        if (!$user || !$user->organization) {
-            return response()->json(['error' => 'user has no organization'], 404);
+        if (!$user) {
+            return response()->json(['error' => 'please login'], 404);
+        }
+        if (!$user->hasRole('admin')) {
+            if (!$user->organization) {
+                return response()->json(['error' => 'user has no organization'], 404);
+            }
         }
 
         $builder = Topic::leftJoin('videos', 'videos.id', '=', 'topics.video_id')
             ->leftJoin('users', 'users.id', '=', 'topics.user_id')
             ->leftJoin('organizations', 'organizations.id', '=', 'users.organization_id')
-            ->orderBy($validatedData['sort']['field'], $validatedData['sort']['sort'])
-            ->where('organizations.id', $user->organization->id);
+            ->orderBy($validatedData['sort']['field'], $validatedData['sort']['sort']);
+
+        if (!$user->hasRole('admin')) {
+            $builder->where('organizations.id', $user->organization->id);
+        }
 
         if (!empty($validatedData['status']) && $validatedData['status'] != 'all') {
             if ($validatedData['status'] == 'inactive') {
@@ -213,18 +221,48 @@ class TopicController extends BaseController
         }
 
         $user = Auth::user();
-        if (!$user || !$user->organization) {
+        if (!$user) {
             return redirect()
                 ->route('topics.index')
                 ->with(
                     'msg',
                     [
                         'type' => 'error',
-                        'text' => 'Недостаточно прав для сохранения'
+                        'text' => 'Пожалуйста, войдите в систему'
                     ]
                 );
         }
-        $validatedData['user_id'] = $user->id;
+        if (!$user->hasRole('admin')) {
+            if (!$user->organization) {
+                return redirect()
+                ->route('topics.index')
+                ->with(
+                    'msg',
+                    [
+                        'type' => 'error',
+                        'text' => 'У пользователя нет организации'
+                    ]
+                );
+            }
+        }
+        if ($user->hasRole('admin')) {
+            $org = Organization::find($validatedData['organization']);
+            if (empty($org)) {
+                return redirect()
+                ->route('topics.index')
+                ->with(
+                    'msg',
+                    [
+                        'type' => 'error',
+                        'text' => 'Организация не найдена'
+                    ]
+                );
+            }
+            $fakeUser = $org->users()->first();
+            $validatedData['user_id'] = $fakeUser->id;
+        } else {
+            $validatedData['user_id'] = $user->id;
+        }
 
         Topic::create($validatedData);
 
@@ -277,16 +315,40 @@ class TopicController extends BaseController
         }
 
         $user = Auth::user();
-        if (!$user || !$user->organization || $topic->user->organization->id != $user->organization->id) {
+        if (!$user) {
             return redirect()
                 ->route('topics.index')
                 ->with(
                     'msg',
                     [
                         'type' => 'error',
-                        'text' => 'Недостаточно прав для изменения'
+                        'text' => 'Пожалуйста, войдите в систему'
                     ]
                 );
+        }
+        if (!$user->hasRole('admin')) {
+            if (!$user->organization) {
+                return redirect()
+                    ->route('topics.index')
+                    ->with(
+                        'msg',
+                        [
+                            'type' => 'error',
+                            'text' => 'У пользователя нет организации'
+                        ]
+                    );
+            }
+            if ($topic->user->organization->id != $user->organization->id) {
+                return redirect()
+                    ->route('topics.index')
+                    ->with(
+                        'msg',
+                        [
+                            'type' => 'error',
+                            'text' => 'Недостаточно прав для изменения'
+                        ]
+                    );
+            }
         }
 
         $params = [
@@ -345,16 +407,40 @@ class TopicController extends BaseController
         }
 
         $user = Auth::user();
-        if (!$user || !$user->organization || $topic->user->organization->id != $user->organization->id) {
+        if (!$user) {
             return redirect()
                 ->route('topics.index')
                 ->with(
                     'msg',
                     [
                         'type' => 'error',
-                        'text' => 'Недостаточно прав для изменения'
+                        'text' => 'Пожалуйста, войдите в систему'
                     ]
                 );
+        }
+        if (!$user->hasRole('admin')) {
+            if (!$user->organization) {
+                return redirect()
+                    ->route('topics.index')
+                    ->with(
+                        'msg',
+                        [
+                            'type' => 'error',
+                            'text' => 'У пользователя нет организации'
+                        ]
+                    );
+            }
+            if ($topic->user->organization->id != $user->organization->id) {
+                return redirect()
+                    ->route('topics.index')
+                    ->with(
+                        'msg',
+                        [
+                            'type' => 'error',
+                            'text' => 'Недостаточно прав для изменения'
+                        ]
+                    );
+            }
         }
 
         if ($request->get('status')) {
@@ -388,7 +474,25 @@ class TopicController extends BaseController
             $validatedData['status'] = 'inactive';
             $validatedData['published_at'] = null;
         }
-        $validatedData['user_id'] = $user->id;
+
+        if ($user->hasRole('admin')) {
+            $org = Organization::find($validatedData['organization']);
+            if (empty($org)) {
+                return redirect()
+                ->route('topics.index')
+                ->with(
+                    'msg',
+                    [
+                        'type' => 'error',
+                        'text' => 'Организация не найдена'
+                    ]
+                );
+            }
+            $fakeUser = $org->users()->first();
+            $validatedData['user_id'] = $fakeUser->id;
+        } else {
+            $validatedData['user_id'] = $user->id;
+        }
 
         $topic->update($validatedData);
 

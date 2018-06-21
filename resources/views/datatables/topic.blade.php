@@ -11,12 +11,14 @@
                     <i id="searchCreated_atAirClear" class="flaticon-cancel in-input-clear"></i>
                     <span class="m-form__help">Выберите две даты</span>
                 </div>
+                @role('admin')
                 <div class="col-xl m-form">
                     <label for="searchOrganization">Искать по организациям:</label>
                     <input type="text" class="form-control m-input" id="searchOrganization" data-search="organization">
                     <i id="searchOrganizationClear" class="flaticon-cancel in-input-clear" data-clear="searchOrganization"></i>
                     <span class="m-form__help">От 3х до 255ти символов</span>
                 </div>
+                @endrole
                 <div class="col-xl m-form">
                     <label for="searchName">Искать по названию:</label>
                     <input type="text" class="form-control m-input" id="searchName" data-search="name">
