@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use App\Country;
 
 class InsertDummyCountry extends Migration
 {
@@ -12,10 +11,8 @@ class InsertDummyCountry extends Migration
      */
     public function up()
     {
-        Country::create([
-            'name' => 'МИР',
-            'image_url'=> '/images/flag-dummy.png'
-        ]);
+        $sql = "INSERT INTO `countries` (`name`, `image_url`) VALUES ('МИР', '/images/flag-dummy.png')";
+        DB::connection()->getPdo()->exec($sql);
     }
 
     /**
@@ -25,6 +22,7 @@ class InsertDummyCountry extends Migration
      */
     public function down()
     {
-        Country::where('name','МИР')->forceDelete();
+        $sql = "DELETE FROM `countries` WHERE `name` = 'МИР'";
+        DB::connection()->getPdo()->exec($sql);
     }
 }

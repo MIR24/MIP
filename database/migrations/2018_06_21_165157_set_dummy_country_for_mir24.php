@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use App\Organization;
-use App\Country;
 
 class SetDummyCountryForMir24 extends Migration
 {
@@ -13,10 +11,10 @@ class SetDummyCountryForMir24 extends Migration
      */
     public function up()
     {
-        $mir24 = Organization::where('name', 'Межгосударственная телерадиокомпания «Мир»')->first();
-        $country_id = Country::where('name', 'МИР')->first()->id;
-        $mir24->country_id = $country_id;
-        $mir24->save();
+        $country_id = DB::table('countries')->where('name', 'МИР')->first()->id;
+        DB::table('organizations')
+            ->where('name', 'Межгосударственная телерадиокомпания «Мир»')
+            ->update(['country_id' => $country_id]);
     }
 
     /**
@@ -26,9 +24,9 @@ class SetDummyCountryForMir24 extends Migration
      */
     public function down()
     {
-        $mir24 = Organization::where('name', 'Межгосударственная телерадиокомпания «Мир»')->first();
-        $country_id = Country::where('name', 'Российская Федерация')->first()->id;
-        $mir24->country_id = $country_id;
-        $mir24->save();
+        $country_id = DB::table('countries')->where('name', 'Российская Федерация')->first()->id;
+        DB::table('organizations')
+            ->where('name', 'Межгосударственная телерадиокомпания «Мир»')
+            ->update(['country_id' => $country_id]);
     }
 }

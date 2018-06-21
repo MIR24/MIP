@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use App\Organization;
 
 class SetShortOrgNames extends Migration
 {
@@ -25,9 +24,8 @@ class SetShortOrgNames extends Migration
         ];
 
         foreach ($organizations as $name => $short) {
-            if ($org = Organization::where('name', $name)->first()) {
-                $org->name_short = $short;
-                $org->save();
+            if ($org = DB::table('organizations')->where(['name' => $name])) {
+                $org->update(['name_short' => $short]);
             }
         }
     }
@@ -39,6 +37,6 @@ class SetShortOrgNames extends Migration
      */
     public function down()
     {
-        DB::table('organizations')->update(array('name_short' => null));
+        DB::table('organizations')->update(['name_short' => null]);
     }
 }

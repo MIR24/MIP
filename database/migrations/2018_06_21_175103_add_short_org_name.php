@@ -14,7 +14,7 @@ class AddShortOrgName extends Migration
     public function up()
     {
         Schema::table('organizations', function (Blueprint $table) {
-            $table->string('name_short', 45);
+            $table->string('name_short', 45)->nullable();
         });
     }
 
