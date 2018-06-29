@@ -359,6 +359,7 @@ class TopicController extends BaseController
             'description_long' => $topic->description_long,
             'status' => $topic->status,
             'renderErrors' => false,
+            'organization' => $topic->user->organization,
         ];
 
         $video = $topic->Video;
