@@ -1,7 +1,7 @@
 <div class="top-bar">
     <div class="top-menu main">
         <a href="/#participants">Участники пула</a>
-        <a href="#">О проекте</a>
+        <a href="{{ route('static.about') }}">О проекте</a>
         @guest
             <a id="home" href="{{ route('login') }}">Войти</a>
         @else
