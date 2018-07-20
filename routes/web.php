@@ -24,6 +24,8 @@ Route::get('/organizations/{org_id}', 'OrganizationController@participantPage')
     ->where('org_id', '[0-9]+')
     ->name('organizations.participant.page');
 
+Route::get('/about', 'StaticController@about')
+    ->name('static.about');
 
 Auth::routes();
 
