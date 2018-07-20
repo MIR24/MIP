@@ -13,7 +13,7 @@
                 <div class="country"></div>
             </div>
             <div class="advert">
-                <div>Правила присоединения к информационному пулу</div>
+                <div></div>
                 <div class="ch-arrow"></div>
             </div>
         </div>
