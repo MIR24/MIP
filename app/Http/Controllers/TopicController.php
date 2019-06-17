@@ -11,6 +11,7 @@ use App\Country;
 use Validator;
 use App\Helpers\Helper;
 use App\Video;
+use App\Thread;
 
 class TopicController extends BaseController
 {
@@ -67,6 +68,7 @@ class TopicController extends BaseController
         }
 
         $builder = Topic::leftJoin('videos', 'videos.id', '=', 'topics.video_id')
+            ->leftJoin('threads', 'threads.id', '=', 'topics.thread_id')
             ->leftJoin('users', 'users.id', '=', 'topics.user_id')
             ->leftJoin('organizations', 'organizations.id', '=', 'users.organization_id')
             ->orderBy($validatedData['sort']['field'], $validatedData['sort']['sort']);
@@ -130,7 +132,8 @@ class TopicController extends BaseController
                 'topics.status',
                 'organizations.name as organization',
                 'videos.cdn_cdn_url as video_url',
-                'videos.cdn_content_type as video_content_type'
+                'videos.cdn_content_type as video_content_type',
+                'threads.id as thread_id',
             ]);
 
         return response()->json([
@@ -263,6 +266,10 @@ class TopicController extends BaseController
             $validatedData['user_id'] = $user->id;
         }
 
+        if (empty($validatedData['thread_id']) || Thread::where('id', $validatedData['thread_id'])->doesntExist()) {
+            $validatedData['thread_id'] = null;
+        }
+
         Topic::create($validatedData);
 
         return redirect()
@@ -366,6 +373,10 @@ class TopicController extends BaseController
             $params['video_id'] = $video->id;
             $params['video_url'] = $video->cdn_cdn_url;
             $params['videoTag'] = Helper::getVideoTag($video->cdn_cdn_url, $video->cdn_content_type);
+        }
+        $thread = $topic->thread;
+        if ($thread) {
+            $params['thread_id'] = $thread->id;
         }
 
         return view('modals.edit', $params);
@@ -472,6 +483,10 @@ class TopicController extends BaseController
         } else {
             $validatedData['status'] = 'inactive';
             $validatedData['published_at'] = null;
+        }
+
+        if (empty($validatedData['thread_id']) || Thread::where('id', $validatedData['thread_id'])->doesntExist()) {
+            $validatedData['thread_id'] = null;
         }
 
         if ($user->hasRole('admin')) {
