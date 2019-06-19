@@ -80,6 +80,34 @@
             @endif
         @endif
     </div>
+    <div class="form-group{{ $errors->has('thread_id') && $renderErrors ? ' has-danger' : '' }}">
+        <label for="thread_id" class="form-control-label">Тема</label>
+        @if(isset($thread_id))
+            <select class="form-control" id="thread_id" name="thread_id">,
+                <option value="">Нет</option>
+                @foreach(App\Thread::all() as $anyThread)
+                <option value="{{ $anyThread->id }}" @if($thread_id == $anyThread->id) selected @endif>{{ $anyThread->name }}</option>
+                @endforeach
+            </select>
+        @elseif(!$renderErrors)
+            <select class="form-control" id="thread_id" name="thread_id">,
+                <option value="">Нет</option>
+                @foreach(App\Thread::all() as $anyThread)
+                <option value="{{ $anyThread->id }}">{{ $anyThread->name }}</option>
+                @endforeach
+            </select>
+        @else
+            <select class="form-control" id="thread_id" name="thread_id">,
+                <option value="">Нет</option>
+                @foreach(App\Thread::all() as $anyThread)
+                <option value="{{ $anyThread->id }}" @if(old('thread_id') == $anyThread->id) selected @endif>{{ $anyThread->name }}</option>
+                @endforeach
+            </select>
+            @if ($errors->has('thread_id'))
+                <div class="form-control-feedback">{{ $errors->first('thread_id') }}</div>
+            @endif
+        @endif
+    </div>
     <div class="form-group{{ $errors->has('url') && $renderErrors ? ' has-danger' : '' }}">
         <label for="url" class="form-control-label">Ссылка на сюжет</label>
         @if(isset($url))

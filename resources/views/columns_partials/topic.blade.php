@@ -2,6 +2,9 @@
     <div class="cellwrap">
         <div class="preview">
             <img class="channel-logo" src="{{$topic['logo']}}"/>
+            @if(!empty($topic['thread_logo']))
+                <img class="thread-logo" src="{{ $topic['thread_logo'] }}"/>
+            @endif
             @if($topic['video_url'])
                 @include('columns_partials.CDNVideoPlayer', ['video_url' => $topic['video_url'], 'cover' => $topic['cover']])
             @endif

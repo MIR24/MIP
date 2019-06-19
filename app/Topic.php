@@ -23,6 +23,7 @@ class Topic extends Model
         'url',
         'user_id',
         'video_id',
+        'thread_id',
         'status',
         'published_at',
         'image_url',
@@ -34,7 +35,8 @@ class Topic extends Model
         'description_long' => 'required|string',
         'url' => 'required|string|max:255',
         'status' => 'required|string',
-        'video_id' => 'required|int'
+        'video_id' => 'required|int',
+        'thread_id' => 'nullable|int',
     ];
 
     static $validateInactive = [
@@ -43,7 +45,8 @@ class Topic extends Model
         'description_long' => 'required_without_all:name,description_short,url,video_id|nullable|string',
         'url' => 'required_without_all:name,description_long,description_short,video_id|nullable|string|max:255',
         'status' => 'nullable|string',
-        'video_id' => 'required_without_all:name,description_long,description_short,url|nullable|int'
+        'video_id' => 'required_without_all:name,description_long,description_short,url|nullable|int',
+        'thread_id' => 'nullable|int',
     ];
 
     /**
@@ -60,6 +63,14 @@ class Topic extends Model
     public function video()
     {
         return $this->belongsTo('App\Video');
+    }
+
+    /**
+     * Get the thread record associated with the topic.
+     */
+    public function thread()
+    {
+        return $this->belongsTo('App\Thread');
     }
 
     public function getPublishedAtAttribute($value)

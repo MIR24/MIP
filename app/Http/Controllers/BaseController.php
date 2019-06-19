@@ -24,6 +24,7 @@ class BaseController extends Controller
         extract($filter);
 
         $builder = Topic::leftjoin('videos', 'videos.id', '=', 'topics.video_id')
+            ->leftjoin('threads', 'threads.id', '=', 'topics.thread_id')
             ->join('users', 'users.id', '=', 'topics.user_id')
             ->join('organizations', 'organizations.id', '=', 'users.organization_id')
             ->join('countries', 'organizations.country_id', '=', 'countries.id')
@@ -69,6 +70,7 @@ class BaseController extends Controller
             'topics.image_url as cover',
             'organizations.name as organization',
             'organizations.image_url_sm as logo',
+            'threads.image_url as thread_logo',
             'countries.name as country',
             'countries.image_url as flag',
             'videos.cdn_cdn_url as video_url',
