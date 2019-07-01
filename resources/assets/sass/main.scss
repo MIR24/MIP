@@ -738,7 +738,31 @@ footer {
   color: #fff;
   font-size: 12px;
   height: 28px;
-
+}
+.gray-btn {
+  vertical-align: super;
+  cursor: pointer;
+  padding: 2px 5px;
+  text-transform: uppercase;
+  border: 1px solid #9e9e9e;
+  border-radius: 3px;
+  background-color: #9e9e9e;
+  font-weight: bold;
+  color: #fff;
+  font-size: 12px;
+  height: 28px;
+}
+.gray-btn a {
+  text-decoration: none;
+  color: white;
+}
+.stats {
+  margin-right: 85px;
+}
+.bottom-left {
+  position: absolute;
+  top: 200px;
+  left: 40px;
 }
 .search-box-wrap {
   position: relative;

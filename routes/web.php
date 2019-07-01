@@ -33,6 +33,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/api/topics', 'TopicController@indexDT')
         ->name('api.topics.index');
 
+    Route::middleware(['role:admin'])->group(function () {
+        Route::post('/api/stats', 'StatsController@indexDT')
+            ->name('api.stats.index');
+        Route::resource('stats', 'StatsController');
+    });
+
     Route::resource('topics', 'TopicController');
     Route::resource('videos', 'VideoController');
     Route::resource('organizations', 'OrganizationController');

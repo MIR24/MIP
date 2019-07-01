@@ -11,14 +11,12 @@
                     <i id="searchCreated_atAirClear" class="flaticon-cancel in-input-clear"></i>
                     <span class="m-form__help">Выберите две даты</span>
                 </div>
-                @role('admin')
                 <div class="col-xl m-form">
                     <label for="searchOrganization">Искать по организациям:</label>
                     <input type="text" class="form-control m-input" id="searchOrganization" data-search="organization">
                     <i id="searchOrganizationClear" class="flaticon-cancel in-input-clear" data-clear="searchOrganization"></i>
                     <span class="m-form__help">От 3х до 255ти символов</span>
                 </div>
-                @endrole
                 <div class="col-xl m-form">
                     <label for="searchName">Искать по названию:</label>
                     <input type="text" class="form-control m-input" id="searchName" data-search="name">
@@ -33,14 +31,11 @@
                 <li class="nav-item m-tabs__item">
                    <a class="nav-link m-tabs__link" href="#m_datatable_status" data-toggle="tab" data-status="all">Все сюжеты</a>
                 </li>
-                <li class="nav-item m-tabs__item">
-                    <a class="nav-link m-tabs__link" href="#m_datatable_status" data-toggle="tab" data-status="inactive">Неопубликованные сюжеты</a>
-                </li>
             </ul>
             <div class="tab-content">
                <div class="tab-pane active" id="m_datatable_status">
                    <!--begin: Datatable -->
-                   <div class="m_datatable" id="m_datatable_topics"></div>
+                   <div class="m_datatable" id="m_datatable_stats"></div>
                    <!--end: Datatable -->
                </div>
             </div>
@@ -51,7 +46,7 @@
 @endsection
 
 @push('menu')
-<button type="button" class="m-dropdown btn btn-primary" data-toggle="modal" data-target="#m_modal_create_topic">Создать новый сюжет</button>
+<h2 class="stats-header">Статистика</h2>
 @endpush
 
 @push('scripts')
@@ -59,13 +54,6 @@
 $(document).ready(function() {
     var searchInputs = '#searchName, #searchOrganization',
         searchClear = '#searchNameClear, #searchOrganizationClear';
-    if(window.location.href.indexOf('#m_modal_create_topic') != -1) {
-        $('#m_modal_create_topic').modal('show');
-    }
-
-    if(window.location.href.indexOf('#m_modal_edit_topic') != -1) {
-        $('#m_modal_edit_topic').modal('show');
-    }
 
     @if(\Session::has('msg'))
         showToasterMessage('{{ Session::get("msg.type") }}', '{{ Session::get("msg.text") }}')
@@ -73,27 +61,18 @@ $(document).ready(function() {
 
     $(searchInputs).on('input', function() {
         var $this = $(this);
-        topicsDT.search($this.val(), $(this).attr("data-search"));
+        statsDT.search($this.val(), $(this).attr("data-search"));
     });
 
     $(searchClear).click(function () {
         var target = $('#' + $(this).attr("data-clear"));
         target.val('');
-        topicsDT.search('', target.attr("data-search"));
-    });
-
-    $("#m_modal_show_topic").on('hidden.bs.modal', function (e) {
-        $("#m_modal_show_topic video").trigger('pause');
-    });
-
-    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-         topicsDT.setDataSourceParam('status',  $(this).attr("data-status"));
-         topicsDT.reload();
+        statsDT.search('', target.attr("data-search"));
     });
 
     $("#searchCreated_atAirClear").click(function () {
         $('#searchCreated_atAir').datepicker().data('datepicker').clear();
-        topicsDT.search('', 'created_at');
+        statsDT.search('', 'created_at');
     });
 
     var datepicker = $('#searchCreated_atAir').datepicker({
@@ -102,14 +81,34 @@ $(document).ready(function() {
         toggleSelected: false,
         onSelect : function (formattedDate, date, inst) {
             if (date.length > 1) {
-                topicsDT.search(formattedDate, 'created_at');
+                statsDT.search(formattedDate, 'created_at');
             }
         }
     });
+
+    presetParams = getParams(window.location.href)
+    for (const key in presetParams) {
+        tmp = decodeURIComponent(presetParams[key].replace(/\+/g, '%20'));
+        $('#search'+ key.charAt(0).toUpperCase() + key.slice(1)).val(tmp);
+        statsDT.search(tmp, key);
+    }
 });
 
-var datatableTopics = function() {
-        if ($('#m_datatable_topics').length === 0) {
+var getParams = function (url) {
+    var params = {};
+    var parser = document.createElement('a');
+    parser.href = url;
+    var query = parser.search.substring(1);
+    var vars = query.split('&');
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split('=');
+        params[pair[0]] = decodeURIComponent(pair[1].replace(/\+/g, '%20'));
+    }
+    return params;
+};
+
+var datatableStats = function() {
+        if ($('#m_datatable_stats').length === 0) {
             return;
         }
 
@@ -118,7 +117,7 @@ var datatableTopics = function() {
                 type: 'remote',
                 source: {
                     read: {
-                        url: '{{ route('api.topics.index') }}',
+                        url: '{{ route('api.stats.index') }}',
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         }
@@ -155,26 +154,33 @@ var datatableTopics = function() {
                 textAlign: 'center'
             }, {
                 field: "created_at",
-                title: "Дата публикации",
+                title: "Дата скачивания",
                 sortable: 'desc',
                 width: 150
             }, {
+                field: "topic_name",
+                title: "Название",
+                width: 450,
+                template: function (row) {
+                    return '<button class="link-not-btn" onClick="openShowTopicModal(this)" title="Показать">' + row.name + '</button>';
+                }
+            }, {
+                field: "organization",
+                title: "Скачавшая Компания",
+                width: 450,
+                textAlign: 'center'
+            }, {
                 field: "name",
                 title: "Название",
-                width: 150
+                responsive: {hidden: 'xl'},
             }, {
                 field: "description_short",
                 title: "Короткое описание",
-                width: 400,
+                responsive: {hidden: 'xl'},
             }, {
                 field: "url",
                 title: "Ссылка на сюжет",
-                width: 200
-            }, {
-                field: "organization",
-                title: "Компания правообладатель",
-                width: 150,
-                textAlign: 'center'
+                responsive: {hidden: 'xl'},
             }, {
                 field: 'video_url',
                 title: 'Ссылка на видео',
@@ -191,25 +197,6 @@ var datatableTopics = function() {
                 field: 'status',
                 title: 'Статус',
                 responsive: {hidden: 'xl'},
-            }, {
-                field: "Actions",
-                title: "Действия",
-                width: 101,
-                sortable: false,
-                overflow: "visible",
-                textAlign: "center",
-                template: function (row) {openStatsWithName
-                    prefix = "{{ route('stats.index') }}";
-                    @role('admin')
-                       var buttonsTemplate = '<button type="button" class="btn datatable-btn" onClick="openShowTopicModal(this)" title="Показать"><i class="flaticon-interface-6"></i></button>\
-                        <button type="button" class="btn datatable-btn" onClick="getTopicEditById(this)" title="Редактировать"><i class="flaticon-edit-1"></i></button>\
-                        <button type="button" class="btn datatable-btn" onClick="openStatsWithName(this, \'' + prefix + '\')" title="Статистика"><i class="flaticon-line-graph"></i></button>'
-                    @else
-                        var buttonsTemplate = '<button type="button" class="btn datatable-btn" onClick="openShowTopicModal(this)" title="Показать"><i class="flaticon-interface-6"></i></button>\
-                        <button type="button" class="btn datatable-btn" onClick="getTopicEditById(this)" title="Редактировать"><i class="flaticon-edit-1"></i></button>';
-                    @endrole
-                    return buttonsTemplate;
-                }
             }],
 
             translate: {
@@ -237,8 +224,8 @@ var datatableTopics = function() {
         });
         return datatable;
     }
-    var topicsDT = datatableTopics();
-    var dataStatus = topicsDT.API.params.status;
+    var statsDT = datatableStats();
+    var dataStatus = statsDT.API.params.status;
     if (!dataStatus) {
         dataStatus = 'all';
     }

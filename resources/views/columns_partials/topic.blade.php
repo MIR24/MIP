@@ -10,6 +10,9 @@
             @endif
         </div>
         <div class="icons">
+            @role('admin')
+                <span class="gray-btn stats"><a target="_blank" href="{{ route('stats.index', ['name' => urlencode($topic['name'])]) }}">Статистика</a></span>
+            @endrole
             @auth
                 <span class="download" data-meta-id="#showTopics{{ $topic['id'] }}">Скачать ⬇</span>
             @endauth
