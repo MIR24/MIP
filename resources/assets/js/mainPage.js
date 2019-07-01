@@ -40,11 +40,21 @@ function openShowTopicModalFront () {
     });
 
     var metaEl = $($(this).attr('data-meta-id'));
+    storeStatUrl(parseInt($(this).attr('data-meta-id').replace ( /[^\d.]/g, '' )));
     $('#m_modal_show_topic_name').val(metaEl.attr('data-name'));
     $('#m_modal_show_topic_description_short').val(metaEl.attr('data-short'));
     $('#m_modal_show_topic_description_long').val(metaEl.attr('data-full'));
     $('#m_modal_show_topic_link').val(metaEl.attr('data-link'));
     $('#m_modal_show_topic').modal('toggle');
+}
+
+async function storeStatUrl (topic_id) {
+    var xhr = new XMLHttpRequest();
+    var url = $('meta[name=storeStatUrl]').attr("content");
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    var data = JSON.stringify({"topic_id": topic_id, _token: $('meta[name="csrf-token"]').attr('content')});
+    xhr.send(data);
 }
 
 $(document).ready(function () {

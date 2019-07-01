@@ -122,7 +122,14 @@ class StatsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+        $model = Download::create([
+            'topic_id' => $request->input('topic_id'),
+            'user_id' => $user->id,
+            'organization_id' => $user->organization->id
+        ]);
+
+        return response()->json($model);
     }
 
     /**

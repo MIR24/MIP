@@ -18,6 +18,8 @@
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     <link rel="shortcut icon" href="assets/demo/demo2/media/img/logo/favicon.ico" />
+
+    <meta name="storeStatUrl" content="{{ route('stats.store') }}">
 </head>
 <body>
 <div id="app">
