@@ -8,6 +8,9 @@
         <img src="{{$organization->logo}}"/>
         <p class="sup">{{$organization->name}}</p>
         <p>{{$organization->description}}</p>
+        @role('admin')
+            <span class="gray-btn"><a target="_blank" href="{{ route('stats.index', ['organization' => urlencode($organization['name'])]) }}">Статистика</a></span>
+        @endrole
     </div>
     <div class="grid-container">
         <div class="grid-wrap">

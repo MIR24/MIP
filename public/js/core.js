@@ -149,6 +149,10 @@ function openShowTopicModal (obj) {
     $('#m_modal_show_topic_download_bottom').attr('href', row.find("[data-field='url']").text());
     $('#m_modal_show_topic').modal('toggle');
 }
+function openStatsWithName(obj, prefix) {
+    var row = $(obj.closest("tr"));
+    window.open(prefix + "?name=" + encodeURIComponent(row.find("[data-field='name']").text()));
+}
 function checkTextAndAddTo (text, addTo, error) {
     if (text) {
         $(addTo).text(text);
