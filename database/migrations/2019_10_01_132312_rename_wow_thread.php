@@ -13,7 +13,7 @@ class RenameWowThread extends Migration
      */
     public function up()
     {
-        $sql = "UPDATE `threads` SET `name` = 'Передачи о Вов' WHERE `name` = 'к 75-летию победы в ВОВ';";
+        $sql = "UPDATE `threads` SET `name` = 'Передачи о ВОВ' WHERE `name` = 'к 75-летию победы в ВОВ';";
         DB::connection()->getPdo()->exec($sql);
     }
 

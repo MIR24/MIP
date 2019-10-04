@@ -19,8 +19,8 @@ class BaseController extends Controller
      *               $filter['query'] string search query
      * @return array
      */
-    protected static function getTopicsByFilter($filter) {
-
+    protected static function getTopicsByFilter($filter)
+    {
         extract($filter);
 
         $builder = Topic::leftjoin('videos', 'videos.id', '=', 'topics.video_id')
@@ -36,6 +36,10 @@ class BaseController extends Controller
             is_array($organizations) ?: $organizations = explode(',', $organizations);
             $builder->whereIn('organizations.id', $organizations);
         }
+        if (isset($threads)) {
+            is_array($threads) ?: $threads = explode(',', $threads);
+            $builder->whereIn('threads.id', $threads);
+        }
         if (isset($countries)) {
             is_array($countries) ?: $countries = explode(',', $countries);
             $builder->whereIn('countries.id', $countries);
@@ -50,7 +54,7 @@ class BaseController extends Controller
         }
 
         if (isset($query)) {
-            $builder->where( function ($builder) use ($query) {
+            $builder->where(function ($builder) use ($query) {
                 $builder->where('topics.name', 'LIKE', "%$query%")
                     ->orWhere('topics.description_short', 'LIKE', "%$query%");
             });
@@ -76,14 +80,14 @@ class BaseController extends Controller
             'videos.cdn_cdn_url as video_url',
             'videos.cdn_content_type as video_content_type'
         ])
-            ->groupBy(function($topic){
+            ->groupBy(function ($topic) {
                 return Date::createFromFormat('d F Y года H:i', $topic->published_at)->format('j F D Y');
             });
         return $models;
     }
 
-    protected static function getTopicsByDay($days_ago = 0, $organizations = null) {
-
+    protected static function getTopicsByDay($days_ago = 0, $organizations = null, $threads = null)
+    {
         $day = $days_ago;
 
         if ($first_date = Topic::orderBy('created_at', 'asc')->pluck('created_at')->first()) {
@@ -92,17 +96,19 @@ class BaseController extends Controller
 
         do {
             $search_date = date('Y-m-d', strtotime("-$day days"));
-            if ($search_date >= $first_date && ($models = self::getTopicsByFilter(['date_start' => $search_date, 'organizations' => $organizations]))) {
+            if ($search_date >= $first_date && ($models = self::getTopicsByFilter(['date_start' => $search_date, 'organizations' => $organizations, 'threads' => $threads]))) {
                 if (count($models) > 0) {
                     return [
                         'models'=> $models,
                         'day'=> $day,
                     ];
                 }
-            } else return [
-                'models'=> [],
-                'day'=> $day,
-            ];
+            } else {
+                return [
+                    'models'=> [],
+                    'day'=> $day,
+                ];
+            }
         } while (++$day);
     }
 }

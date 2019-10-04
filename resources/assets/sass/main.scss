@@ -59,6 +59,11 @@ $preview-height: 215px;
   margin: auto;
 }
 
+#carouselWowIndicators {
+  overflow: hidden;
+  margin: auto;
+}
+
 .main-container {
 
   -ms-text-size-adjust: 100%;
@@ -615,6 +620,11 @@ $preview-height: 215px;
   background-repeat: no-repeat;
   background-image: url(/images/film.png);
 }
+
+.wow_back {
+  background-image: url(/images/belt-mip-2019-10-01.jpg);
+}
+
 footer {
   width: 100%;
   background-color: #0086ca;
