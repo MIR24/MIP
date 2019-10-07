@@ -8,7 +8,7 @@
         @for($i=0; $i<count(config('constants.carousel_images')); $i++)
             <div class="carousel-item {{$i!=0?:'active'}}">
 {{--                @include('layouts_partials.wow_carousel_image', ['topic' => $items[$i]])--}}
-                @include('layouts_partials.wow_carousel_image', ['image' => config('constants.carousel_images')[$i]])
+                @include('layouts_partials.wow_carousel_image', ['image' => config('constants.wow_carousel_images')[$i]])
             </div>
         @endfor
     </div>
