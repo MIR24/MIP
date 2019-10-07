@@ -54,14 +54,12 @@ $preview-height: 215px;
 }
 
 #carouselExampleIndicators {
-  max-height: 220px;
   overflow: hidden;
   margin: auto;
 }
 
-#carouselWowIndicators {
-  overflow: hidden;
-  margin: auto;
+.height-220 {
+  max-height: 220px;
 }
 
 .main-container {

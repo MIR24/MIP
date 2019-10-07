@@ -1,4 +1,4 @@
-<div id="carouselWowIndicators" class="carousel fade" data-ride="carousel">
+<div id="carouselExampleIndicators" class="carousel fade" data-ride="carousel">
     <ol class="carousel-indicators">
         @for($i=0; $i<count(config('constants.carousel_images')); $i++)
             <li data-target="#carouselExampleIndicators" data-slide-to="{{$i}}" class="{{$i!=0?:'active'}}"></li>
