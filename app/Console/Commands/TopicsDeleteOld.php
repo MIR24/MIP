@@ -46,12 +46,14 @@ class TopicsDeleteOld extends Command
             ->where('published_at', '<', Date::now()->subMinutes(config('constants.topics_ttp')))
             ->where('status', 'active')
             ->whereNull('deleted_at')
+            ->whereNotIn('thread_id', config('constants.undeletable_threads'))
             ->update(['status' => 'inactive']);
         Log::info($this->prefix.$records.' records unpublished');
         $records = DB::table('topics')
             ->where('published_at', '<', Date::now()->subMinutes(config('constants.topics_ttl')))
             ->where('status', 'inactive')
             ->whereNull('deleted_at')
+            ->whereNotIn('thread_id', config('constants.undeletable_threads'))
             ->update(['deleted_at' => now()]);
         Log::info($this->prefix.$records.' records deleted');
     }

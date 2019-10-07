@@ -24,4 +24,7 @@ return [
         '/images/wow_5.jpg',
         '/images/wow_6.jpg',
     ],
+    'undeletable_threads' => [
+        1
+    ],
 ];
