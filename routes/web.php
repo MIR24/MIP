@@ -14,6 +14,9 @@
 Route::get('/', 'TopicController@indexFront')
     ->name('topics.index.front');
 
+Route::get('/pobeda75', 'TopicController@indexWowFront')
+    ->name('topics.index.wow-front');
+
 Route::post('/topics/search', 'TopicController@search')
     ->name('topics.search.front');
 

@@ -2,7 +2,7 @@
     <div class="top-menu main">
         <a href="/#participants">Участники пула</a>
         <a href="{{ route('static.about') }}">О проекте</a>
-        <a href="{{ route('topics.index.wow-front') }}">Память сердца</a>
+        <a href="{{ route('topics.index.front') }}">На главную</a>
         @guest
             <a id="home" href="{{ route('login') }}">Войти</a>
         @else

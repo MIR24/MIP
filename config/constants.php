@@ -15,5 +15,16 @@ return [
         '/images/kz1.jpg',
         '/images/ru1.jpg',
         '/images/tj1.jpg',
-    ]
+    ],
+    'wow_carousel_images' => [
+        '/images/wow_1.jpg',
+        '/images/wow_2.jpg',
+        '/images/wow_3.jpg',
+        '/images/wow_4.jpg',
+        '/images/wow_5.jpg',
+        '/images/wow_6.jpg',
+    ],
+    'undeletable_threads' => [
+        1
+    ],
 ];

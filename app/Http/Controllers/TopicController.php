@@ -175,6 +175,38 @@ class TopicController extends BaseController
     }
 
     /**
+     * Display wow index page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexWoWFront()
+    {
+        $organizations = Organization::join('countries', 'organizations.country_id', '=', 'countries.id')
+            ->get([
+                'organizations.id as id',
+                'organizations.name as name',
+                'organizations.name_short as name_short',
+                'organizations.image_url_lg as logo',
+                'countries.image_url as flag',
+                'countries.name as country_name'
+            ]);
+        $models = [];
+        for ($days = 0, $ago = 0; $days < config('constants.days_on_main'); ++$days) {
+            $set = self::getTopicsByDay($ago, null, 1);
+            $models = array_merge($models, is_array($set['models']) ? $set['models'] : $set['models']->toArray());
+            $ago = $set['day']+1;
+        }
+        $vars = [
+            'days' => $models,
+            'next_day' => $ago,
+            'current'=> Date::now()->format('j F D Y'),
+            'organizations' => $organizations,
+        ];
+
+        return view('indexes.wow_index', $vars);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
