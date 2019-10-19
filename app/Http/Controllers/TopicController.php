@@ -192,7 +192,7 @@ class TopicController extends BaseController
             ]);
         $models = [];
         for ($days = 0, $ago = 0; $days < config('constants.days_on_main'); ++$days) {
-            $set = self::getTopicsByDay($ago, null, 1);
+            $set = self::getTopicsByDay($ago, null, 2);
             $models = array_merge($models, is_array($set['models']) ? $set['models'] : $set['models']->toArray());
             $ago = $set['day']+1;
         }
