@@ -23,6 +23,9 @@ Route::post('/topics/search', 'TopicController@search')
 Route::get('/api/organizations/{organization}/topics/row/{days_ago}', 'TopicController@row')
     ->name('api.organizations.topics.index.row');
 
+Route::get('/api/topics/next', 'TopicController@next')
+    ->name('api.organizations.topics.index.next');
+
 Route::get('/organizations/{org_id}', 'OrganizationController@participantPage')
     ->where('org_id', '[0-9]+')
     ->name('organizations.participant.page');

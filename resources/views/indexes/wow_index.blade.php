@@ -17,7 +17,7 @@
 
     <div class="grid-container">
         <div class="grid-wrap">
-            @include('columns.topics', ['days' => $days, 'current' => $current, 'next_day' => $next_day])
+            @include('columns.topics', ['days' => $days, 'current' => $current, 'next_day' => $next_day, 'threads' => $threads])
         </div>
     </div>
 

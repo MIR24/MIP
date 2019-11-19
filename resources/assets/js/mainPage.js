@@ -1,7 +1,22 @@
 function clickHandler() {
-    var $more = $(this),
-    org = $(this).data('org') ? $(this).data('org') : 'all',
-    link = `/api/organizations/${org}/topics/row/${$(this).data('next')}`;
+    var $more = $(this);
+
+    var params = {
+        days_ago: $(this).data('next')
+    };
+    if ($(this).data('org')) {
+        params.org = $(this).data('org');
+    }
+    if ($(this).data('threads')) {
+        params.threads = $(this).data('threads');
+    }
+
+    var esc = encodeURIComponent;
+    var query = Object.keys(params)
+        .map(function(k) {return esc(k) + '=' + esc(params[k]);})
+        .join('&');
+    var link = `/api/topics/next?${query}`
+
     $.get(link, function (data) {
         $more.remove();
         $('.grid-wrap').append(data);

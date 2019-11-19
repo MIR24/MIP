@@ -15,6 +15,10 @@
 </div>
 @endforeach
 @if(isset($next_day))
-<div class="show-more" data-next="{{$next_day}}" {{isset($organization) ? "data-org=$organization" : ''}}>Показать еще</div>
+<div class="show-more" data-next="{{$next_day}}"
+{{isset($organization) ? "data-org=$organization" : ''}}
+{{isset($threads) ? "data-threads=$threads" : ''}}>
+Показать еще
+</div>
 @endif
 @endif
