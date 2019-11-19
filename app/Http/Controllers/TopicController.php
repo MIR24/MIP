@@ -181,6 +181,7 @@ class TopicController extends BaseController
      */
     public function indexWoWFront()
     {
+        $threads  = 2;
         $organizations = Organization::join('countries', 'organizations.country_id', '=', 'countries.id')
             ->get([
                 'organizations.id as id',
@@ -192,7 +193,7 @@ class TopicController extends BaseController
             ]);
         $models = [];
         for ($days = 0, $ago = 0; $days < config('constants.days_on_main'); ++$days) {
-            $set = self::getTopicsByDay($ago, null, 2);
+            $set = self::getTopicsByDay($ago, null, $threads);
             $models = array_merge($models, is_array($set['models']) ? $set['models'] : $set['models']->toArray());
             $ago = $set['day']+1;
         }
@@ -201,6 +202,7 @@ class TopicController extends BaseController
             'next_day' => $ago,
             'current'=> Date::now()->format('j F D Y'),
             'organizations' => $organizations,
+            'threads' => $threads,
         ];
 
         return view('indexes.wow_index', $vars);
@@ -583,6 +585,32 @@ class TopicController extends BaseController
             'next_day' => $set['day']+1,
             'current'=> Date::now()->format('d F D Y'),
             'organization' => $organization != 'all' ? $organization : null,
+        ];
+
+        return view('columns.topics', $vars);
+    }
+
+    /**
+     * Display a portion of the resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $days_old
+     * @return \Illuminate\Http\Response
+     */
+    public function next(Request $request)
+    {
+        $organization = $request->query('org');
+        $days_ago = $request->query('days_ago');
+        $threads = $request->query('threads');
+
+        $set = self::getTopicsByDay($days_ago, $organization, $threads);
+
+        $vars = [
+            'days' => $set['models'],
+            'next_day' => $set['day']+1,
+            'current'=> Date::now()->format('d F D Y'),
+            'organization' => $organization,
+            'threads' => $threads,
         ];
 
         return view('columns.topics', $vars);
