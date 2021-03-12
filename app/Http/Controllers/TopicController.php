@@ -142,46 +142,9 @@ class TopicController extends BaseController
         ]);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function indexFront()
-    {
-        $organizations = Organization::join('countries', 'organizations.country_id', '=', 'countries.id')
-            ->get([
-                'organizations.id as id',
-                'organizations.name as name',
-                'organizations.name_short as name_short',
-                'organizations.image_url_lg as logo',
-                'countries.image_url as flag',
-                'countries.name as country_name'
-            ]);
-        $models = [];
-        for ($days = 0, $ago = 0; $days < config('constants.days_on_main'); ++$days) {
-            $set = self::getTopicsByDay($ago);
-            $models = array_merge($models, is_array($set['models']) ? $set['models'] : $set['models']->toArray());
-            $ago = $set['day']+1;
-        }
-        $vars = [
-            'days' => $models,
-            'next_day' => $ago,
-            'current'=> Date::now()->format('j F D Y'),
-            'organizations' => $organizations,
-        ];
 
-        return view('indexes.index', $vars);
-    }
-
-    /**
-     * Display wow index page.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function indexWoWFront()
+    public function buildIndex($tmplName,$threads = null)
     {
-        $threads  = 2;
         $organizations = Organization::join('countries', 'organizations.country_id', '=', 'countries.id')
             ->get([
                 'organizations.id as id',
@@ -202,10 +165,31 @@ class TopicController extends BaseController
             'next_day' => $ago,
             'current'=> Date::now()->format('j F D Y'),
             'organizations' => $organizations,
-            'threads' => $threads,
+            'threads' => $threads
         ];
 
-        return view('indexes.wow_index', $vars);
+        return view($tmplName, $vars);
+    }
+
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexFront()
+    {
+        return $this->buildIndex('indexes.index');
+    }
+
+    /**
+     * Display wow index page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexWoWFront()
+    {
+        return $this->buildIndex('indexes.wow_index', 2);
     }
 
     /**
