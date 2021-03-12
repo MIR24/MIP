@@ -1,0 +1,1 @@
+<iframe src="//playercdn.cdnvideo.ru/aloha/players/mirtv_player_vod1.html?source=//{{$video_url}}{{$cover ? '?poster=//'.$cover : ''}}" frameborder="0" width="100%" height="100%" scrolling="no" style="overflow:hidden;" allowfullscreen></iframe>

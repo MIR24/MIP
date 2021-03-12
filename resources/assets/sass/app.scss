@@ -1,0 +1,28 @@
+
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+@import '~air-datepicker/dist/css/datepicker.min.css';
+
+@import 'main';
+
+body {
+  font-family: 'PT Sans', 'Helvetica', sans-serif;
+  background-color: #fafafa;
+}
+
+.navbar-laravel {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+.m-content {
+  overflow: hidden;
+}
+.separate {
+	margin: 15px;
+}

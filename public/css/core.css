@@ -1,0 +1,39 @@
+@media (min-width: 1025px) {
+    .m-body--custom {
+        padding-top: 95px;
+    }
+}
+.margin-bottom-custom {
+    margin-bottom: 1rem
+}
+.in-input-clear {
+    position: absolute;
+    right: 20px;
+    top: -24px;
+    bottom: 0;
+    height: 0px;
+    margin: auto;
+    font-size: 20px;
+    cursor: pointer;
+    color: #ccc;
+}
+.datatable-btn {
+    border-width: 2px;
+    border-style: outset;
+    border-color: buttonface;
+    border-image: initial;
+}
+.link-not-btn {
+    background:none;
+    border:none;
+    cursor: pointer;
+    text-decoration: underline;
+}
+.link-not-btn:hover {
+    text-decoration: none;
+    color: #008CBA;
+}
+.stats-header {
+    color: white;
+    margin-left: 40px;
+}
