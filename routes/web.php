@@ -14,8 +14,9 @@
 Route::get('/', 'TopicController@indexFront')
     ->name('topics.index.front');
 
-Route::get('/heart-memory', 'TopicController@indexWowFront')
-    ->name('topics.index.wow-front');
+Route::get('/heart-memory', function () {
+    return \App\Http\Controllers\TopicController::buildIndex('indexes.wow_index', 2);
+})->name('topics.index.wow-front');
 
 Route::post('/topics/search', 'TopicController@search')
     ->name('topics.search.front');

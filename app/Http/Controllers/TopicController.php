@@ -143,7 +143,7 @@ class TopicController extends BaseController
     }
 
 
-    public function buildIndex($tmplName,$threads = null)
+    public static function buildIndex($tmplName,$threads = null)
     {
         $organizations = Organization::join('countries', 'organizations.country_id', '=', 'countries.id')
             ->get([
@@ -179,17 +179,7 @@ class TopicController extends BaseController
      */
     public function indexFront()
     {
-        return $this->buildIndex('indexes.index');
-    }
-
-    /**
-     * Display wow index page.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function indexWoWFront()
-    {
-        return $this->buildIndex('indexes.wow_index', 2);
+        return $this::buildIndex('indexes.index');
     }
 
     /**
