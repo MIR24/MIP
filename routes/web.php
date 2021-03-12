@@ -18,6 +18,11 @@ Route::get('/heart-memory', function () {
     return \App\Http\Controllers\TopicController::buildIndex('indexes.wow_index', 2);
 })->name('topics.index.wow-front');
 
+Route::get('/30-years-sng', function () {
+    return \App\Http\Controllers\TopicController::buildIndex('indexes.wow_index', 3);
+})->name('topics.index.front');
+
+
 Route::post('/topics/search', 'TopicController@search')
     ->name('topics.search.front');
 
