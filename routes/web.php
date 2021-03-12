@@ -16,11 +16,11 @@ Route::get('/', 'TopicController@indexFront')
 
 Route::get('/heart-memory', function () {
     return \App\Http\Controllers\TopicController::buildIndex('indexes.wow_index', 2);
-});
+})->name('topics.index.wow-front');
 
 Route::get('/30-years-sng', function () {
     return \App\Http\Controllers\TopicController::buildIndex('indexes.index', 3);
-});
+})->name('topics.index.30years-front');
 
 
 Route::post('/topics/search', 'TopicController@search')
