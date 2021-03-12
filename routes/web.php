@@ -22,6 +22,10 @@ Route::get('/30-years-sng', function () {
     return \App\Http\Controllers\TopicController::buildIndex('indexes.index', 3);
 })->name('topics.index.30years-front');
 
+Route::get('/year-aig', function () {
+    return \App\Http\Controllers\TopicController::buildIndex('indexes.index', 4);
+})->name('topics.index.aig-front');
+
 
 Route::post('/topics/search', 'TopicController@search')
     ->name('topics.search.front');
